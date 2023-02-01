@@ -81,10 +81,16 @@ public class Date {
         if (calendar.get(Calendar.YEAR) > this.year){
             return true;
         }
+        if (calendar.get(Calendar.YEAR) < this.year){
+            return false;
+        }
         if (calendar.get(Calendar.YEAR) == this.year){
             if (calendar.get(Calendar.MONTH) > this.month){
-                
+                if (calendar.get(Calendar.DATE) > this.day){
+                    return false;
+                }
             }
         }
+        return true;
     }
 }
