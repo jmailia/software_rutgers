@@ -41,6 +41,10 @@ public class Date {
         this.year = Integer.parseInt(arrDate[2]);;
     }
 
+    public String printDate(){
+        return this.month + "/" + this.day + "/" + this.year;
+    }
+
     public boolean isValid() {
         if (this.month > 12){
             return false;
@@ -94,3 +98,4 @@ public class Date {
         return true;
     }
 }
+
