@@ -88,6 +88,9 @@ public class Date {
         if (calendar.get(Calendar.YEAR) < this.year){
             return false;
         }
+        if (this.year < 1900){
+            return false;
+        }
         if (calendar.get(Calendar.YEAR) == this.year){
             if (calendar.get(Calendar.MONTH) > this.month){
                 if (calendar.get(Calendar.DATE) > this.day){
@@ -98,4 +101,3 @@ public class Date {
         return true;
     }
 }
-
