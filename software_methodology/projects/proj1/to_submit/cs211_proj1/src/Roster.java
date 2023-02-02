@@ -47,6 +47,50 @@ public class Roster {
             }
         }
     }
-    public void printBySchoolMajor() {} //print roster sorted by school major
-    public void printByStanding() {} //print roster sorted by standing
+    public void printBySchoolMajor() {
+        Student[] tempRoster = this.roster;
+        for (int i = 1; i < size; i++) {
+            Student temp = tempRoster[i];
+            Major majori = temp.getMajor();
+            int j = i-1;
+            Student temp2 = tempRoster[j];
+            Major majorj = temp2.getMajor();
+            char majoriChar = majori.toString().charAt(0);
+            char majorjChar = majorj.toString().charAt(0);
+            while ((j > -1) && (Character.compare(majorjChar, majoriChar) > 0)) {
+                tempRoster[j+1] = tempRoster[j];
+                j--;
+            }
+            tempRoster[j+1] = temp;
+        }
+        for (int i = 0; i < size; i++){
+            Student tempStu = tempRoster[i];
+            String profile = tempStu.printStudentProfile();
+            Major major = tempStu.getMajor();
+            int credit = tempStu.getCreditCompleted();
+            System.out.println(profile + " " + major + " " + credit);
+        }
+    }
+    public void printByStanding() {
+        Student[] tempRoster = this.roster;
+        for (int i = 1; i < size; i++) {
+            Student temp = tempRoster[i];
+            int crediti = temp.getCreditCompleted();
+            int j = i-1;
+            Student temp2 = tempRoster[j];
+            int creditj = temp2.getCreditCompleted();
+            while ((j > -1) && (creditj > crediti)) {
+                tempRoster[j+1] = tempRoster[j];
+                j--;
+            }
+            tempRoster[j+1] = temp;
+        }
+        for (int i = 0; i < size; i++){
+            Student tempStu = tempRoster[i];
+            String profile = tempStu.printStudentProfile();
+            Major major = tempStu.getMajor();
+            int credit = tempStu.getCreditCompleted();
+            System.out.println(profile + " " + major + " " + credit);
+        }
+    }
 }
