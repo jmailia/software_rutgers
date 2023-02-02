@@ -41,7 +41,36 @@ public class Date {
         this.year = Integer.parseInt(arrDate[2]);;
     }
 
-    public String printDate(){
+    @Override
+    public int compareTo(String date2) {
+        String date1 = this.month + "/" + this.day + "/" + this.year;
+        int length1 = date1.length();
+        int length2 = date2.length();
+        int limit = Math.min(length1, length2);
+        int i = 0;
+        while (i < limit) {
+            char ch1 = date1.charAt(i);
+            char ch2 = date2.charAt(i);
+            if (ch1 != ch2) {
+                return ch1 - ch2;
+            }
+            i++;
+        }
+        return length1 - length2;
+    }
+
+    @Override
+    public boolean equals(Date date) {
+        String date1 = this.month + "/" + this.day + "/" + this.year;
+        String date2 = date.toString();
+        if(date1.compareTo(date2) == 0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString(){
         return this.month + "/" + this.day + "/" + this.year;
     }
 
