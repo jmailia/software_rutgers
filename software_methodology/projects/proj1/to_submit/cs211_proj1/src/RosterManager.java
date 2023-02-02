@@ -1,4 +1,3 @@
-
 import java.util.*;
 public class RosterManager {
 
@@ -6,7 +5,7 @@ public class RosterManager {
         if (parsedCommandArguments.length != 6) {
 
             Date myDate = new Date();
-            myDate.printDate();
+            myDate.toString();
             Major myMajor = Major.CS;
             int myCreditCompleted = 40;
             Profile myProfile = new Profile("Hecht","Henry",myDate);
