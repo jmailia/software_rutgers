@@ -48,8 +48,8 @@ public class Roster {
             System.out.println(this.roster.length);
             System.out.println("* Student roster sorted by last name, first name, DOB **");
             Student[] tempRoster = this.roster;
-            for (int i = 0; i < size; i++) { // Start of sort
-                for (int j = i + 1; j < size; j++) {
+            for (int i = 0; i < this.roster.length; i++) { // Start of sort
+                for (int j = i + 1; j < this.roster.length; j++) {
                     Student temp = tempRoster[i]; // Turn Student into profile then get a string of lName, fName, and DOB
                     Profile stuProf1 = temp.getProfile();
                     String student1 = (stuProf1.getLname() + stuProf1.getFname() + stuProf1.getDob());
@@ -64,7 +64,7 @@ public class Roster {
                 }
             }
             // Print New Sorted Temp Roster
-            for (int k = 0; k < size; k++) {
+            for (int k = 0; k < this.roster.length; k++) {
                 Student tempStu = tempRoster[k];
                 String profile = tempStu.printStudentProfile();
                 Major major = tempStu.getMajor();
@@ -81,8 +81,8 @@ public class Roster {
             System.out.println(this.roster.length);
             System.out.println("* Student roster sorted by School Major **");
             Student[] tempRoster = this.roster;
-            for (int i = 0; i < size; i++) { // Start of sort
-                for (int j = i + 1; j < size; j++) {
+            for (int i = 0; i < this.roster.length; i++) { // Start of sort
+                for (int j = i + 1; j < this.roster.length; j++) {
                     Student temp = tempRoster[i];
                     Major majori = temp.getMajor();
                     Student temp2 = tempRoster[j];
@@ -97,7 +97,7 @@ public class Roster {
                 }
             }
             // Print New Sorted Temp Roster
-            for (int k = 0; k < size; k++) {
+            for (int k = 0; k < this.roster.length; k++) {
                 Student tempStu = tempRoster[k];
                 String profile = tempStu.printStudentProfile();
                 Major major = tempStu.getMajor();
@@ -114,8 +114,8 @@ public class Roster {
             System.out.println(this.roster.length);
             System.out.println("* Student roster sorted by Standing **");
             Student[] tempRoster = this.roster;
-            for (int i = 0; i < size; i++) { // Start of sort
-                for (int j = i + 1; j < size; j++) {
+            for (int i = 0; i < this.roster.length; i++) { // Start of sort
+                for (int j = i + 1; j < this.roster.length; j++) {
                     Student temp = tempRoster[i]; // Get credits completed for both students
                     int crediti = temp.getCreditCompleted();
                     Student temp2 = tempRoster[j];
@@ -128,7 +128,7 @@ public class Roster {
                 }
             }
                 // Print New Sorted Temp Roster
-                for (int k = 0; k < size; k++) {
+                for (int k = 0; k < this.roster.length; k++) {
                     Student tempStu = tempRoster[k];
                     String profile = tempStu.printStudentProfile();
                     Major major = tempStu.getMajor();
