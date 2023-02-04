@@ -2,12 +2,41 @@ public class Student implements Comparable<Student> {
     private Profile profile;
     private Major major; //Major is an enum type
     private int creditCompleted;
+
+    /**
+     * Three argument constructor method for Student class.
+     * Sets profile, major and creditsCompleted.
+     * @param profile
+     * @param major
+     * @param creditCompleted
+     */
     public Student(Profile profile, Major major, int creditCompleted) {
         this.profile = profile;
         this.major = major;
         this.creditCompleted = creditCompleted;
     }
 
+    /**
+     * Getter method for profile.
+     * @return Profile
+     */
+    public Profile getProfile(){
+        return this.profile;
+    }
+
+    /**
+     * Getter method for creditsCompleted.
+     * @return int
+     */
+    public int getCreditCompleted(){
+        return this.creditCompleted;
+    }
+
+    /**
+     * Method to print given students major
+     * @param myMajor
+     * @return String
+     */
     private String printMajor(Major myMajor){
         switch(myMajor) {
             case CS:
@@ -24,15 +53,27 @@ public class Student implements Comparable<Student> {
         return "";
     }
 
+    /**
+     * Method to print Student details.
+     * @return String
+     */
     public String printStudentRoster() {
         return printStudentProfile() + " " + printMajor(this.major) + " credits completed: " + creditCompleted;
     }
 
+    /**
+     * Method to print Student profile.
+     * @return String
+     */
     public String printStudentProfile() {
         return this.profile.printProfile();
     }
 
-
+    /**
+     * Method to compare two students together.
+     * @param student
+     * @return int
+     */
     public int compareTo(Student student) {
         return (this.major).compareTo(student.major);
     }
