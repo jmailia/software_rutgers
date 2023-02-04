@@ -33,6 +33,14 @@ public class Student implements Comparable<Student> {
     }
 
     /**
+     * Getter method for major.
+     * @return Major
+     */
+    public Major getMajor(){
+        return this.major;
+    }
+
+    /**
      * Method to print given students major
      * @param myMajor
      * @return String
