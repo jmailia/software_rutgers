@@ -77,28 +77,19 @@ public class Date {
         int yearComp = this.year - year2;
         int monthComp = this.month - month2;
         int dayComp = this.day - day2;
-        switch(yearComp){ //Comparing years
-            case 1:
-                return 1;
-            case 0:
-                switch(monthComp){ //Comparing months
-                    case 1:
-                        return 1;
-                    case 0:
-                        switch(dayComp){ //Comparing days
-                            case 1:
-                                return 1;
-                            case 0:
-                                return 0;
-                            case -1:
-                                return -1;
-                        }
-                    case -1:
-                        return -1;
-                }
-            case -1:
-                return -1;
-        }
+
+        if(yearComp > 0)
+            return 1;
+        if(yearComp < 0)
+            return -1;
+        if(monthComp > 0)
+            return 1;
+        if(monthComp < 0)
+            return -1;
+        if(dayComp > 0)
+            return 1;
+        if(dayComp < 0)
+            return -1;
         return 0;
     }
 
