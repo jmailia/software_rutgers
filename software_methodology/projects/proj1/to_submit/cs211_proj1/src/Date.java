@@ -68,7 +68,7 @@ public class Date {
      * @return int
      */
     @Override
-    public int compareTo( String date2) {
+    public int compareTo(String date2) {
         String[] arrDate = date2.split("/");
         int month2 = Integer.parseInt(arrDate[0]);
         int day2 = Integer.parseInt(arrDate[1]);;
@@ -79,12 +79,12 @@ public class Date {
         switch(yearComp){ //Comparing years
             case 1:
                 return 1;
-                break;
+            break;
             case 0:
                 switch(monthComp){ //Comparing months
                     case 1:
                         return 1;
-                        break;
+                    break;
                     case 0:
                         switch(dayComp){ //Comparing days
                             case 1:
@@ -92,20 +92,20 @@ public class Date {
                             break;
                             case 0:
                                 return 0;
-                                break;
+                            break;
                             case -1:
                                 return -1;
-                                break;
+                            break;
                         }
                         break;
                     case -1:
                         return -1;
-                        break;
+                    break;
                 }
                 break;
             case -1:
                 return -1;
-                break;
+            break;
         }
         return 0;
     }
@@ -121,8 +121,12 @@ public class Date {
     public boolean equals(Date date) {
         String date1 = this.month + "/" + this.day + "/" + this.year;
         String date2 = date.toString();
-        if(date1.compareTo(date2) == 0){
-            return true;
+        if(this.month == date.getMonth()) {
+            if(this.day == date.getDay()) {
+                if(this.year == date.getYear()){
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -196,7 +200,7 @@ public class Date {
             if(calendar.get(Calendar.MONTH) == this.month)
                 if (calendar.get(Calendar.DATE) < this.day){
                     return false;
-            }
+                }
         }
         return true;
     }
