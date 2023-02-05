@@ -66,10 +66,11 @@ public class Date {
      * older than compared date
      * @param date2
      * @return int
+     */
 
-    @Override
-    public int compareTo(String date2) {
-        String[] arrDate = date2.split("/");
+    public int compareTo(Date date2) {
+        String dateStr = date2.toString();
+        String[] arrDate = dateStr.split("/");
         int month2 = Integer.parseInt(arrDate[0]);
         int day2 = Integer.parseInt(arrDate[1]);;
         int year2 = Integer.parseInt(arrDate[2]);
@@ -79,45 +80,36 @@ public class Date {
         switch(yearComp){ //Comparing years
             case 1:
                 return 1;
-            break;
             case 0:
                 switch(monthComp){ //Comparing months
                     case 1:
                         return 1;
-                    break;
                     case 0:
                         switch(dayComp){ //Comparing days
                             case 1:
                                 return 1;
-                            break;
                             case 0:
                                 return 0;
-                            break;
                             case -1:
                                 return -1;
-                            break;
                         }
-                        break;
                     case -1:
                         return -1;
-                    break;
                 }
-                break;
             case -1:
                 return -1;
-            break;
         }
         return 0;
     }
 
-
+    /**
      * Method compares original date to given date and
      * determines if they are equal or not. If equal,
      * true is returned and if not equal, false is returned.
      * @param date
      * @return boolean
+     */
 
-    @Override
     public boolean equals(Date date) {
         String date1 = this.month + "/" + this.day + "/" + this.year;
         String date2 = date.toString();
@@ -135,12 +127,11 @@ public class Date {
      * Method takes a Date object and returns
      * it as a string.
      * @return String
-
-    @Override
+     */
     public String toString(){
         return this.month + "/" + this.day + "/" + this.year;
     }
-*/
+
     /**
      * Method takes a Date object and verifies if it is
      * a valid date. Returns false if not and true if it
@@ -159,12 +150,10 @@ public class Date {
                 if(this.day > 31){
                     return false;
                 }
-                break;
             case 4, 6, 9, 11:
                 if (this.day > 30){
                     return false;
                 }
-                break;
             case 2:
                 if (this.year % QUADRENNIAL == 0){
                     if (this.year % CENTENNIAL == 0){
@@ -183,7 +172,6 @@ public class Date {
                 if (this.day > 28){
                     return false;
                 }
-                break;
         }
         Calendar calendar = Calendar.getInstance(); //Checks if date is older than 16 years
         calendar.add(Calendar.YEAR, -16);
@@ -203,5 +191,23 @@ public class Date {
                 }
         }
         return true;
+    }
+
+    public static void main(String args[]){
+        Date test1 = new Date("4/20/2015");
+        Date test2 = new Date("10/7/1885");
+        Date test3 = new Date("13/17/2001");
+        Date test4 = new Date("3/32/2003");
+        Date test5 = new Date("4/31/2003");
+        Date test6 = new Date("2/29/2003");
+        Date test7 = new Date("2/30/2000");
+        System.out.println(test1.isValid());
+        System.out.println(test2.isValid());
+        System.out.println(test3.isValid());
+        System.out.println(test4.isValid());
+        System.out.println(test5.isValid());
+        System.out.println(test6.isValid());
+        System.out.println(test7.isValid());
+
     }
 }

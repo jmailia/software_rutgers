@@ -1,6 +1,12 @@
 import java.util.*;
 public class RosterManager {
 
+    /**
+     * Determines whether student meets criteria to be added to roster
+     * @param parsedArguments a String array containing the user's arguments of the form
+     *                        ["A", "First_Name", "Last_Name","DOB", "Major", "Credits_Completed"]
+     * @param myRoster the roster which the student might be added to
+     */
     private void A_Command(String[] parsedArguments, Roster myRoster) {
 
         //boolean to determine if student meets requirements to be added
@@ -70,25 +76,41 @@ public class RosterManager {
             }
         }
     }
+
+    /**
+     * Tests whether a specified student is in roster, and if so, removes the student from the roster
+     * @param parsedArguments a String array containing the user's arguments of the form
+     *      *                        ["R", "First_Name", "Last_Name","DOB"]
+     * @param myRoster a Roster which the student which want to remove might be in
+     */
     private void R_Command(String[] parsedArguments, Roster myRoster) {
         if (parsedArguments.length == 4) {
 
         }
     }
-    private void P_Command(String[] parsedArguments, Roster myRoster) {
-        if (parsedArguments.length == 1) {
-            myRoster.print();
-        }
-    }
-    private void PS_Command(String[] parsedArguments, Roster myRoster) {
-        if (parsedArguments.length == 1) {
 
-        }
+    /**
+     * Display the Roster sorted by last name, first name, and DOB
+     * @param myRoster the Roster to be sorted by the above categories.
+     */
+    private void P_Command(Roster myRoster) {
+        myRoster.print();
     }
-    private void PC_Command(String[] parsedArguments, Roster myRoster) {
-        if (parsedArguments.length == 1) {
 
-        }
+    /**
+     * Display the Roster sorted by standing
+     * @param myRoster the Roster to be sorted by standing.
+     */
+    private void PS_Command(Roster myRoster) {
+        myRoster.printByStanding();
+    }
+
+    /**
+     * Display the Roster sorted by school and major
+     * @param myRoster the Roster to be sorted by the above categories.
+     */
+    private void PC_Command(Roster myRoster) {
+        myRoster.printBySchoolMajor();
     }
     private void L_Command(String[] parsedArguments, Roster myRoster) {
         if (parsedArguments.length == 2) {
@@ -118,13 +140,13 @@ public class RosterManager {
                     R_Command(parsedCommandArguments,myRoster);
                     break;
                 case "P":
-                    P_Command(parsedCommandArguments,myRoster);
+                    P_Command(myRoster);
                     break;
                 case "PS":
-                    PS_Command(parsedCommandArguments,myRoster);
+                    PS_Command(myRoster);
                     break;
                 case "PC":
-                    PC_Command(parsedCommandArguments,myRoster);
+                    PC_Command(myRoster);
                     break;
                 case "L":
                     L_Command(parsedCommandArguments,myRoster);

@@ -60,13 +60,30 @@ public class Student implements Comparable<Student> {
         }
         return "";
     }
-
+    /**
+     * Method to print the current standing
+     * @return String containing Freshman/Sophmore/Junior/Senior
+     */
+    private String creditsToStanding(int creditsCompleted){
+        if (creditsCompleted < 30) {
+            return "Freshman";
+        }
+        if (creditsCompleted>=30 && creditsCompleted <60) {
+            return "Sophomore";
+        }
+        if (creditsCompleted>=30 && creditsCompleted <60) {
+            return "Junior";
+        } else {
+            return "Senior";
+        }
+    }
     /**
      * Method to print Student details.
      * @return String
      */
     public String printStudentRoster() {
-        return printStudentProfile() + " " + printMajor(this.major) + " credits completed: " + creditCompleted;
+        return printStudentProfile() + " " + printMajor(this.major) + " credits completed: " + creditCompleted +
+                "(" + creditsToStanding(creditCompleted)+ ")";
     }
 
     /**
