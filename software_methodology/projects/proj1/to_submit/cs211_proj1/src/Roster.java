@@ -11,10 +11,27 @@ public class Roster {
 
     private void grow() { //increase the array capacity by 4
         //System.out.println("Now Growing"); //TODO: TO REMOVE THIS println
-        Student[] temp = new Student[(roster == null) ? 4 : roster.length + 4]; // transfer old roster info into new temp array
+        int tempLength = 0;
+        if (roster == null) {
+            tempLength = 4;
+        } else {
+            tempLength = roster.length + 4;
+        }
+        Student[] temp = new Student[tempLength]; // transfer old roster info into new temp array
         //System.out.println(temp.length); //TODO: TO REMOVE THIS println
-        for (int j = 0; j < ((roster == null) ? 0 : temp.length); j++) {
-            temp[j] = ((roster == null || j >= roster.length) ? null : roster[j]);
+
+        int jMax;
+        if (roster == null) {
+            jMax = 0;
+        } else {
+            jMax = temp.length;
+        }
+        for (int j = 0; j < jMax; j++) {
+            if (roster == null || j >= roster.length) {
+                temp[j] = null;
+            } else {
+                temp[j] = roster[j];
+            }
         }
         roster = temp;
     }
@@ -104,19 +121,19 @@ public class Roster {
                         String majorjChar = majorj.toString();
 
                         if (majoriChar.compareTo(majorjChar) > 0) {
-                            if (tempRoster[i] != null) {
-                                Student tempStu = tempRoster[i];
-                                tempRoster[i] = tempRoster[j];
-                                tempRoster[j] = tempStu;
-                            }
+                            Student tempStu = tempRoster[i];
+                            tempRoster[i] = tempRoster[j];
+                            tempRoster[j] = tempStu;
                         }
                     }
                 }
             }
             // Print New Sorted Temp Roster
             for (int k = 0; k < this.roster.length; k++) {
-                System.out.println(tempRoster[k].printStudentProfile() + " " + tempRoster[k].getMajor() + " " +
-                        tempRoster[k].getCreditCompleted());
+                if (tempRoster[k] != null) {
+                    System.out.println(tempRoster[k].printStudentProfile() + " " + tempRoster[k].getMajor() + " " +
+                            tempRoster[k].getCreditCompleted());
+                }
             }
         }
     }
@@ -148,11 +165,13 @@ public class Roster {
             }
                 // Print New Sorted Temp Roster
                 for (int k = 0; k < this.roster.length; k++) {
-                    Student tempStu = tempRoster[k];
-                    String profile = tempStu.printStudentProfile();
-                    Major major = tempStu.getMajor();
-                    int credit = tempStu.getCreditCompleted();
-                    System.out.println(profile + " " + major + " " + credit);
+                    if (tempRoster[k] != null) {
+                        Student tempStu = tempRoster[k];
+                        String profile = tempStu.printStudentProfile();
+                        Major major = tempStu.getMajor();
+                        int credit = tempStu.getCreditCompleted();
+                        System.out.println(profile + " " + major + " " + credit);
+                    }
                 }
             }
         }

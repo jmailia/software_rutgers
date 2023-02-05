@@ -67,8 +67,8 @@ public class Date {
      * @param date2
      * @return int
 
-    @Override*/
-    public int compareTo( String date2) {
+    @Override
+    public int compareTo(String date2) {
         String[] arrDate = date2.split("/");
         int month2 = Integer.parseInt(arrDate[0]);
         int day2 = Integer.parseInt(arrDate[1]);;
@@ -79,43 +79,54 @@ public class Date {
         switch(yearComp){ //Comparing years
             case 1:
                 return 1;
+            break;
             case 0:
                 switch(monthComp){ //Comparing months
                     case 1:
                         return 1;
+                    break;
                     case 0:
                         switch(dayComp){ //Comparing days
                             case 1:
                                 return 1;
+                            break;
                             case 0:
                                 return 0;
+                            break;
                             case -1:
                                 return -1;
+                            break;
                         }
                         break;
                     case -1:
                         return -1;
+                    break;
                 }
                 break;
             case -1:
                 return -1;
+            break;
         }
         return 0;
     }
 
-    /**
+
      * Method compares original date to given date and
      * determines if they are equal or not. If equal,
      * true is returned and if not equal, false is returned.
      * @param date
      * @return boolean
 
-    @Override */
+    @Override
     public boolean equals(Date date) {
         String date1 = this.month + "/" + this.day + "/" + this.year;
         String date2 = date.toString();
-        if(date1.compareTo(date2) == 0){
-            return true;
+        if(this.month == date.getMonth()) {
+            if(this.day == date.getDay()) {
+                if(this.year == date.getYear()){
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -124,12 +135,12 @@ public class Date {
      * Method takes a Date object and returns
      * it as a string.
      * @return String
-     */
+
     @Override
     public String toString(){
         return this.month + "/" + this.day + "/" + this.year;
     }
-
+*/
     /**
      * Method takes a Date object and verifies if it is
      * a valid date. Returns false if not and true if it
@@ -189,7 +200,7 @@ public class Date {
             if(calendar.get(Calendar.MONTH) == this.month)
                 if (calendar.get(Calendar.DATE) < this.day){
                     return false;
-            }
+                }
         }
         return true;
     }
