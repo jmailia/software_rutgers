@@ -65,7 +65,7 @@ public class Student implements Comparable<Student> {
      * Method to print Student details.
      * @return String
      */
-    public String printStudentRoster() {
+    public String toString() {
         return printStudentProfile() + " " + printMajor(this.major) + " credits completed: " + creditCompleted;
     }
 
@@ -74,15 +74,49 @@ public class Student implements Comparable<Student> {
      * @return String
      */
     public String printStudentProfile() {
-        return this.profile.printProfile();
+        return this.profile.toString();
     }
 
     /**
-     * Method to compare two students together.
+     * Method compares two students and returns true if they are
+     * equal and false if they are not.
+     * @param student
+     * @return boolean
+     */
+    public boolean equals(Student student) {
+        if(this.profile.equals(student.getProfile())) {
+            if(this.major == student.getMajor()){
+                if(this.creditCompleted == student.getCreditCompleted()){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Method to compare two students together. Returns 1 if original student
+     * is ordered before compared student, returns 2 if original student
+     * is ordered after compared student, returns 0 if equal.
      * @param student
      * @return int
      */
     public int compareTo(Student student) {
-        return (this.major).compareTo(student.major);
+        if(this.profile.compareTo(student.getProfile()) == 1){
+            return 1;
+        }
+        if(this.profile.compareTo(student.getProfile()) == -1){
+            return -1;
+        }
+        else {
+            if (this.creditCompleted > student.getCreditCompleted()) { //stu1 has more credits than stu2
+                return 1;
+            }
+            if (this.creditCompleted > student.getCreditCompleted()) { //stu1 has less credits than stu2
+                return 1;
+            }
+            return 0; //stu1 and stu2 are equal
+        }
     }
 }
+
