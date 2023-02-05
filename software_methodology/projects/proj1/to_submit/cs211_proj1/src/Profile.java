@@ -23,7 +23,7 @@ public class Profile implements Comparable<Profile> {
      * Getter method for dob
      * @return Date
      */
-    public Date getDob(){
+    public Date getDob() {
         return this.dob;
     }
 
@@ -48,7 +48,62 @@ public class Profile implements Comparable<Profile> {
         return fname + " " + lname + " " + dob.toString();
     }
 
+    public boolean equals(Profile profile) {
+        if(this.lname.length() == profile.getLname().length()){
+            if(this.fname.length() == profile.getFname().length()){
+                if(this.dob.equals(profile.getDob())){
+                    for(int i = 0; i < lname.length(); i++){
+                        if(Character.toUpperCase(this.lname.charAt(i)) == Character.toUpperCase(profile.getLname().charAt(i)))
+                            continue;
+                        else
+                            return false;
+                    }
+                    for(int j = 0; j < fname.length(); j++){
+                        if(Character.toUpperCase(this.fname.charAt(j)) == Character.toUpperCase(profile.getFname().charAt(j)))
+                            continue;
+                        else
+                            return false;
+                    }
+                    if(this.dob.equals(profile.getDob()))
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Method to compare two students together. Returns 1 if original student
+     * is alphabetically before compared student, returns 2 if original student
+     * is alphabetically after compared student, returns 0 if equal.
+     * @param profile
+     * @return int
+     */
     public int compareTo(Profile profile) { //Needs to get worked
-        return (this.lname).compareTo(profile.lname);
+        String stu1 = this.lname + this.fname;
+        String stu2 = profile.getLname() + profile.getFname();
+        int min;
+        if(stu1.length() > stu2.length())
+            min = stu2.length();
+        else
+            min = stu1.length();
+        for(int i = 0; i < min; i++){
+            if(Character.toUpperCase(stu1.charAt(i)) < Character.toUpperCase(stu2.charAt(i))){
+                return 1;
+            }
+            if(Character.toUpperCase(stu1.charAt(i)) == Character.toUpperCase(stu2.charAt(i))){
+                continue;
+            }
+            if(Character.toUpperCase(stu1.charAt(i)) > Character.toUpperCase(stu2.charAt(i))){
+                return -1;
+            }
+        }
+        if(this.dob.compareTo(profile.getDob()) == 1){
+            return -1;
+        }
+        if(this.dob.compareTo(profile.getDob()) == -1){
+            return 1;
+        }
+        return 0;
     }
 }
