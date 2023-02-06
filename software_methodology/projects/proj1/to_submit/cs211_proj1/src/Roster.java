@@ -4,6 +4,14 @@ public class Roster {
     public Roster() {}
 
     /**
+     * Getter method for roster.
+     * @return Student[]
+     */
+    public Student[] getRoster(){
+        return this.roster;
+    }
+
+    /**
      * Searches for the given student in the Roster
      * @param student the student we want to find
      * @return the student's index if it is found, otherwise -1 if the student is not in the roster
