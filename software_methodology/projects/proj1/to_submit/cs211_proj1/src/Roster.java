@@ -105,16 +105,9 @@ public class Roster {
             for (int i = 0; i < this.roster.length; i++) { // Start of sort
                 for (int j = i + 1; j < this.roster.length; j++) {
                     if (tempRoster[i] != null && tempRoster[j] != null) {
-                        Student temp = tempRoster[i]; // Turn Student into profile then get a string of lName, fName, and DOB
+                        Student temp = tempRoster[i];
                         Student temp2 = tempRoster[j];
-
-                        Profile stuProf1 = temp.getProfile();
-                        Profile stuProf2 = temp.getProfile();
-
-                        String student1 = (stuProf1.getLname() + stuProf1.getFname() + stuProf1.getDob());
-                        String student2 = (stuProf2.getLname() + stuProf2.getFname() + stuProf2.getDob());
-
-                        if (student1.compareTo(student2) > 0) {
+                        if (temp.compareTo(temp2) < 0) {
                             Student tempStu = tempRoster[i];
                             tempRoster[i] = tempRoster[j];
                             tempRoster[j] = tempStu;
