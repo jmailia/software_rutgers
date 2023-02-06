@@ -105,6 +105,11 @@ public class Roster {
         return false;
     } //if the student is in roster
 
+    /**
+     * This method does the insertion sort for all P commands
+     * @param choiceForComparison is equal to 0 for 'P', is equal to 1 for 'PS', is equal to 2 for 'PC'
+     * @return the Roster which was sorted by the comparison method for the corresponding print command
+     */
     public Student[] insertionSortForEachRoster(int choiceForComparison) {
         Student[] tempRoster = this.roster;
         for (int i = 0; i < this.roster.length; i++) { // Start of sort
@@ -133,11 +138,11 @@ public class Roster {
     }
 
     /**
-     * Helper method which swaps the students for insertion sort
-     * @param tempRoster
-     * @param student1Index
-     * @param student2Index
-     * @return
+     * Helper method which swaps the students in insertion sort
+     * @param tempRoster the Student[] where the students will be in-place swapped
+     * @param student1Index the index of Student 1 in tempRoster
+     * @param student2Index the index of Student 2 in tempRoster
+     * @return an updated tempRoster with both students swapped
      */
     public Student[] swapStudentsForInsertionSort(Student[] tempRoster, int student1Index, int student2Index) {
         Student tempStu = tempRoster[student1Index];

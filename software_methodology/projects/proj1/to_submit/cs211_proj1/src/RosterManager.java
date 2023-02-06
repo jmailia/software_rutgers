@@ -167,7 +167,6 @@ public class RosterManager {
         Scanner sc = new Scanner(System.in);
         while(! (hasQuit && sc.hasNextLine())) {                           //continuously read the line commands until the user quits
             String[] parsedCommandArguments = sc.nextLine().split("\\s+"); //parses arguments
-
             switch (parsedCommandArguments[0]) {                                //get the current command\
                 case "":        //if the enter key is pressed without any input, this prevents an error
                     break;
