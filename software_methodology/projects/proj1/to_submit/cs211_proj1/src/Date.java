@@ -176,6 +176,9 @@ public class Date {
             if (calendar.get(Calendar.MONTH) > this.month) {
                 return true;
             }
+            if (calendar.get(Calendar.MONTH) < this.month) {
+                return false;
+            }
             if(calendar.get(Calendar.MONTH) == this.month)
                 if (calendar.get(Calendar.DATE) < this.day){
                     return false;
