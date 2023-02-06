@@ -67,7 +67,6 @@ public class Date {
      * @param date2
      * @return int
      */
-    @Override
     public int compareTo(Date date2) {
         String dateStr = date2.toString();
         String[] arrDate = dateStr.split("/");
@@ -100,7 +99,6 @@ public class Date {
      * @param date
      * @return boolean
      */
-    @Override
     public boolean equals(Date date) {
         String date1 = this.month + "/" + this.day + "/" + this.year;
         String date2 = date.toString();
