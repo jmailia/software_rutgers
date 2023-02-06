@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Scanner;
 public class RosterManager {
 
     private void A_Command(String[] parsedCommandArguments, Roster myRoster) {
@@ -21,6 +21,7 @@ public class RosterManager {
     }
     private void P_Command(String[] parsedCommandArguments, Roster myRoster) {
         if (parsedCommandArguments.length == 1) {
+            System.out.println("* Student roster sorted by last name, first name, DOB **");
             myRoster.print();
         }
     }
@@ -37,25 +38,48 @@ public class RosterManager {
 
     private void L_Command(String[] parsedCommandArguments, Roster myRoster) {
         if (parsedCommandArguments.length == 2) {
-            if(parsedCommandArguments[1].equals("SAS")){
+            if (parsedCommandArguments[1].equals("SAS")) {
                 Roster tempRoster = new Roster();
-                for (int k = 0; k < myRoster.length(); k++) {
-
-                    }
+                for (int k = 0; k < myRoster.getRoster().length; k++) {
+                    if((myRoster.getRoster()[k].getMajor() == Major.CS) ||
+                    (myRoster.getRoster()[k].getMajor() == Major.MATH))
+                        tempRoster.add(myRoster.getRoster()[k]);
                 }
-
+                System.out.println("* Students in SAS *");
+                tempRoster.print();
             }
-            if(parsedCommandArguments[1].equals("SOE")){
 
+            if (parsedCommandArguments[1].equals("SOE")) {
+                Roster tempRoster = new Roster();
+                for (int k = 0; k < myRoster.getRoster().length; k++) {
+                    if(myRoster.getRoster()[k].getMajor() == Major.EE)
+                        tempRoster.add(myRoster.getRoster()[k]);
+                }
+                System.out.println("* Students in SOE *");
+                tempRoster.print();
             }
-            if(parsedCommandArguments[1].equals("SC&I")){
-
+            if (parsedCommandArguments[1].equals("SC&I")) {
+                Roster tempRoster = new Roster();
+                for (int k = 0; k < myRoster.getRoster().length; k++) {
+                    if(myRoster.getRoster()[k].getMajor() == Major.ITI)
+                        tempRoster.add(myRoster.getRoster()[k]);
+                }
+                System.out.println("* Students in SC&I *");
+                tempRoster.print();
             }
-            if(parsedCommandArguments[1].equals("RBS")){
-
+            if (parsedCommandArguments[1].equals("RBS")) {
+                Roster tempRoster = new Roster();
+                for (int k = 0; k < myRoster.getRoster().length; k++) {
+                    if(myRoster.getRoster()[k].getMajor() == Major.BAIT)
+                        tempRoster.add(myRoster.getRoster()[k]);
+                }
+                System.out.println("* Students in RBS *");
+                tempRoster.print();
+            }
             }
         }
-    
+
+
     private void C_Command(String[] parsedCommandArguments, Roster myRoster) {
         if (parsedCommandArguments.length == 5) {
             String majorStr = parsedCommandArguments[4];
