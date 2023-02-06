@@ -114,8 +114,8 @@ public class Student implements Comparable<Student> {
         if (this.creditCompleted > student.getCreditCompleted()) { //stu1 has more credits than stu2
                 return 1;
             }
-        if (this.creditCompleted > student.getCreditCompleted()) { //stu1 has less credits than stu2
-                return 1;
+        if (this.creditCompleted < student.getCreditCompleted()) { //stu1 has less credits than stu2
+                return -1;
         }
         return 0; //stu1 and stu2 are equal
     }
