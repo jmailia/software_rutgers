@@ -1,5 +1,7 @@
-import java.util.Calendar;
+/* @author Henry Hecht */
+/* @author Aidan Cronin */
 
+import java.util.Calendar;
 public class Date {
     private int year;
     private int month;
@@ -113,8 +115,7 @@ public class Date {
     }
 
     /**
-     * Method takes a Date object and returns
-     * it as a string.
+     * Method takes a Date object and returns it formatted as a String.
      * @return String
      */
     @Override
@@ -123,13 +124,14 @@ public class Date {
     }
 
     /**
-     * Method takes a Date object and verifies if it is
-     * a valid date. Returns false if not and true if it
-     * is.
-     * @return boolean
+     * Method takes a Date object and determines whether the DOB is both on the calendar and was at least 16 years ago
+     * @return false when the DOB is invalid, otherwise true
      */
-    public boolean isValid() {
-        if(this.month < 0 || this.day < 0 || this.year < 1900){
+    public boolean isDOBValid() {
+        return (isCalendarDateValid() && isStudentOver16());
+    }
+    public boolean isCalendarDateValid() {
+        if(this.month < 1 || this.day < 1 || this.year < 1900){
             return false;
         }
         if (this.month > 12){
@@ -162,22 +164,29 @@ public class Date {
                 }
                 break;
         }
+        return true;
+    }
+    public boolean isStudentOver16() {
         Calendar calendar = Calendar.getInstance(); //Checks if date is older than 16 years
         calendar.add(Calendar.YEAR, -16);
         if (calendar.get(Calendar.YEAR) > this.year){
             return true;
         }
-        if (calendar.get(Calendar.YEAR) < this.year){
+        else if (calendar.get(Calendar.YEAR) < this.year){
             return false;
         }
-        if (calendar.get(Calendar.YEAR) == this.year){
+        else {
             if (calendar.get(Calendar.MONTH) > this.month) {
                 return true;
             }
-            if(calendar.get(Calendar.MONTH) == this.month)
-                if (calendar.get(Calendar.DATE) < this.day){
+            else if (calendar.get(Calendar.MONTH) < this.month) {
+                return false;
+            }
+            else {
+                if (calendar.get(Calendar.DATE) < this.day) {
                     return false;
                 }
+            }
         }
         return true;
     }
@@ -194,17 +203,17 @@ public class Date {
         Date test9 = new Date("8/31/1997");
         Date test10 = new Date("2/29/2000");
         Date test11 = new Date("2/28/2001");
-        System.out.println(test1.isValid());
-        System.out.println(test2.isValid());
-        System.out.println(test3.isValid());
-        System.out.println(test4.isValid());
-        System.out.println(test5.isValid());
-        System.out.println(test6.isValid());
-        System.out.println(test7.isValid());
-        System.out.println(test8.isValid());
-        System.out.println(test9.isValid());
-        System.out.println(test10.isValid());
-        System.out.println(test11.isValid());
+        System.out.println(test1.isDOBValid());
+        System.out.println(test2.isDOBValid());
+        System.out.println(test3.isDOBValid());
+        System.out.println(test4.isDOBValid());
+        System.out.println(test5.isDOBValid());
+        System.out.println(test6.isDOBValid());
+        System.out.println(test7.isDOBValid());
+        System.out.println(test8.isDOBValid());
+        System.out.println(test9.isDOBValid());
+        System.out.println(test10.isDOBValid());
+        System.out.println(test11.isDOBValid());
 
     }
 }

@@ -20,14 +20,18 @@ public class Roster {
      * @return the student's index if it is found, otherwise -1 if the student is not in the roster
      */
     private int find(Student student) {
-        for (int k = 0; k < this.roster.length; k++) {
-            if(this.roster[k].equals(student)){
-                return k;
+
+        if (this.roster!=null) {
+            for (int k = 0; k < this.roster.length; k++) {
+                if (this.roster[k] != null) {
+                    if (this.roster[k].equals(student)) {
+                        return k;
+                    }
+                }
             }
         }
         return -1;
     } //search the given student in roster
-
 
     /**
      * Enables the Roster to have an initial capacity of 4, automatically grow (increases) the capacity by 4

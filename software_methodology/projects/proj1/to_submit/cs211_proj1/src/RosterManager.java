@@ -47,26 +47,26 @@ public class RosterManager {
                         Integer.parseInt(parsedArguments[5]));
 
                 //Any date of birth that is not a valid calendar date
-                //Any date of birth that is today or a future date
-                // (NOTE: there is no example of today/future the sample output, but it is required by the written instructions)
-
-                //TODO: this needs to be fully implemented whenever Date() is completed
-                if (false) {
+                if (!myStudent.getProfile().getDob().isCalendarDateValid()) {
                     System.out.println("DOB invalid: " + myStudent.getProfile().getDob() + " not a valid calendar date!");
                     isValidAddition = false;
+                }
 
-                    // A student who is less than 16 years old
+                // A student who is less than 16 years old
+                //Any date of birth that is today or a future date
+                // (NOTE: there is no example of today/future the sample output, but it is required by the written instructions)
+                if (!myStudent.getProfile().getDob().isStudentOver16()) {
                     System.out.println("DOB invalid: " + myStudent.getProfile().getDob() + " younger than 16 years old.");
                     isValidAddition = false;
                 }
 
                 // The student is in the roster already
-                if (!myRoster.contains(myStudent)) { //TODO: Remove ! when contains is complete
+                if (myRoster.contains(myStudent)) {
                     System.out.println(myStudent.getProfile().toString() + " is already in the roster.");
-                    isValidAddition = true;
+                    isValidAddition = false;
                 }
                 // If the student meets the requirements to be added
-                if (isValidAddition) { //TODO: Revert this back
+                if (isValidAddition) {
                     myRoster.add(myStudent);
                     System.out.println(myStudent.printStudentProfile() + " added to the roster.");
                 }
@@ -169,7 +169,7 @@ public class RosterManager {
         Roster myRoster = new Roster();
         while(!hasQuit) {                           //continuously read the line commands until the user quits
             Scanner sc = new Scanner(System.in);
-            String[] parsedCommandArguments = sc.nextLine().split("\\s"); //parses arguments
+            String[] parsedCommandArguments = sc.nextLine().split("\\s+"); //parses arguments
             switch (parsedCommandArguments[0]) {                                //get the current command
                 case "A":
                     A_Command(parsedCommandArguments,myRoster);
