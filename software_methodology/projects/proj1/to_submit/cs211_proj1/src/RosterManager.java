@@ -108,7 +108,7 @@ public class RosterManager {
         if (parsedArguments.length == 2) {
             boolean validSchool = true;
             Roster tempRoster = new Roster();
-            Major majorToList;
+            Major majorToList = Major.MATH;
             if (parsedArguments[1].toUpperCase().equals("SOE")) {
                 majorToList = Major.EE;
             } else if (parsedArguments[1].toUpperCase().equals("SC&I")) {
@@ -117,11 +117,10 @@ public class RosterManager {
                 majorToList = Major.BAIT;
             }
             for (int k = 0; k < myRoster.getRoster().length; k++) {
-                if (parsedArguments[1].toUpperCase().equals("SAS")) {
-                    if((myRoster.getRoster()[k].getMajor() == Major.CS) ||
-                            (myRoster.getRoster()[k].getMajor() == Major.MATH)) {
-                        tempRoster.add(myRoster.getRoster()[k]);
-                    }
+                // SAS has both MATH and CS, so this if statement for CS is needed
+                // The MATH option runs in the second if statement as majorToList is set to this when initialized
+                if (parsedArguments[1].toUpperCase().equals("SAS") && myRoster.getRoster()[k].getMajor() == Major.CS) {
+                    tempRoster.add(myRoster.getRoster()[k]);
                 } else if (myRoster.getRoster()[k].getMajor() == majorToList) {
                     tempRoster.add(myRoster.getRoster()[k]);
                 } else {
