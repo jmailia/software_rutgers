@@ -102,8 +102,7 @@ public class Roster {
         if (this.roster == null) {
             System.out.println("Student roster is empty!");
         } else {
-            System.out.println(this.roster.length);
-            System.out.println("* Student roster sorted by School Major **");
+            System.out.println("* Student roster sorted by school, major **");
             Student[] tempRoster = this.roster;
             for (int i = 0; i < this.roster.length; i++) { // Start of sort
                 for (int j = i + 1; j < this.roster.length; j++) {
@@ -114,24 +113,26 @@ public class Roster {
                         Major majori = temp.getMajor();
                         Major majorj = temp2.getMajor();
 
-                        String majoriChar = majori.toString(); // Turn major into strings
-                        String majorjChar = majorj.toString();
+                        String majoriString = majori.toString(); // Turn major into strings
+                        String majorjString = majorj.toString();
+                        char majoriChar = majoriString.charAt(0); // Turn major strings into chars
+                        char majorjChar = majorjString.charAt(0);
 
-                        if (majoriChar.compareTo(majorjChar) > 0) {
-                            if (tempRoster[i] != null) {
-                                Student tempStu = tempRoster[i];
-                                tempRoster[i] = tempRoster[j];
-                                tempRoster[j] = tempStu;
-                            }
+                        if (majoriChar > majorjChar) {
+                            Student tempStu = tempRoster[i];
+                            tempRoster[i] = tempRoster[j];
+                            tempRoster[j] = tempStu;
                         }
                     }
                 }
             }
             // Print New Sorted Temp Roster
             for (int k = 0; k < this.roster.length; k++) {
-                System.out.println(tempRoster[k].printStudentProfile() + " " + tempRoster[k].getMajor() + " " +
-                        tempRoster[k].getCreditCompleted());
+                if (tempRoster[k] != null) {
+                    tempRoster[k].toString();
+                }
             }
+            System.out.println("* end of roster **");
         }
     }
 
