@@ -80,7 +80,7 @@ public class RosterManager {
     }
     private void P_Command(String[] parsedArguments, Roster myRoster) {
         if (parsedArguments.length == 1) {
-            if (myRoster == null) {
+            if (myRoster.getRoster() == null) {
                 System.out.println("Student roster is empty!");
             } else {
                 if (parsedArguments[0] == "P") {
@@ -165,7 +165,9 @@ public class RosterManager {
         Scanner sc = new Scanner(System.in);
         while(! (hasQuit && sc.hasNextLine())) {                           //continuously read the line commands until the user quits
             String[] parsedCommandArguments = sc.nextLine().split("\\s+"); //parses arguments
-            switch (parsedCommandArguments[0]) {                                //get the current command
+            switch (parsedCommandArguments[0]) {                                //get the current command\
+                case "\n":
+                    break;
                 case "A":
                     A_Command(parsedCommandArguments,myRoster);
                     break;
