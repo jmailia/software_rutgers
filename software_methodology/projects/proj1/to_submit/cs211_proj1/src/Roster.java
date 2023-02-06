@@ -1,7 +1,18 @@
+/* @author Henry Hecht */
+/* @author Aidan Cronin */
+
 public class Roster {
     private Student[] roster;
     private int size;
     public Roster() {}
+
+    /**
+     * Getter method for roster.
+     * @return Student[]
+     */
+    public Student[] getRoster(){
+        return this.roster;
+    }
 
     /**
      * Searches for the given student in the Roster
@@ -9,9 +20,18 @@ public class Roster {
      * @return the student's index if it is found, otherwise -1 if the student is not in the roster
      */
     private int find(Student student) {
-        return 1;
-    }
 
+        if (this.roster!=null) {
+            for (int k = 0; k < this.roster.length; k++) {
+                if (this.roster[k] != null) {
+                    if (this.roster[k].equals(student)) {
+                        return k;
+                    }
+                }
+            }
+        }
+        return -1;
+    } //search the given student in roster
 
     /**
      * Enables the Roster to have an initial capacity of 4, automatically grow (increases) the capacity by 4
@@ -51,12 +71,12 @@ public class Roster {
      */
     public boolean add(Student student) { //add student to end of array
 
-        if (roster == null || roster[roster.length - 1] != null) { //if the roster is fully empty, or if it is entirely full
+        if (this.roster == null || this.roster[this.roster.length - 1] != null) { //if the roster is fully empty, or if it is entirely full
             grow();
         }
-        for (int x = 0; x < roster.length; x++) { //add the student at the smallest index
-            if (roster[x] == null) {
-                roster[x] = student;
+        for (int x = 0; x < this.roster.length; x++) { //add the student at the smallest index
+            if (this.roster[x] == null) {
+                this.roster[x] = student;
                 break;
             }
         }
@@ -79,125 +99,90 @@ public class Roster {
      * @return true if the Roster contains the student, false otherwise.
      */
     public boolean contains(Student student) {
-        return true;
+        if (find(student) >= 0){
+            return true;
+        }
+        return false;
     } //if the student is in roster
 
-
-
-
     /**
-     * Print the roster sorted by profiles (last name, first name, DOB)
+     * This method does the insertion sort for all P commands, calling swapStudentsForInsertionSort(tempRoster, i, j)
+     * for each in-place swap
+     * @param choiceForComparison designates how we will compare each two students;
+     *                            is equal to 0 for 'P', is equal to 1 for 'PS', is equal to 2 for 'PC'
+     * @return the Roster which was sorted by the comparison method for the corresponding print command
      */
-    public void print() {//print roster sorted by profiles
-        if (this.roster == null) {
-            System.out.println("Student roster is empty!");
-        } else {
-            System.out.println("* Student roster sorted by last name, first name, DOB **");
-            Student[] tempRoster = this.roster;
-            for (int i = 0; i < this.roster.length; i++) { // Start of sort
-                for (int j = i + 1; j < this.roster.length; j++) {
-                    if (tempRoster[i] != null && tempRoster[j] != null) {
-                        Student temp = tempRoster[i]; // Turn Student into profile then get a string of lName, fName, and DOB
-                        Student temp2 = tempRoster[j];
-
-                        Profile stuProf1 = temp.getProfile();
-                        Profile stuProf2 = temp.getProfile();
-
-                        String student1 = (stuProf1.getLname() + stuProf1.getFname() + stuProf1.getDob());
-                        String student2 = (stuProf2.getLname() + stuProf2.getFname() + stuProf2.getDob());
-
-                        if (student1.compareTo(student2) > 0) {
-                            Student tempStu = tempRoster[i];
-                            tempRoster[i] = tempRoster[j];
-                            tempRoster[j] = tempStu;
+    public Student[] insertionSort(int choiceForComparison) {
+        Student[] tempRoster = this.roster;
+        for (int i = 0; i < this.roster.length; i++) { // Start of sort
+            for (int j = i + 1; j < this.roster.length; j++) {
+                if (tempRoster[i] != null && tempRoster[j] != null) {
+                    if (choiceForComparison == 0) {
+                        // Compare the two student profiles
+                        if (tempRoster[i].compareTo(tempRoster[j]) < 0) {
+                            tempRoster = swapStudentsForInsertionSort(tempRoster, i, j);
+                        }
+                    } else if (choiceForComparison == 1) {
+                        // Turn both majors into strings and compare the first chars
+                        if (tempRoster[i].getMajor().toString().charAt(0) > tempRoster[j].getMajor().toString().charAt(0)) {
+                            tempRoster = swapStudentsForInsertionSort(tempRoster, i, j);
+                        }
+                    } else {
+                        // Get and compare each student's completed credits
+                        if (tempRoster[i].getCreditCompleted() > tempRoster[j].getCreditCompleted()) {
+                            tempRoster = swapStudentsForInsertionSort(tempRoster, i, j);
                         }
                     }
                 }
             }
-            // Print New Sorted Temp Roster
-            for (int k = 0; k < this.roster.length; k++) {
-                if (tempRoster[k] != null) {
-                    tempRoster[k].printStudentRoster();
-                }
-            }
-            System.out.println("* end of roster **");
         }
+        return tempRoster;
+    }
+
+    /**
+     * Helper method which swaps the students in-place for insertion sort
+     * @param tempRoster the Student[] where the students will be in-place swapped
+     * @param student1Index the index of Student 1 in tempRoster
+     * @param student2Index the index of Student 2 in tempRoster
+     * @return an updated tempRoster with both students swapped
+     */
+    public Student[] swapStudentsForInsertionSort(Student[] tempRoster, int student1Index, int student2Index) {
+        Student tempStu = tempRoster[student1Index];
+        tempRoster[student1Index] = tempRoster[student2Index];
+        tempRoster[student2Index] = tempStu;
+        return tempRoster;
+    }
+    /**
+     * Print the roster sorted by profiles (last name, first name, DOB)
+     */
+    public void print() {//print roster sorted by profiles
+        printRosterLines(insertionSort(0));
     }
 
     /**
      * Print the Roster sorted by School Major
      */
     public void printBySchoolMajor() {
-        if (this.roster == null) {
-            System.out.println("Student roster is empty!");
-        } else {
-            System.out.println("* Student roster sorted by school, major **");
-            Student[] tempRoster = this.roster;
-            for (int i = 0; i < this.roster.length; i++) { // Start of sort
-                for (int j = i + 1; j < this.roster.length; j++) {
-                    if (tempRoster[i] != null && tempRoster[j] != null) {
-                        Student temp = tempRoster[i];
-                        Student temp2 = tempRoster[j];
-
-                        Major majori = temp.getMajor();
-                        Major majorj = temp2.getMajor();
-
-                        String majoriChar = majori.toString(); // Turn major into strings
-                        String majorjChar = majorj.toString();
-
-                        if (majoriChar.compareTo(majorjChar) > 0) {
-                            Student tempStu = tempRoster[i];
-                            tempRoster[i] = tempRoster[j];
-                            tempRoster[j] = tempStu;
-                        }
-                    }
-                }
-            }
-            // Print New Sorted Temp Roster
-            for (int k = 0; k < this.roster.length; k++) {
-                if (tempRoster[k] != null) {
-                    tempRoster[k].printStudentRoster();
-                }
-            }
-            System.out.println("* end of roster **");
-        }
+        printRosterLines(insertionSort(1));
     }
 
     /**
      * Print the Roster by standing
      */
     public void printByStanding() {
-        if (this.roster == null) {
-            System.out.println("Student roster is empty!");
-        } else {
-            System.out.println("* Student roster sorted by standing **");
-            Student[] tempRoster = this.roster;
-            for (int i = 0; i < this.roster.length; i++) { // Start of sort
-                for (int j = i + 1; j < this.roster.length; j++) {
-                    if (tempRoster[i] != null && tempRoster[j] != null) {
+        printRosterLines(insertionSort(2));
+    }
 
-                        Student temp = tempRoster[i]; // Get credits completed for both student
-                        Student temp2 = tempRoster[j];
-
-                        int crediti = temp.getCreditCompleted();
-                        int creditj = temp2.getCreditCompleted();
-
-                        if (crediti > creditj) { // Compare both students credits
-                            Student tempStu = tempRoster[i];
-                            tempRoster[i] = tempRoster[j];
-                            tempRoster[j] = tempStu;
-                        }
-                    }
-                }
+    /**
+     * Print the roster with the correct formatting for each student
+     * @param roster the roster to be printed
+     */
+    public void printRosterLines (Student[] roster) {
+        // Print New Sorted Temp Roster
+        for (int k = 0; k < roster.length; k++) {
+            if (roster[k] != null) {
+                System.out.println(roster[k].toString());
             }
-                // Print New Sorted Temp Roster
-            for (int k = 0; k < this.roster.length; k++) {
-                if (tempRoster[k] != null) {
-                    tempRoster[k].printStudentRoster();
-                }
-            }
-            System.out.println("* end of roster **");
         }
     }
 }
-
