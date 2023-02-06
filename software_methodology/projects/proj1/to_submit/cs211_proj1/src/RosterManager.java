@@ -80,18 +80,22 @@ public class RosterManager {
     }
     private void P_Command(String[] parsedArguments, Roster myRoster) {
         if (parsedArguments.length == 1) {
-            System.out.println("* Student roster sorted by last name, first name, DOB **");
-            myRoster.print();
-        }
-    }
-    private void PS_Command(String[] parsedArguments, Roster myRoster) {
-        if (parsedArguments.length == 1) {
-            myRoster.printByStanding();
-        }
-    }
-    private void PC_Command(String[] parsedArguments, Roster myRoster) {
-        if (parsedArguments.length == 1) {
-            myRoster.printBySchoolMajor();
+            if (myRoster == null) {
+                System.out.println("Student roster is empty!");
+            } else {
+
+                if (parsedArguments[0] == "P") {
+                    System.out.println("* Student roster sorted by last name, first name, DOB **");
+                    myRoster.print();
+                } else if (parsedArguments[0] == "PS") {
+                    System.out.println("* Student roster sorted by school, major **");
+                    myRoster.printByStanding();
+                } else {
+                    System.out.println("* Student roster sorted by standing **");
+                    myRoster.printBySchoolMajor();
+                }
+                System.out.println("* end of roster **");
+            }
         }
     }
 
@@ -178,13 +182,9 @@ public class RosterManager {
                     R_Command(parsedCommandArguments,myRoster);
                     break;
                 case "P":
-                    P_Command(parsedCommandArguments,myRoster);
-                    break;
                 case "PS":
-                    PS_Command(parsedCommandArguments,myRoster);
-                    break;
                 case "PC":
-                    PC_Command(parsedCommandArguments,myRoster);
+                    P_Command(parsedCommandArguments,myRoster);
                     break;
                 case "L":
                     L_Command(parsedCommandArguments,myRoster);

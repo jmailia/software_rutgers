@@ -105,37 +105,29 @@ public class Roster {
         return false;
     } //if the student is in roster
 
-
-
-
     /**
      * Print the roster sorted by profiles (last name, first name, DOB)
      */
     public void print() {//print roster sorted by profiles
-        if (this.roster == null) {
-            System.out.println("Student roster is empty!");
-        } else {
-            Student[] tempRoster = this.roster;
-            for (int i = 0; i < this.roster.length; i++) { // Start of sort
-                for (int j = i + 1; j < this.roster.length; j++) {
-                    if (tempRoster[i] != null && tempRoster[j] != null) {
-                        Student temp = tempRoster[i];
-                        Student temp2 = tempRoster[j];
-                        if (temp.compareTo(temp2) < 0) {
-                            Student tempStu = tempRoster[i];
-                            tempRoster[i] = tempRoster[j];
-                            tempRoster[j] = tempStu;
-                        }
+        Student[] tempRoster = this.roster;
+        for (int i = 0; i < this.roster.length; i++) { // Start of sort
+            for (int j = i + 1; j < this.roster.length; j++) {
+                if (tempRoster[i] != null && tempRoster[j] != null) {
+                    Student temp = tempRoster[i];
+                    Student temp2 = tempRoster[j];
+                    if (temp.compareTo(temp2) < 0) {
+                        Student tempStu = tempRoster[i];
+                        tempRoster[i] = tempRoster[j];
+                        tempRoster[j] = tempStu;
                     }
                 }
             }
-            // Print New Sorted Temp Roster
-            for (int k = 0; k < this.roster.length; k++) {
-                if (tempRoster[k] != null) {
-                    tempRoster[k].toString();
-                }
+        }
+        // Print New Sorted Temp Roster
+        for (int k = 0; k < tempRoster.length; k++) {
+            if (tempRoster[k] != null) {
+                tempRoster[k].toString();
             }
-            System.out.println("* end of roster **");
         }
     }
 
@@ -143,40 +135,31 @@ public class Roster {
      * Print the Roster sorted by School Major
      */
     public void printBySchoolMajor() {
-        if (this.roster == null) {
-            System.out.println("Student roster is empty!");
-        } else {
-            System.out.println("* Student roster sorted by school, major **");
-            Student[] tempRoster = this.roster;
-            for (int i = 0; i < this.roster.length; i++) { // Start of sort
-                for (int j = i + 1; j < this.roster.length; j++) {
-                    if (tempRoster[i] != null && tempRoster[j] != null) {
-                        Student temp = tempRoster[i];
-                        Student temp2 = tempRoster[j];
-
-                        Major majori = temp.getMajor();
-                        Major majorj = temp2.getMajor();
-
-                        String majoriString = majori.toString(); // Turn major into strings
-                        String majorjString = majorj.toString();
-                        char majoriChar = majoriString.charAt(0); // Turn major strings into chars
-                        char majorjChar = majorjString.charAt(0);
-
-                        if (majoriChar > majorjChar) {
-                            Student tempStu = tempRoster[i];
-                            tempRoster[i] = tempRoster[j];
-                            tempRoster[j] = tempStu;
-                        }
+        Student[] tempRoster = this.roster;
+        for (int i = 0; i < this.roster.length; i++) { // Start of sort
+            for (int j = i + 1; j < this.roster.length; j++) {
+                if (tempRoster[i] != null && tempRoster[j] != null) {
+                    Student temp = tempRoster[i];
+                    Student temp2 = tempRoster[j];
+                    Major majori = temp.getMajor();
+                    Major majorj = temp2.getMajor();
+                    String majoriString = majori.toString(); // Turn major into strings
+                    String majorjString = majorj.toString();
+                    char majoriChar = majoriString.charAt(0); // Turn major strings into chars
+                    char majorjChar = majorjString.charAt(0);
+                    if (majoriChar > majorjChar) {
+                        Student tempStu = tempRoster[i];
+                        tempRoster[i] = tempRoster[j];
+                        tempRoster[j] = tempStu;
                     }
                 }
             }
-            // Print New Sorted Temp Roster
-            for (int k = 0; k < this.roster.length; k++) {
-                if (tempRoster[k] != null) {
-                    tempRoster[k].toString();
-                }
+        }
+        // Print New Sorted Temp Roster
+        for (int k = 0; k < tempRoster.length; k++) {
+            if (tempRoster[k] != null) {
+                tempRoster[k].toString();
             }
-            System.out.println("* end of roster **");
         }
     }
 
@@ -184,36 +167,27 @@ public class Roster {
      * Print the Roster by standing
      */
     public void printByStanding() {
-        if (this.roster == null) {
-            System.out.println("Student roster is empty!");
-        } else {
-            System.out.println("* Student roster sorted by standing **");
-            Student[] tempRoster = this.roster;
-            for (int i = 0; i < this.roster.length; i++) { // Start of sort
-                for (int j = i + 1; j < this.roster.length; j++) {
-                    if (tempRoster[i] != null && tempRoster[j] != null) {
-
-                        Student temp = tempRoster[i]; // Get credits completed for both student
-                        Student temp2 = tempRoster[j];
-
-                        int crediti = temp.getCreditCompleted();
-                        int creditj = temp2.getCreditCompleted();
-
-                        if (crediti > creditj) { // Compare both students credits
-                            Student tempStu = tempRoster[i];
-                            tempRoster[i] = tempRoster[j];
-                            tempRoster[j] = tempStu;
-                        }
+        Student[] tempRoster = this.roster;
+        for (int i = 0; i < this.roster.length; i++) { // Start of sort
+            for (int j = i + 1; j < this.roster.length; j++) {
+                if (tempRoster[i] != null && tempRoster[j] != null) {
+                    Student temp = tempRoster[i]; // Get credits completed for both student
+                    Student temp2 = tempRoster[j];
+                    int crediti = temp.getCreditCompleted();
+                    int creditj = temp2.getCreditCompleted();
+                    if (crediti > creditj) { // Compare both students credits
+                        Student tempStu = tempRoster[i];
+                        tempRoster[i] = tempRoster[j];
+                        tempRoster[j] = tempStu;
                     }
                 }
             }
-            // Print New Sorted Temp Roster
-            for (int k = 0; k < this.roster.length; k++) {
-                if (tempRoster[k] != null) {
-                    tempRoster[k].toString();
-                }
+        }
+        // Print New Sorted Temp Roster
+        for (int k = 0; k < tempRoster.length; k++) {
+            if (tempRoster[k] != null) {
+                tempRoster[k].toString();
             }
-            System.out.println("* end of roster **");
         }
     }
 }
