@@ -41,6 +41,14 @@ public class Student implements Comparable<Student> {
     }
 
     /**
+     * Setter method for major
+     * @param major
+     */
+    public void setMajor(Major major){
+        this.major = major;
+    }
+
+    /**
      * Method to print given students major
      * @param myMajor
      * @return String
@@ -66,7 +74,20 @@ public class Student implements Comparable<Student> {
      * @return String
      */
     public String toString() {
-        return printStudentProfile() + " " + printMajor(this.major) + " credits completed: " + creditCompleted;
+        String grade;
+        if(this.creditCompleted < 30)
+            grade = " (Freshman)";
+        else
+            if(this.creditCompleted < 60)
+                grade = " (Sophomore)";
+            else
+                if(this.creditCompleted < 90)
+                    grade = " (Junior)";
+                    else
+                        grade = " (Senior)";
+
+        return printStudentProfile() + " " + printMajor(this.major) +
+                " credits completed: " + this.creditCompleted + grade;
     }
 
     /**
@@ -85,12 +106,13 @@ public class Student implements Comparable<Student> {
      */
     public boolean equals(Student student) {
         if(this.profile.equals(student.getProfile())) {
-            if(this.major == student.getMajor()){
-                if(this.creditCompleted == student.getCreditCompleted()){
+            if (this.major.equals(student.getMajor())) {
+                if (this.creditCompleted == student.getCreditCompleted()) {
                     return true;
                 }
             }
         }
+
         return false;
     }
 
@@ -122,17 +144,17 @@ public class Student implements Comparable<Student> {
 
     public static void main(String[] args){
         Profile profile1 = new Profile("Dan", "Brown", new Date("3/15/2001"));
-        Profile profile2 = new Profile("Dan", "Brown", new Date("3/15/2001"));
-        Profile profile3 = new Profile("Dan", "Brown", new Date("3/10/2001"));
+        Profile profile2 = new Profile("Dan", "Brown", new Date("3/20/2001"));
+        Profile profile3 = new Profile("Dan", "Brown", new Date("3/15/2001"));
         Profile profile4 = new Profile("Dan", "Brown", new Date("3/15/2001"));
         Profile profile5 = new Profile("Ryan", "Smith", new Date("1/10/2000"));
-        Student test1 = new Student(profile1, Major.CS, 90);
+        Student test1 = new Student(profile1, Major.EE, 90);
         Student test2 = new Student(profile2, Major.EE, 90);
         Student test3 = new Student(profile3, Major.EE, 90);
         Student test4 = new Student(profile4, Major.EE, 89);
         Student test5 = new Student(profile5, Major.EE, 25);
         System.out.println(test1.compareTo(test2));
-        System.out.println(test2.compareTo(test3));
+        System.out.println(test1.compareTo(test3));
         System.out.println(test3.compareTo(test4));
         System.out.println(test4.compareTo(test5));
 
