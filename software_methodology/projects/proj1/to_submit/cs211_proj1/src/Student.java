@@ -1,3 +1,6 @@
+/* @author Henry Hecht */
+/* @author Aidan Cronin */
+
 public class Student implements Comparable<Student> {
     private Profile profile;
     private Major major; //Major is an enum type
