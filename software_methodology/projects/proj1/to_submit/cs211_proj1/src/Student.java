@@ -96,7 +96,7 @@ public class Student implements Comparable<Student> {
 
     /**
      * Method to compare two students together. Returns 1 if original student
-     * is ordered before compared student, returns 2 if original student
+     * is ordered before compared student, returns -1 if original student
      * is ordered after compared student, returns 0 if equal.
      * @param student
      * @return int
