@@ -1,3 +1,6 @@
+/* @author Henry Hecht */
+/* @author Aidan Cronin */
+
 public class Profile implements Comparable<Profile> {
     private String lname;
     private String fname;
@@ -48,6 +51,12 @@ public class Profile implements Comparable<Profile> {
         return fname + " " + lname + " " + dob.toString();
     }
 
+    /**
+     * Method compares two profiles. Returns true if profiles
+     * are equal and false if they are not.
+     * @param profile
+     * @return Boolean
+     */
     public boolean equals(Profile profile) {
         if(this.lname.length() == profile.getLname().length()){
             if(this.fname.length() == profile.getFname().length()){
