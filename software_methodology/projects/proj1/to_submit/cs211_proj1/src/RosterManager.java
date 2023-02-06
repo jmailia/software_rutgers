@@ -26,12 +26,12 @@ public class RosterManager {
     }
     private void PS_Command(String[] parsedCommandArguments, Roster myRoster) {
         if (parsedCommandArguments.length == 1) {
-
+            myRoster.printByStanding();
         }
     }
     private void PC_Command(String[] parsedCommandArguments, Roster myRoster) {
         if (parsedCommandArguments.length == 1) {
-
+            myRoster.printBySchoolMajor();
         }
     }
     private void L_Command(String[] parsedCommandArguments, Roster myRoster) {
@@ -41,8 +41,27 @@ public class RosterManager {
     }
     private void C_Command(String[] parsedCommandArguments, Roster myRoster) {
         if (parsedCommandArguments.length == 5) {
+            String majorStr = parsedCommandArguments[4];
+            //Check to see if argument is a valid major.
+            if(!(majorStr.equals("CS")) || !(majorStr.equals("EE")) || !(majorStr.equals("MATH")) || //Janky way to check if major is valid but works
+                    !(majorStr.equals("ITI")) || !(majorStr.equals("BAIT"))) {
+                System.out.println("Major code invalid: " + majorStr);
+                return;
+            }
 
+            Major major = Enum.valueOf(Major.class, parsedCommandArguments[4]);
+            Date date = new Date(parsedCommandArguments[3]);
+            Profile profile = new Profile(parsedCommandArguments[1], parsedCommandArguments[2], date);
+            for (int k = 0; k < myRoster.getRoster().length; k++) { //Find student based off of profile in roster
+                if(myRoster.getRoster()[k].getProfile().equals(profile)){
+                    myRoster.getRoster()[k].setMajor(Enum.valueOf(Major.class, parsedCommandArguments[4]));
+                    return;
+                }
+            }
+            System.out.println(profile.toString() + " is not in the roster.");
+            return;
         }
+        System.out.println("Invalid Command Length");
     }
     public void run() {
         System.out.println("Roster Manager running...");     //user knows software is ready for commands
