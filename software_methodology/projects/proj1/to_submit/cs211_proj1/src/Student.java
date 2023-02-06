@@ -77,18 +77,14 @@ public class Student implements Comparable<Student> {
      * @return String
      */
     public String toString() {
-        String grade;
-        if(this.creditCompleted < 30)
-            grade = " (Freshman)";
-        else
-        if(this.creditCompleted < 60)
+        String grade = " (Freshman)";
+        if (this.creditCompleted < 60) {
             grade = " (Sophomore)";
-        else
-        if(this.creditCompleted < 90)
+        } else if (this.creditCompleted < 90) {
             grade = " (Junior)";
-        else
+        } else {
             grade = " (Senior)";
-
+        }
         return printStudentProfile() + " " + printMajor(this.major) +
                 " credits completed: " + this.creditCompleted + grade;
     }

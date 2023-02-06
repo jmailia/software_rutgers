@@ -83,10 +83,11 @@ public class RosterManager {
             if (myRoster.getRoster() == null) {
                 System.out.println("Student roster is empty!");
             } else {
-                if (parsedArguments[0] == "P") {
+                System.out.println(parsedArguments[0]);
+                if (parsedArguments[0].equals("P")) {
                     System.out.println("* Student roster sorted by last name, first name, DOB **");
                     myRoster.print();
-                } else if (parsedArguments[0] == "PS") {
+                } else if (parsedArguments[0].equals("PS")) {
                     System.out.println("* Student roster sorted by school, major **");
                     myRoster.printByStanding();
                 } else {
@@ -158,6 +159,7 @@ public class RosterManager {
         }
         System.out.println("Invalid Command Length");
     }
+
     public void run() {
         System.out.println("Roster Manager running...");     //user knows software is ready for commands
         boolean hasQuit = false;
@@ -165,8 +167,9 @@ public class RosterManager {
         Scanner sc = new Scanner(System.in);
         while(! (hasQuit && sc.hasNextLine())) {                           //continuously read the line commands until the user quits
             String[] parsedCommandArguments = sc.nextLine().split("\\s+"); //parses arguments
+
             switch (parsedCommandArguments[0]) {                                //get the current command\
-                case "\n":
+                case "":        //if the enter key is pressed without any input, this prevents an error
                     break;
                 case "A":
                     A_Command(parsedCommandArguments,myRoster);
