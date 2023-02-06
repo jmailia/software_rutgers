@@ -1,3 +1,6 @@
+/* @author Henry Hecht */
+/* @author Aidan Cronin */
+
 import java.util.Scanner;
 public class RosterManager {
 
