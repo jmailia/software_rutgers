@@ -1,3 +1,6 @@
+/* @author Henry Hecht */
+/* @author Aidan Cronin */
+
 public class Roster {
     private Student[] roster;
     private int size;
@@ -108,7 +111,6 @@ public class Roster {
         if (this.roster == null) {
             System.out.println("Student roster is empty!");
         } else {
-            System.out.println("* Student roster sorted by last name, first name, DOB **");
             Student[] tempRoster = this.roster;
             for (int i = 0; i < this.roster.length; i++) { // Start of sort
                 for (int j = i + 1; j < this.roster.length; j++) {
