@@ -106,11 +106,13 @@ public class Roster {
     } //if the student is in roster
 
     /**
-     * This method does the insertion sort for all P commands
-     * @param choiceForComparison is equal to 0 for 'P', is equal to 1 for 'PS', is equal to 2 for 'PC'
+     * This method does the insertion sort for all P commands, calling swapStudentsForInsertionSort(tempRoster, i, j)
+     * for each in-place swap
+     * @param choiceForComparison designates how we will compare each two students;
+     *                            is equal to 0 for 'P', is equal to 1 for 'PS', is equal to 2 for 'PC'
      * @return the Roster which was sorted by the comparison method for the corresponding print command
      */
-    public Student[] insertionSortForEachRoster(int choiceForComparison) {
+    public Student[] insertionSort(int choiceForComparison) {
         Student[] tempRoster = this.roster;
         for (int i = 0; i < this.roster.length; i++) { // Start of sort
             for (int j = i + 1; j < this.roster.length; j++) {
@@ -138,7 +140,7 @@ public class Roster {
     }
 
     /**
-     * Helper method which swaps the students in insertion sort
+     * Helper method which swaps the students in-place for insertion sort
      * @param tempRoster the Student[] where the students will be in-place swapped
      * @param student1Index the index of Student 1 in tempRoster
      * @param student2Index the index of Student 2 in tempRoster
@@ -154,28 +156,32 @@ public class Roster {
      * Print the roster sorted by profiles (last name, first name, DOB)
      */
     public void print() {//print roster sorted by profiles
-        printRosterLines(insertionSortForEachRoster(0));
+        printRosterLines(insertionSort(0));
     }
 
     /**
      * Print the Roster sorted by School Major
      */
     public void printBySchoolMajor() {
-        printRosterLines(insertionSortForEachRoster(1));
+        printRosterLines(insertionSort(1));
     }
 
     /**
      * Print the Roster by standing
      */
     public void printByStanding() {
-        printRosterLines(insertionSortForEachRoster(2));
+        printRosterLines(insertionSort(2));
     }
 
-    public void printRosterLines (Student[] tempRoster) {
+    /**
+     * Print the roster with the correct formatting for each student
+     * @param roster the roster to be printed
+     */
+    public void printRosterLines (Student[] roster) {
         // Print New Sorted Temp Roster
-        for (int k = 0; k < tempRoster.length; k++) {
-            if (tempRoster[k] != null) {
-                System.out.println(tempRoster[k].toString());
+        for (int k = 0; k < roster.length; k++) {
+            if (roster[k] != null) {
+                System.out.println(roster[k].toString());
             }
         }
     }

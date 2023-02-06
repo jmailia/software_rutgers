@@ -78,24 +78,29 @@ public class RosterManager {
 
         }
     }
-    private void P_Command(String[] parsedArguments, Roster myRoster) {
-        if (parsedArguments.length == 1) {
-            if (myRoster.getRoster() == null) {
-                System.out.println("Student roster is empty!");
+
+    /**
+     * Helper method for P, PS, and PC
+     * @param whichP a String of either "P", "PS", or "PC"
+     * @param myRoster the Roster we want to print
+     */
+    private void P_Command(String whichP, Roster myRoster) {
+
+        if (myRoster.getRoster() == null) {
+            System.out.println("Student roster is empty!");
+        } else {
+            System.out.println(whichP);
+            if (whichP.equals("P")) {
+                System.out.println("* Student roster sorted by last name, first name, DOB **");
+                myRoster.print();
+            } else if (whichP.equals("PS")) {
+                System.out.println("* Student roster sorted by school, major **");
+                myRoster.printByStanding();
             } else {
-                System.out.println(parsedArguments[0]);
-                if (parsedArguments[0].equals("P")) {
-                    System.out.println("* Student roster sorted by last name, first name, DOB **");
-                    myRoster.print();
-                } else if (parsedArguments[0].equals("PS")) {
-                    System.out.println("* Student roster sorted by school, major **");
-                    myRoster.printByStanding();
-                } else {
-                    System.out.println("* Student roster sorted by standing **");
-                    myRoster.printBySchoolMajor();
-                }
-                System.out.println("* end of roster **");
+                System.out.println("* Student roster sorted by standing **");
+                myRoster.printBySchoolMajor();
             }
+            System.out.println("* end of roster **");
         }
     }
 
@@ -103,24 +108,22 @@ public class RosterManager {
         if (parsedArguments.length == 2) {
             boolean validSchool = true;
             Roster tempRoster = new Roster();
+            Major majorToList;
+            if (parsedArguments[1].toUpperCase().equals("SOE")) {
+                majorToList = Major.EE;
+            } else if (parsedArguments[1].toUpperCase().equals("SC&I")) {
+                majorToList = Major.ITI;
+            } else if (parsedArguments[1].toUpperCase().equals("RBS")) {
+                majorToList = Major.BAIT;
+            }
             for (int k = 0; k < myRoster.getRoster().length; k++) {
                 if (parsedArguments[1].toUpperCase().equals("SAS")) {
                     if((myRoster.getRoster()[k].getMajor() == Major.CS) ||
                             (myRoster.getRoster()[k].getMajor() == Major.MATH)) {
                         tempRoster.add(myRoster.getRoster()[k]);
                     }
-                } else if (parsedArguments[1].toUpperCase().equals("SOE")) {
-                    if (myRoster.getRoster()[k].getMajor() == Major.EE) {
-                        tempRoster.add(myRoster.getRoster()[k]);
-                    }
-                } else if (parsedArguments[1].toUpperCase().equals("SC&I")) {
-                    if(myRoster.getRoster()[k].getMajor() == Major.ITI) {
-                        tempRoster.add(myRoster.getRoster()[k]);
-                    }
-                } else if (parsedArguments[1].toUpperCase().equals("RBS")) {
-                    if (myRoster.getRoster()[k].getMajor() == Major.BAIT) {
-                        tempRoster.add(myRoster.getRoster()[k]);
-                    }
+                } else if (myRoster.getRoster()[k].getMajor() == majorToList) {
+                    tempRoster.add(myRoster.getRoster()[k]);
                 } else {
                     validSchool = false;
                     break;
@@ -179,7 +182,7 @@ public class RosterManager {
                 case "P":
                 case "PS":
                 case "PC":
-                    P_Command(parsedCommandArguments,myRoster);
+                    P_Command(parsedCommandArguments[0],myRoster);
                     break;
                 case "L":
                     L_Command(parsedCommandArguments,myRoster);
