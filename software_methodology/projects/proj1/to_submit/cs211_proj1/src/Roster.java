@@ -20,28 +20,28 @@ public class Roster {
     private void grow() {
         //System.out.println("Now Growing"); //TODO: TO REMOVE THIS println
         int tempLength = 0;
-        if (roster == null) {
+        if (this.roster == null) {
             tempLength = 4;
         } else {
-            tempLength = roster.length + 4;
+            tempLength = this.roster.length + 4;
         }
         Student[] temp = new Student[tempLength]; // transfer old roster info into new temp array
         //System.out.println(temp.length); //TODO: TO REMOVE THIS println
 
         int jMax;
-        if (roster == null) {
+        if (this.roster == null) {
             jMax = 0;
         } else {
             jMax = temp.length;
         }
         for (int j = 0; j < jMax; j++) {
-            if (roster == null || j >= roster.length) {
+            if (this.roster == null || j >= this.roster.length) {
                 temp[j] = null;
             } else {
-                temp[j] = roster[j];
+                temp[j] = this.roster[j];
             }
         }
-        roster = temp;
+        this.roster = temp;
     }
 
     /**
