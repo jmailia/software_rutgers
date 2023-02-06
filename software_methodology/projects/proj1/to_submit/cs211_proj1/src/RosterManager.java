@@ -83,7 +83,6 @@ public class RosterManager {
             if (myRoster == null) {
                 System.out.println("Student roster is empty!");
             } else {
-
                 if (parsedArguments[0] == "P") {
                     System.out.println("* Student roster sorted by last name, first name, DOB **");
                     myRoster.print();
@@ -101,42 +100,34 @@ public class RosterManager {
 
     private void L_Command(String[] parsedArguments, Roster myRoster) {
         if (parsedArguments.length == 2) {
-            if (parsedArguments[1].equals("SAS")) {
-                Roster tempRoster = new Roster();
-                for (int k = 0; k < myRoster.getRoster().length; k++) {
+            boolean validSchool = true;
+            Roster tempRoster = new Roster();
+            for (int k = 0; k < myRoster.getRoster().length; k++) {
+                if (parsedArguments[1].toUpperCase().equals("SAS")) {
                     if((myRoster.getRoster()[k].getMajor() == Major.CS) ||
-                            (myRoster.getRoster()[k].getMajor() == Major.MATH))
+                            (myRoster.getRoster()[k].getMajor() == Major.MATH)) {
                         tempRoster.add(myRoster.getRoster()[k]);
+                    }
+                } else if (parsedArguments[1].toUpperCase().equals("SOE")) {
+                    if (myRoster.getRoster()[k].getMajor() == Major.EE) {
+                        tempRoster.add(myRoster.getRoster()[k]);
+                    }
+                } else if (parsedArguments[1].toUpperCase().equals("SC&I")) {
+                    if(myRoster.getRoster()[k].getMajor() == Major.ITI) {
+                        tempRoster.add(myRoster.getRoster()[k]);
+                    }
+                } else if (parsedArguments[1].toUpperCase().equals("RBS")) {
+                    if (myRoster.getRoster()[k].getMajor() == Major.BAIT) {
+                        tempRoster.add(myRoster.getRoster()[k]);
+                    }
+                } else {
+                    validSchool = false;
+                    break;
                 }
-                System.out.println("* Students in SAS *");
-                tempRoster.print();
             }
 
-            if (parsedArguments[1].equals("SOE")) {
-                Roster tempRoster = new Roster();
-                for (int k = 0; k < myRoster.getRoster().length; k++) {
-                    if(myRoster.getRoster()[k].getMajor() == Major.EE)
-                        tempRoster.add(myRoster.getRoster()[k]);
-                }
-                System.out.println("* Students in SOE *");
-                tempRoster.print();
-            }
-            if (parsedArguments[1].equals("SC&I")) {
-                Roster tempRoster = new Roster();
-                for (int k = 0; k < myRoster.getRoster().length; k++) {
-                    if(myRoster.getRoster()[k].getMajor() == Major.ITI)
-                        tempRoster.add(myRoster.getRoster()[k]);
-                }
-                System.out.println("* Students in SC&I *");
-                tempRoster.print();
-            }
-            if (parsedArguments[1].equals("RBS")) {
-                Roster tempRoster = new Roster();
-                for (int k = 0; k < myRoster.getRoster().length; k++) {
-                    if(myRoster.getRoster()[k].getMajor() == Major.BAIT)
-                        tempRoster.add(myRoster.getRoster()[k]);
-                }
-                System.out.println("* Students in RBS *");
+            if (validSchool) {
+                System.out.println("* Students in " + parsedArguments[1].toUpperCase() + " *");
                 tempRoster.print();
             }
         }
@@ -171,8 +162,8 @@ public class RosterManager {
         System.out.println("Roster Manager running...");     //user knows software is ready for commands
         boolean hasQuit = false;
         Roster myRoster = new Roster();
-        while(!hasQuit) {                           //continuously read the line commands until the user quits
-            Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
+        while(! (hasQuit && sc.hasNextLine())) {                           //continuously read the line commands until the user quits
             String[] parsedCommandArguments = sc.nextLine().split("\\s+"); //parses arguments
             switch (parsedCommandArguments[0]) {                                //get the current command
                 case "A":
@@ -201,5 +192,6 @@ public class RosterManager {
                     break;
             }
         }
+        sc.close();
     }
 }

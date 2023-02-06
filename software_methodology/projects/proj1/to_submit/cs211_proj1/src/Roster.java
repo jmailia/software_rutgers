@@ -123,12 +123,7 @@ public class Roster {
                 }
             }
         }
-        // Print New Sorted Temp Roster
-        for (int k = 0; k < tempRoster.length; k++) {
-            if (tempRoster[k] != null) {
-                tempRoster[k].toString();
-            }
-        }
+        printRosterLines(tempRoster);
     }
 
     /**
@@ -155,12 +150,7 @@ public class Roster {
                 }
             }
         }
-        // Print New Sorted Temp Roster
-        for (int k = 0; k < tempRoster.length; k++) {
-            if (tempRoster[k] != null) {
-                tempRoster[k].toString();
-            }
-        }
+        printRosterLines(tempRoster);
     }
 
     /**
@@ -183,6 +173,10 @@ public class Roster {
                 }
             }
         }
+        printRosterLines(tempRoster);
+    }
+
+    public void printRosterLines (Student[] tempRoster) {
         // Print New Sorted Temp Roster
         for (int k = 0; k < tempRoster.length; k++) {
             if (tempRoster[k] != null) {
