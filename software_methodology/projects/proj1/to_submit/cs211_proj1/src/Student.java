@@ -145,17 +145,23 @@ public class Student implements Comparable<Student> {
         Profile profile1 = new Profile("Dan", "Brown", new Date("3/15/2001"));
         Profile profile2 = new Profile("Dan", "Brown", new Date("3/20/2001"));
         Profile profile3 = new Profile("Dan", "Brown", new Date("3/15/2001"));
-        Profile profile4 = new Profile("Dan", "Brown", new Date("3/15/2001"));
-        Profile profile5 = new Profile("Ryan", "Smith", new Date("1/10/2000"));
+        Profile profile4 = new Profile("DAN", "BrOWN", new Date("3/15/2001"));
+        Profile profile5 = new Profile("Dan", "Brown", new Date("3/15/2001"));
+        Profile profile6 = new Profile("Dan", "Brown", new Date("3/15/2001"));
+        Profile profile7 = new Profile("Matt", "Johnson", new Date("3/15/2001"));
         Student test1 = new Student(profile1, Major.EE, 90);
         Student test2 = new Student(profile2, Major.EE, 90);
         Student test3 = new Student(profile3, Major.EE, 90);
-        Student test4 = new Student(profile4, Major.EE, 89);
-        Student test5 = new Student(profile5, Major.EE, 25);
+        Student test4 = new Student(profile4, Major.EE, 90);
+        Student test5 = new Student(profile5, Major.CS, 90);
+        Student test6 = new Student(profile6, Major.EE, 40);
+        Student test7 = new Student(profile7, Major.EE, 90);
         System.out.println(test1.compareTo(test2));
         System.out.println(test1.compareTo(test3));
-        System.out.println(test3.compareTo(test4));
-        System.out.println(test4.compareTo(test5));
+        System.out.println(test1.compareTo(test4));
+        System.out.println(test1.compareTo(test5));
+        System.out.println(test1.compareTo(test6));
+        System.out.println(test1.compareTo(test7));
 
     }
 }
