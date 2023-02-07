@@ -19,12 +19,12 @@ public class Roster {
      * @param student the student we want to find
      * @return the student's index if it is found, otherwise -1 if the student is not in the roster
      */
-    private int find(Student student) {
+    private int find(Profile profile) {
 
         if (this.roster!=null) {
             for (int k = 0; k < this.roster.length; k++) {
                 if (this.roster[k] != null) {
-                    if (this.roster[k].equals(student)) {
+                    if (this.roster[k].getProfile().equals(profile)) {
                         return k;
                     }
                 }
@@ -95,11 +95,11 @@ public class Roster {
 
     /**
      * Finds whether the Roster contains the student
-     * @param student the student which may or may not be in the Roster
+     * @param profile the profile which may or may not be in the Roster
      * @return true if the Roster contains the student, false otherwise.
      */
-    public boolean contains(Student student) {
-        if (find(student) >= 0){
+    public boolean contains(Profile profile) {
+        if (find(profile) >= 0){
             return true;
         }
         return false;

@@ -61,7 +61,7 @@ public class RosterManager {
                 }
 
                 // The student is in the roster already
-                if (myRoster.contains(myStudent)) {
+                if (myRoster.contains(myStudent.getProfile())) {
                     System.out.println(myStudent.getProfile().toString() + " is already in the roster.");
                     isValidAddition = false;
                 }
@@ -73,9 +73,9 @@ public class RosterManager {
             }
         }
     }
-    private void R_Command(String[] parsedArguments, Roster myRoster) {
-        if (parsedArguments.length == 4) {
-
+    private void R_Command(String lastName, String firstName, String DOB, Roster myRoster) {
+        if (myRoster.contains(new Profile(lastName,firstName,new Date(DOB)))) {
+            System.out.println("YES");
         }
     }
 
@@ -105,9 +105,12 @@ public class RosterManager {
     }
 
     private void L_Command(String[] parsedArguments, Roster myRoster) {
+
         if (parsedArguments.length == 2) {
+
             boolean validSchool = true;
             Roster tempRoster = new Roster();
+
             Major majorToList = Major.MATH;
             if (parsedArguments[1].toUpperCase().equals("SOE")) {
                 majorToList = Major.EE;
@@ -116,6 +119,7 @@ public class RosterManager {
             } else if (parsedArguments[1].toUpperCase().equals("RBS")) {
                 majorToList = Major.BAIT;
             }
+
             for (int k = 0; k < myRoster.getRoster().length; k++) {
                 // SAS has both MATH and CS, so this if statement for CS is needed
                 // The MATH option runs in the second if statement as majorToList is set to this when initialized
@@ -139,23 +143,24 @@ public class RosterManager {
 
     private void C_Command(String[] parsedArguments, Roster myRoster) {
         if (parsedArguments.length == 5) {
+            String majorStr = parsedArguments[4];
             //Check to see if argument is a valid major.
-            for (Major value : Major.values()) {
-                if (value.name().equals(parsedArguments[4].toUpperCase())) {
-                    Major major = Major.valueOf(parsedArguments[4]);
-                    Date date = new Date(parsedArguments[3]);
-                    Profile profile = new Profile(parsedArguments[1], parsedArguments[2], date);
-                    for (int k = 0; k < myRoster.getRoster().length; k++) { //Find student based off of profile in roster
-                        if (myRoster.getRoster()[k].getProfile().equals(profile)) {
-                            myRoster.getRoster()[k].setMajor(major);
-                            return;
-                        }
+            if((majorStr.equals("CS")) || (majorStr.equals("EE")) || (majorStr.equals("MATH")) || //Janky way to check if major is valid but works
+                    (majorStr.equals("ITI")) || (majorStr.equals("BAIT"))) {
+                Major major = Enum.valueOf(Major.class, parsedArguments[4]);
+                Date date = new Date(parsedArguments[3]);
+                Profile profile = new Profile(parsedArguments[1], parsedArguments[2], date);
+                for (int k = 0; k < myRoster.getRoster().length; k++) { //Find student based off of profile in roster
+                    if (myRoster.getRoster()[k].getProfile().equals(profile)) {
+                        myRoster.getRoster()[k].setMajor(Enum.valueOf(Major.class, parsedArguments[4]));
+                        return;
                     }
-                    System.out.println(profile.toString() + " is not in the roster.");
-                    return;
                 }
+                System.out.println(profile.toString() + " is not in the roster.");
+                return;
             }
-            System.out.println("Major code invalid: " + parsedArguments[4]);
+            else
+                System.out.println("Major code invalid: " + majorStr);
             return;
         }
         System.out.println("Invalid Command Length");
@@ -175,7 +180,7 @@ public class RosterManager {
                     A_Command(parsedCommandArguments,myRoster);
                     break;
                 case "R":
-                    R_Command(parsedCommandArguments,myRoster);
+                    R_Command(parsedCommandArguments[2],parsedCommandArguments[1],parsedCommandArguments[3],myRoster);
                     break;
                 case "P":
                 case "PS":
