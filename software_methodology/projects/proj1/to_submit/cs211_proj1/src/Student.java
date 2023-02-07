@@ -82,7 +82,7 @@ public class Student implements Comparable<Student> {
             grade = " (Sophomore)";
         } else if (this.creditCompleted < 90) {
             grade = " (Junior)";
-        } else {
+        } else if (this.creditCompleted >= 90) {
             grade = " (Senior)";
         }
         return printStudentProfile() + " " + printMajor(this.major) +
