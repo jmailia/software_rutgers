@@ -5,6 +5,7 @@ public class Roster {
     private Student[] roster;
     private int size;
     public Roster() {}
+    public static final int NOT_FOUND = -1;
 
     /**
      * Getter method for roster.
@@ -19,18 +20,18 @@ public class Roster {
      * @param student the student we want to find
      * @return the student's index if it is found, otherwise -1 if the student is not in the roster
      */
-    private int find(Profile profile) {
+    private int find(Student student) {
 
         if (this.roster!=null) {
             for (int k = 0; k < this.roster.length; k++) {
                 if (this.roster[k] != null) {
-                    if (this.roster[k].getProfile().equals(profile)) {
+                    if (this.roster[k].getProfile().equals(student.getProfile())) {
                         return k;
                     }
                 }
             }
         }
-        return -1;
+        return NOT_FOUND;
     } //search the given student in roster
 
     /**
@@ -90,6 +91,12 @@ public class Roster {
      * @return true if the student was successfully removed, false otherwise.
      */
     public boolean remove(Student student) {
+        for (int indexOfCoveredOverStudent = find(student); indexOfCoveredOverStudent<this.roster.length-1;
+             indexOfCoveredOverStudent++) {
+            this.roster[indexOfCoveredOverStudent] = this.roster[indexOfCoveredOverStudent+1];
+        }
+        // in cases where a full roster has to remove a student, we will explicitly set the last spot to null so there is no duplicated second-to-last student,
+        this.roster[this.roster.length-1] = null;
         return true;
     }//maintain the order after remove
 
@@ -98,8 +105,8 @@ public class Roster {
      * @param profile the profile which may or may not be in the Roster
      * @return true if the Roster contains the student, false otherwise.
      */
-    public boolean contains(Profile profile) {
-        if (find(profile) >= 0){
+    public boolean contains(Student student) {
+        if (find(student) >= 0){
             return true;
         }
         return false;
@@ -108,28 +115,30 @@ public class Roster {
     /**
      * This method does the insertion sort for all P commands, calling swapStudentsForInsertionSort(tempRoster, i, j)
      * for each in-place swap
-     * @param choiceForComparison designates how we will compare each two students;
-     *                            is equal to 0 for 'P', is equal to 1 for 'PS', is equal to 2 for 'PC'
+     * @param whichP designates how we will compare each two students and will equal:
+     *                            "P", which compares the students' profiles;
+     *                            "PS", which compares the students' completed credits;
+     *                            "PC", which compares the students' majors.
      * @return the Roster which was sorted by the comparison method for the corresponding print command
      */
-    public Student[] insertionSort(int choiceForComparison) {
+    public Student[] insertionSort(String whichP) {
         Student[] tempRoster = this.roster;
         for (int i = 0; i < this.roster.length; i++) { // Start of sort
             for (int j = i + 1; j < this.roster.length; j++) {
                 if (tempRoster[i] != null && tempRoster[j] != null) {
-                    if (choiceForComparison == 0) {
-                        // Compare the two student profiles
+                    //"P", which compares the students' profiles
+                    if (whichP.equals("P")) {
                         if (tempRoster[i].compareTo(tempRoster[j]) < 0) {
                             tempRoster = swapStudentsForInsertionSort(tempRoster, i, j);
                         }
-                    } else if (choiceForComparison == 1) {
-                        // Turn both majors into strings and compare the first chars
-                        if (tempRoster[i].getMajor().toString().charAt(0) > tempRoster[j].getMajor().toString().charAt(0)) {
+                    //"PS", which compares the students' completed credits
+                    } else if (whichP.equals("PS")) {
+                        if (tempRoster[i].getCreditCompleted() > tempRoster[j].getCreditCompleted()) {
                             tempRoster = swapStudentsForInsertionSort(tempRoster, i, j);
                         }
+                    //"PC", which compares the students' majors/schools
                     } else {
-                        // Get and compare each student's completed credits
-                        if (tempRoster[i].getCreditCompleted() > tempRoster[j].getCreditCompleted()) {
+                        if (tempRoster[i].getMajor().toString().charAt(0) > tempRoster[j].getMajor().toString().charAt(0)) {
                             tempRoster = swapStudentsForInsertionSort(tempRoster, i, j);
                         }
                     }
@@ -156,21 +165,21 @@ public class Roster {
      * Print the roster sorted by profiles (last name, first name, DOB)
      */
     public void print() {//print roster sorted by profiles
-        printRosterLines(insertionSort(0));
+        printRosterLines(insertionSort("P"));
     }
 
     /**
      * Print the Roster sorted by School Major
      */
     public void printBySchoolMajor() {
-        printRosterLines(insertionSort(1));
+        printRosterLines(insertionSort("PC"));
     }
 
     /**
      * Print the Roster by standing
      */
     public void printByStanding() {
-        printRosterLines(insertionSort(2));
+        printRosterLines(insertionSort("PS"));
     }
 
     /**
