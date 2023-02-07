@@ -139,24 +139,23 @@ public class RosterManager {
 
     private void C_Command(String[] parsedArguments, Roster myRoster) {
         if (parsedArguments.length == 5) {
-            String majorStr = parsedArguments[4];
             //Check to see if argument is a valid major.
-            if((majorStr.equals("CS")) || (majorStr.equals("EE")) || (majorStr.equals("MATH")) || //Janky way to check if major is valid but works
-                    (majorStr.equals("ITI")) || (majorStr.equals("BAIT"))) {
-                Major major = Enum.valueOf(Major.class, parsedArguments[4]);
-                Date date = new Date(parsedArguments[3]);
-                Profile profile = new Profile(parsedArguments[1], parsedArguments[2], date);
-                for (int k = 0; k < myRoster.getRoster().length; k++) { //Find student based off of profile in roster
-                    if (myRoster.getRoster()[k].getProfile().equals(profile)) {
-                        myRoster.getRoster()[k].setMajor(Enum.valueOf(Major.class, parsedArguments[4]));
-                        return;
+            for (Major value : Major.values()) {
+                if (value.name().equals(parsedArguments[4].toUpperCase())) {
+                    Major major = Major.valueOf(parsedArguments[4]);
+                    Date date = new Date(parsedArguments[3]);
+                    Profile profile = new Profile(parsedArguments[1], parsedArguments[2], date);
+                    for (int k = 0; k < myRoster.getRoster().length; k++) { //Find student based off of profile in roster
+                        if (myRoster.getRoster()[k].getProfile().equals(profile)) {
+                            myRoster.getRoster()[k].setMajor(major);
+                            return;
+                        }
                     }
+                    System.out.println(profile.toString() + " is not in the roster.");
+                    return;
                 }
-                System.out.println(profile.toString() + " is not in the roster.");
-                return;
             }
-            else
-                System.out.println("Major code invalid: " + majorStr);
+            System.out.println("Major code invalid: " + parsedArguments[4]);
             return;
         }
         System.out.println("Invalid Command Length");
