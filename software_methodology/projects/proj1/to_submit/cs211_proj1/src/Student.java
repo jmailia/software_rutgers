@@ -80,7 +80,7 @@ public class Student implements Comparable<Student> {
         String grade = " (Freshman)";
         if (this.creditCompleted < 60 && this.creditCompleted >=30) {
             grade = " (Sophomore)";
-        } else if (this.creditCompleted < 90) {
+        } else if (this.creditCompleted < 90 && this.creditCompleted >= 60) {
             grade = " (Junior)";
         } else if (this.creditCompleted >= 90) {
             grade = " (Senior)";
