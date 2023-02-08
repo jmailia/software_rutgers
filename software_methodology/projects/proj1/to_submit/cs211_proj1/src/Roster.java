@@ -102,7 +102,7 @@ public class Roster {
 
     /**
      * Finds whether the Roster contains the student
-     * @param profile the profile which may or may not be in the Roster
+     * @param student the student which may or may not be in the Roster
      * @return true if the Roster contains the student, false otherwise.
      */
     public boolean contains(Student student) {
@@ -117,7 +117,6 @@ public class Roster {
      * for each in-place swap
      * @param whichP designates how we will compare each two students and will equal:
      *                            "P", which compares the students' profiles;
-     *                            "PS", which compares the students' completed credits;
      *                            "PC", which compares the students' majors.
      * @return the Roster which was sorted by the comparison method for the corresponding print command
      */
@@ -131,13 +130,7 @@ public class Roster {
                         if (tempRoster[i].compareTo(tempRoster[j]) < 0) {
                             tempRoster = swapStudentsForInsertionSort(tempRoster, i, j);
                         }
-                    //"PS", which compares the students' completed credits
-                    } else if (whichP.equals("PS")) {
-                        if (tempRoster[i].getCreditCompleted() > tempRoster[j].getCreditCompleted()) {
-                            tempRoster = swapStudentsForInsertionSort(tempRoster, i, j);
-                        }
-                    //"PC", which compares the students' majors/schools
-                    } else {
+                    }  else {
                         if (tempRoster[i].getMajor().toString().charAt(0) > tempRoster[j].getMajor().toString().charAt(0)) {
                             tempRoster = swapStudentsForInsertionSort(tempRoster, i, j);
                         }
@@ -179,7 +172,26 @@ public class Roster {
      * Print the Roster by standing
      */
     public void printByStanding() {
-        printRosterLines(insertionSort("PS"));
+        for(int k = 0; k < this.roster.length; k++){
+            if(this.roster[k] != null)
+                if(this.roster[k].getCreditCompleted() < 30)
+                    System.out.println(this.roster[k].toString());
+        }
+        for(int k = 0; k < this.roster.length; k++){
+            if(this.roster[k] != null)
+                if(this.roster[k].getCreditCompleted() >= 60 && this.roster[k].getCreditCompleted() < 90)
+                    System.out.println(this.roster[k].toString());
+        }
+        for(int k = 0; k < this.roster.length; k++){
+            if(this.roster[k] != null)
+                if(this.roster[k].getCreditCompleted() >= 90)
+                    System.out.println(this.roster[k].toString());
+        }
+        for(int k = 0; k < this.roster.length; k++){
+            if(this.roster[k] != null)
+                if(this.roster[k].getCreditCompleted() >= 30 && this.roster[k].getCreditCompleted() < 60)
+                    System.out.println(this.roster[k].toString());
+        }
     }
 
     /**
