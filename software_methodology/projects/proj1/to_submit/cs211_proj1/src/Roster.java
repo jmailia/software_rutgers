@@ -120,14 +120,10 @@ public class Roster {
                         if (tempRoster[i].compareTo(tempRoster[j]) < 0) {
                             tempRoster = swapStudentsForInsertionSort(tempRoster, i, j);
                         }
-                    }  else {
-                        if (tempRoster[i].getMajor().toString().charAt(0) > tempRoster[j].getMajor().toString().charAt(0)) {
-                            tempRoster = swapStudentsForInsertionSort(tempRoster, i, j);
-                        }
+                    }  
                     }
                 }
             }
-        }
         return tempRoster;
     }
 
@@ -144,6 +140,7 @@ public class Roster {
         tempRoster[student2Index] = tempStu;
         return tempRoster;
     }
+    
     /**
      * Print the roster sorted by profiles (last name, first name, DOB)
      */
@@ -155,7 +152,32 @@ public class Roster {
      * Print the Roster sorted by School Major
      */
     public void printBySchoolMajor() {
-        printRosterLines(insertionSort("PC"));
+        Student[] temp = insertionSort("P");
+        for(int k = 0; k < temp.length; k++){
+            if(temp[k] != null)
+                if(temp[k].getMajor() == Major.BAIT)
+                    System.out.println(temp[k].toString());
+        }
+        for(int k = 0; k < temp.length; k++){
+            if(temp[k] != null)
+                if(temp[k].getMajor() == Major.CS)
+                    System.out.println(temp[k].toString());
+        }
+        for(int k = 0; k < temp.length; k++){
+            if(temp[k] != null)
+                if(temp[k].getMajor() == Major.MATH)
+                    System.out.println(temp[k].toString());
+        }
+        for(int k = 0; k < temp.length; k++){
+            if(temp[k] != null)
+                if(temp[k].getMajor() == Major.ITI)
+                    System.out.println(temp[k].toString());
+        }
+        for(int k = 0; k < temp.length; k++){
+            if(temp[k] != null)
+                if(temp[k].getMajor() == Major.EE)
+                    System.out.println(temp[k].toString());
+        }
     }
 
     /**
