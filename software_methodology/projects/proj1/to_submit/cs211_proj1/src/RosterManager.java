@@ -188,22 +188,8 @@ public class RosterManager {
             if (validMajor.name().equals(majorChangingTo.toUpperCase())) {
                 isMajorInvalid = false;
                 Profile profileOfStudent = new Profile(lastName, firstName, new Date(DOB));
-                if (myRoster.contains(new Student (profileOfStudent,Major.CS,1))) {
-                    //TODO: I would've called find() here but its a private method, so I have to do its math here ;(
-                    //TODO: Any better way to do this? I have no ideas....
-                    //TODO: Unless the bulk of this goes into Roster.java, but then I feel hesitant to add another public method, tho idk
-
-                    if (myRoster!=null) { //TODO: Something to do though is to have a private method in Roster.java which prints true/false if a Roster is null, as this if-statement happens A LOT
-                        for (int k = 0; k < myRoster.getRoster().length; k++) {
-                            if (myRoster.getRoster()[k] != null) {
-                                if (myRoster.getRoster()[k].getProfile().equals(profileOfStudent)) {
-                                    myRoster.getRoster()[k].setMajor(Enum.valueOf(Major.class,majorChangingTo));
-                                    System.out.println(profileOfStudent.toString() + " major changed to " + majorChangingTo);
-
-                                }
-                            }
-                        }
-                    }
+                if (myRoster.contains(new Student (profileOfStudent,validMajor,1))) {
+                    System.out.println(profileOfStudent.toString() + " major changed to " + majorChangingTo);
                 } else {
                     System.out.println(profileOfStudent.toString() + " is not in the roster.");
                 }
@@ -217,12 +203,15 @@ public class RosterManager {
     }
 
     public void run() {
-        System.out.println("Roster Manager running...");     //user knows software is ready for commands
-        boolean hasQuit = false;
+        boolean[] firstTimeLastTime = {true,false};
         Roster myRoster = new Roster();
         Scanner sc = new Scanner(System.in);
-        while(! (hasQuit && sc.hasNextLine())) {                           //continuously read the line commands until the user quits
+        while(! (firstTimeLastTime[1] && sc.hasNextLine())) {                           //continuously read the line commands until the user quits
             String[] parsedCommandArguments = sc.nextLine().split("\\s+"); //parses arguments
+            if (firstTimeLastTime[0]) {
+                System.out.println("Roster Manager running...\n");    //user knows software is ready for commands
+                firstTimeLastTime[0] = false;
+            }
             switch (parsedCommandArguments[0]) {                                //get the current command\
                 case "":        //if the enter key is pressed without any input, this prevents an error
                     break;
@@ -245,7 +234,7 @@ public class RosterManager {
                     break;
                 case "Q":
                     System.out.println("Roster Manager terminated.");    //user has terminated the software normally
-                    hasQuit = true;
+                    firstTimeLastTime[1] = true;
                     break;
                 default:
                     System.out.println(parsedCommandArguments[0] + " is an invalid command!");

@@ -26,6 +26,7 @@ public class Roster {
             for (int k = 0; k < this.roster.length; k++) {
                 if (this.roster[k] != null) {
                     if (this.roster[k].getProfile().equals(student.getProfile())) {
+                        this.roster[k].setMajor(student.getMajor());
                         return k;
                     }
                 }
@@ -39,23 +40,12 @@ public class Roster {
      * whenever it is full, and never decrease in capacity.
      */
     private void grow() {
-        //System.out.println("Now Growing"); //TODO: TO REMOVE THIS println
-        int tempLength = 0;
-        if (this.roster == null) {
-            tempLength = 4;
-        } else {
-            tempLength = this.roster.length + 4;
-        }
-        Student[] temp = new Student[tempLength]; // transfer old roster info into new temp array
-        //System.out.println(temp.length); //TODO: TO REMOVE THIS println
+        // transfer old roster info into new temp array;
+        // this new temp array is of length 4 if the roster is initially empty;
+        // otherwise the temp array's length is the roster's length plus 4
+        Student[] temp = new Student[(this.roster == null) ? 4 : this.roster.length + 4];
 
-        int jMax;
-        if (this.roster == null) {
-            jMax = 0;
-        } else {
-            jMax = temp.length;
-        }
-        for (int j = 0; j < jMax; j++) {
+        for (int j = 0; j < ((this.roster == null) ? 0 : temp.length); j++) {
             if (this.roster == null || j >= this.roster.length) {
                 temp[j] = null;
             } else {
