@@ -1,6 +1,9 @@
 /* @author Henry Hecht */
 /* @author Aidan Cronin */
 
+/**
+ * The profile of a student, containing their last name, first name, and date of birth
+ */
 public class Profile implements Comparable<Profile> {
     private String lname;
     private String fname;
@@ -8,7 +11,7 @@ public class Profile implements Comparable<Profile> {
 
     /**
      * Getter method for lname
-     * @return String
+     * @return the last name of the profile
      */
     public String getLname(){
         return this.lname;
@@ -16,7 +19,7 @@ public class Profile implements Comparable<Profile> {
 
     /**
      * Getter method for fname
-     * @return String
+     * @return the first name of the profile
      */
     public String getFname(){
         return this.fname;
@@ -24,7 +27,7 @@ public class Profile implements Comparable<Profile> {
 
     /**
      * Getter method for dob
-     * @return Date
+     * @return the date of birth of the profile
      */
     public Date getDob() {
         return this.dob;
@@ -33,9 +36,9 @@ public class Profile implements Comparable<Profile> {
     /**
      * Three argument constructor for Profile class. Creates an
      * instance from first name, last name and date of birth.
-     * @param lname
-     * @param fname
-     * @param dob
+     * @param lname Last name of the profile
+     * @param fname First name of the profile
+     * @param dob Date of Birth of the profile
      */
     public Profile(String lname, String fname, Date dob) {
         this.lname = lname;
@@ -45,17 +48,16 @@ public class Profile implements Comparable<Profile> {
 
     /**
      * Method returns the string version of profile.
-     * @return String
+     * @return a string with a space between the first name, last name, and date of birth
      */
     public String toString() {
         return fname + " " + lname + " " + dob.toString();
     }
 
     /**
-     * Method compares two profiles. Returns true if profiles
-     * are equal and false if they are not.
-     * @param profile
-     * @return Boolean
+     * Method determines whether two profiles are equal to each other
+     * @param profile the profile which we will compare to
+     * @return true if profiles are equal and false if they are not.
      */
     public boolean equals(Profile profile) {
         if(this.lname.length() == profile.getLname().length()){
@@ -82,11 +84,10 @@ public class Profile implements Comparable<Profile> {
     }
 
     /**
-     * Method to compare two profiles together. Returns 1 if original profile
-     * is alphabetically before compared profile, returns 2 if original profile
-     * is alphabetically after compared profile, returns 0 if equal.
-     * @param profile
-     * @return int
+     * Method to compare two profiles together.
+     * @param profile the profile which we will compare
+     * @return 1 if original profile is alphabetically before compared profile,
+     * 2 if original profile is alphabetically after compared profile, 0 if equal.
      */
     public int compareTo(Profile profile) { //Needs to get worked
         String stu1 = this.lname + this.fname;

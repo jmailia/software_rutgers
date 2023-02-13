@@ -2,16 +2,20 @@
 /* @author Aidan Cronin */
 
 import java.util.Scanner;
+
+/**
+ * The User Interface class to process the line commands entered on the console and display the results of the console
+ */
 public class RosterManager {
 
     /**
-     *
-     * @param firstName
-     * @param lastName
-     * @param DOB
-     * @param major
-     * @param creditsCompleted
-     * @param myRoster
+     * Add a student to the roster, but only if the student's provided information is valid and eligible
+     * @param firstName The first name of the student to be added; names are NOT case-sensitive
+     * @param lastName The last name of the student to be added; names are NOT case-sensitive
+     * @param DOB The date of birth of the student to be added; given in mm/dd/yyyy format
+     * @param major The major of the student to be added; major is NOT case-sensitive
+     * @param creditsCompleted The number of credits completed by the student to be added
+     * @param myRoster The roster to which the student might be added, but only under specific conditions
      */
     private void A_Command(String firstName, String lastName, String DOB, String major, String creditsCompleted, Roster myRoster) {
 
@@ -61,7 +65,8 @@ public class RosterManager {
 
             // A student who is less than 16 years old
             //Any date of birth that is today or a future date
-            // (NOTE: there is no example of today/future the sample output, but it is required by the written instructions)
+            // (NOTE: there is no example of today/future the sample output,
+            // but it is required by the written instructions; I use the same error message)
             if (!myStudent.getProfile().getDob().isStudentOver16()) {
                 System.out.println("DOB invalid: " + myStudent.getProfile().getDob() + " younger than 16 years old.");
                 isValidAddition = false;
@@ -81,7 +86,7 @@ public class RosterManager {
     }
 
     /**
-     * Removes a student from Roster
+     * Removes a student from Roster, but only if they are already in the Roster
      * @param firstName First name of the student who might be removed
      * @param lastName Last name of the student who might be removed
      * @param DOB DOB of the student who might be removed
@@ -99,7 +104,7 @@ public class RosterManager {
     }
 
     /**
-     * Helper method for P, PS, and PC
+     * Display the roster in various sortings; this is the method for P, PS, and PC
      * @param whichP a String of either "P", "PS", or "PC"
      * @param myRoster the Roster we want to print
      */
@@ -129,9 +134,9 @@ public class RosterManager {
     }
 
     /**
-     *
-     * @param school
-     * @param myRoster
+     * List the students in a specified school, sorted by last name, first name, and DOB
+     * @param school the specified school, case-insensitive, of which we want to list its enrollment
+     * @param myRoster the roster containing all current students
      */
     private void L_Command(String school, Roster myRoster) {
 
@@ -202,6 +207,11 @@ public class RosterManager {
         }
     }
 
+    /**
+     * Method that initiates the Roster and Scanner,
+     * includes a while loop to continuously read the line commands until the user quits,
+     * and calls private methods to handle the different commands
+     */
     public void run() {
         boolean[] firstTimeLastTime = {true,false};
         Roster myRoster = new Roster();

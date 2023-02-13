@@ -2,28 +2,54 @@
 /* @author Aidan Cronin */
 
 import java.util.Calendar;
+
+/**
+ * The Date class creates Date objects, converts strings into these objects,
+ * and determines whether a date is a valid calendar date
+ */
 public class Date {
     private int year;
     private int month;
     private int day;
 
+    /**
+     * Constant identifier for a quadrennial
+     */
     public static final int QUADRENNIAL = 4;
+    /**
+     * Constant identifier for a centennial
+     */
     public static final int CENTENNIAL = 100;
+    /**
+     * Constant identifier for a quatercentennial
+     */
     public static final int QUATERCENTENNIAL = 400;
 
+    /**
+     * Get method for the year
+     * @return the year
+     */
     public int getYear(){
         return this.year;
     }
+    /**
+     * Get method for the month
+     * @return the month
+     */
     public int getMonth(){
         return this.month;
     }
+    /**
+     * Get method for the day
+     * @return the day
+     */
     public int getDay(){
         return this.day;
     }
 
     /**
-     * Default constructor fir Date class. Creates an instance
-     * from calendar class to get the current day, month and year.
+     * Default constructor for the Date class which creates an instance
+     * from calendar class to get today's day, month and year.
      */
     public Date() {
         Calendar calendar = Calendar.getInstance();
@@ -35,12 +61,12 @@ public class Date {
     }
 
     /**
-     * Three argument constructor for Date class. Creates an instance
+     * Three argument constructor for Date class which creates an instance
      * with given month, day and year arguments to create the specified
      * date.
-     * @param month
-     * @param day
-     * @param year
+     * @param month The month of the given date
+     * @param day The day of the given date
+     * @param year The year of the given date
      */
     public Date(int month, int day, int year){
         this.month = month;
@@ -49,10 +75,10 @@ public class Date {
     }
 
     /**
-     * One argument constructor for Date class. Creates an instance
+     * One argument constructor for Date class which creates an instance
      * by taking a given string containing a date and translating
      * that into an object.
-     * @param date
+     * @param date The date, provided as formatted string, which will generate an instance
      */
     public Date(String date) {
         String[] arrDate = date.split("/");
@@ -62,44 +88,44 @@ public class Date {
     }
 
     /**
-     * Method to compare two given dates to each other. Will
-     * return a 0 if dates are equal, a positive number if original date
-     * is younger than compared date, and a negative number if original date is
-     * older than compared date
-     * @param date2
-     * @return int
+     * Method to compare two given dates to each other.
+     * @param dateToCompare the date to compare
+     * @return 0 if dates are equal, a positive number if original date is younger than compared date,
+     * or a negative number if original date is older than compared date
      */
-    public int compareTo(Date date2) {
-        String dateStr = date2.toString();
-        String[] arrDate = dateStr.split("/");
-        int month2 = Integer.parseInt(arrDate[0]);
-        int day2 = Integer.parseInt(arrDate[1]);;
-        int year2 = Integer.parseInt(arrDate[2]);
-        int yearComp = this.year - year2;
-        int monthComp = this.month - month2;
-        int dayComp = this.day - day2;
+    public int compareTo(Date dateToCompare) {
+        String[] arrDate = dateToCompare.toString().split("/");
 
-        if(yearComp > 0)
+        int yearComp = this.year - Integer.parseInt(arrDate[2]);
+        int monthComp = this.month - Integer.parseInt(arrDate[0]);
+        int dayComp = this.day - Integer.parseInt(arrDate[1]);
+
+        if(yearComp > 0) {
             return 1;
-        if(yearComp < 0)
+        }
+        if(yearComp < 0) {
             return -1;
-        if(monthComp > 0)
+        }
+        if(monthComp > 0) {
             return 1;
-        if(monthComp < 0)
+        }
+        if(monthComp < 0) {
             return -1;
-        if(dayComp > 0)
+        }
+        if(dayComp > 0) {
             return 1;
-        if(dayComp < 0)
+        }
+        if(dayComp < 0) {
             return -1;
+        }
         return 0;
     }
 
     /**
      * Method compares original date to given date and
-     * determines if they are equal or not. If equal,
-     * true is returned and if not equal, false is returned.
-     * @param date
-     * @return boolean
+     * determines if they are equal or not.
+     * @param date the date we are to compare
+     * @return true if the dates are equal, otherwise false
      */
     public boolean equals(Date date) {
         String date1 = this.month + "/" + this.day + "/" + this.year;
@@ -116,7 +142,7 @@ public class Date {
 
     /**
      * Method takes a Date object and returns it formatted as a String.
-     * @return String
+     * @return a String containing the date separating the month, day, and year, by the String "/"
      */
     @Override
     public String toString(){
@@ -127,9 +153,14 @@ public class Date {
      * Method takes a Date object and determines whether the DOB is both on the calendar and was at least 16 years ago
      * @return false when the DOB is invalid, otherwise true
      */
-    public boolean isDOBValid() {
+    public boolean isValid() {
         return (isCalendarDateValid() && isStudentOver16());
     }
+
+    /**
+     * Method determines whether a calendar date is valid
+     * @return true if the calendar date is valid, false otherwise
+     */
     public boolean isCalendarDateValid() {
         if(this.month < 1 || this.day < 1 || this.year < 1900){
             return false;
@@ -166,6 +197,11 @@ public class Date {
         }
         return true;
     }
+
+    /**
+     * Returns whether student is over the age of 16
+     * @return true if student is over the age of 16, false otherwise
+     */
     public boolean isStudentOver16() {
         Calendar calendar = Calendar.getInstance(); //Checks if date is older than 16 years
         calendar.add(Calendar.YEAR, -16);
@@ -191,6 +227,10 @@ public class Date {
         return true;
     }
 
+    /**
+     * Testbed implementing the test cases in isValid() of the Date class.
+     * @param args Arguments for the testbed
+     */
     public static void main(String args[]){
         Date test1 = new Date("4/20/2015");
         Date test2 = new Date("10/7/1885");
@@ -203,17 +243,16 @@ public class Date {
         Date test9 = new Date("8/31/1997");
         Date test10 = new Date("2/29/2000");
         Date test11 = new Date("2/28/2001");
-        System.out.println(test1.isDOBValid());
-        System.out.println(test2.isDOBValid());
-        System.out.println(test3.isDOBValid());
-        System.out.println(test4.isDOBValid());
-        System.out.println(test5.isDOBValid());
-        System.out.println(test6.isDOBValid());
-        System.out.println(test7.isDOBValid());
-        System.out.println(test8.isDOBValid());
-        System.out.println(test9.isDOBValid());
-        System.out.println(test10.isDOBValid());
-        System.out.println(test11.isDOBValid());
-
+        System.out.println(test1.isValid());
+        System.out.println(test2.isValid());
+        System.out.println(test3.isValid());
+        System.out.println(test4.isValid());
+        System.out.println(test5.isValid());
+        System.out.println(test6.isValid());
+        System.out.println(test7.isValid());
+        System.out.println(test8.isValid());
+        System.out.println(test9.isValid());
+        System.out.println(test10.isValid());
+        System.out.println(test11.isValid());
     }
 }

@@ -1,10 +1,25 @@
 /* @author Henry Hecht */
 /* @author Aidan Cronin */
 
+/**
+ * Governs the array-based linear data structure to hold the list of the students,
+ * where an instance of this class is a growable container defined by given constraints
+ */
 public class Roster {
     private Student[] roster;
+    /**
+     * The size of the Roster
+     */
     private int size;
+
+    /**
+     * The Roster which holds the list of students
+     */
     public Roster() {}
+
+    /**
+     * constant identifier which is returned if the student is not in the Roster
+     */
     public static final int NOT_FOUND = -1;
 
     /**
@@ -57,7 +72,7 @@ public class Roster {
 
     /**
      * Add a student to the end of the array, first determining whether the Roster needs to grow
-     * @param student
+     * @param student the student that might be added to the end of the array
      * @return true if the student was successfully added, false otherwise.
      */
     public boolean add(Student student) { //add student to end of array
@@ -120,10 +135,14 @@ public class Roster {
                         if (tempRoster[i].compareTo(tempRoster[j]) < 0) {
                             tempRoster = swapStudentsForInsertionSort(tempRoster, i, j);
                         }
-                    }  
+                    }  else {
+                        if (tempRoster[i].getMajor().toString().charAt(0) > tempRoster[j].getMajor().toString().charAt(0)) {
+                            tempRoster = swapStudentsForInsertionSort(tempRoster, i, j);
+                        }
                     }
                 }
             }
+        }
         return tempRoster;
     }
 
@@ -140,7 +159,6 @@ public class Roster {
         tempRoster[student2Index] = tempStu;
         return tempRoster;
     }
-    
     /**
      * Print the roster sorted by profiles (last name, first name, DOB)
      */
@@ -152,32 +170,7 @@ public class Roster {
      * Print the Roster sorted by School Major
      */
     public void printBySchoolMajor() {
-        Student[] temp = insertionSort("P");
-        for(int k = 0; k < temp.length; k++){
-            if(temp[k] != null)
-                if(temp[k].getMajor() == Major.BAIT)
-                    System.out.println(temp[k].toString());
-        }
-        for(int k = 0; k < temp.length; k++){
-            if(temp[k] != null)
-                if(temp[k].getMajor() == Major.CS)
-                    System.out.println(temp[k].toString());
-        }
-        for(int k = 0; k < temp.length; k++){
-            if(temp[k] != null)
-                if(temp[k].getMajor() == Major.MATH)
-                    System.out.println(temp[k].toString());
-        }
-        for(int k = 0; k < temp.length; k++){
-            if(temp[k] != null)
-                if(temp[k].getMajor() == Major.ITI)
-                    System.out.println(temp[k].toString());
-        }
-        for(int k = 0; k < temp.length; k++){
-            if(temp[k] != null)
-                if(temp[k].getMajor() == Major.EE)
-                    System.out.println(temp[k].toString());
-        }
+        printRosterLines(insertionSort("PC"));
     }
 
     /**

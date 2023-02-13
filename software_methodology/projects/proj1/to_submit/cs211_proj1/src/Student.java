@@ -1,17 +1,19 @@
 /* @author Henry Hecht */
 /* @author Aidan Cronin */
 
+/**
+ * Class defines a student by their profile, major, and credits completed; also determines whether students are equals and have the same profiles
+ */
 public class Student implements Comparable<Student> {
     private Profile profile;
     private Major major; //Major is an enum type
     private int creditCompleted;
 
     /**
-     * Three argument constructor method for Student class.
-     * Sets profile, major and creditsCompleted.
-     * @param profile
-     * @param major
-     * @param creditCompleted
+     * Constructor method for Student class which sets profile, major and creditsCompleted.
+     * @param profile The profile of the student
+     * @param major The major of the student
+     * @param creditCompleted The number of credits completed of the student
      */
     public Student(Profile profile, Major major, int creditCompleted) {
         this.profile = profile;
@@ -45,31 +47,10 @@ public class Student implements Comparable<Student> {
 
     /**
      * Setter method for major
-     * @param major
+     * @param major major to set
      */
     public void setMajor(Major major){
         this.major = major;
-    }
-
-    /**
-     * Method to print given students major
-     * @param myMajor
-     * @return String
-     */
-    private String printMajor(Major myMajor){
-        switch(myMajor) {
-            case CS:
-                return "(01:198 CS SAS)";
-            case MATH:
-                return "(01:640 MATH SAS)";
-            case EE:
-                return "(14:332 EE SOE)";
-            case ITI:
-                return "(04:547 ITI SC&I)";
-            case BAIT:
-                return "(33:136 BAIT RBS)";
-        }
-        return "";
     }
 
     /**
@@ -85,7 +66,7 @@ public class Student implements Comparable<Student> {
         } else if (this.creditCompleted >= 90) {
             grade = " (Senior)";
         }
-        return printStudentProfile() + " " + printMajor(this.major) +
+        return printStudentProfile() + " " + this.major.getDisplayName() +
                 " credits completed: " + this.creditCompleted + grade;
     }
 
@@ -100,8 +81,8 @@ public class Student implements Comparable<Student> {
     /**
      * Method compares two students and returns true if they are
      * equal and false if they are not.
-     * @param student
-     * @return boolean
+     * @param student the student which will be compared
+     * @return true if students are equal, false otherwise
      */
     public boolean equals(Student student) {
         if(this.profile.equals(student.getProfile())) {
@@ -116,11 +97,10 @@ public class Student implements Comparable<Student> {
     }
 
     /**
-     * Method to compare two students together. Returns 1 if original student
-     * is ordered before compared student, returns -1 if original student
-     * is ordered after compared student, returns 0 if equal.
-     * @param student
-     * @return int
+     * Method to compare two students together
+     * @param student which we will compare
+     * @return int 1 if original student is ordered before compared student,
+     *  -1 if original student is ordered after compared student, returns 0 if equal.
      */
     public int compareTo(Student student) {
         if(this.profile.compareTo(student.getProfile()) == 1){
@@ -141,6 +121,10 @@ public class Student implements Comparable<Student> {
         return 0; //stu1 and stu2 are equal
     }
 
+    /**
+     * Testbed implementing the test cases in compareTo() of the Student class.
+     * @param args Arguments for the testbed
+     */
     public static void main(String[] args){
         Profile profile1 = new Profile("Dan", "Brown", new Date("3/15/2001"));
         Profile profile2 = new Profile("Dan", "Brown", new Date("3/20/2001"));
