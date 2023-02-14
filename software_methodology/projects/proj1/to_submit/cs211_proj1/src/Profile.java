@@ -56,26 +56,32 @@ public class Profile implements Comparable<Profile> {
 
     /**
      * Method determines whether two profiles are equal to each other
-     * @param profile the profile which we will compare to
+     * @param obj the profile which we will compare to
      * @return true if profiles are equal and false if they are not.
      */
-    public boolean equals(Profile profile) {
-        if(this.lname.length() == profile.getLname().length()) {
-            if(this.fname.length() == profile.getFname().length()) {
-                if(this.dob.equals(profile.getDob())) {
-                    for(int i = 0; i < lname.length(); i++) {
-                        if(Character.toUpperCase(this.lname.charAt(i)) == Character.toUpperCase(profile.getLname().charAt(i))) {
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+        final Profile profile = (Profile) obj;
+        if(this.lname.length() == profile.getLname().length()){
+            if(this.fname.length() == profile.getFname().length()){
+                if(this.dob.equals(profile.getDob())){
+                    for(int i = 0; i < lname.length(); i++){
+                        if(Character.toUpperCase(this.lname.charAt(i)) == Character.toUpperCase(profile.getLname().charAt(i)))
                             continue;
-                        } else {
+                        else
                             return false;
-                        }
                     }
                     for(int j = 0; j < fname.length(); j++){
-                        if(Character.toUpperCase(this.fname.charAt(j)) == Character.toUpperCase(profile.getFname().charAt(j))) {
+                        if(Character.toUpperCase(this.fname.charAt(j)) == Character.toUpperCase(profile.getFname().charAt(j)))
                             continue;
-                        } else {
+                        else
                             return false;
-                        }
                     }
                     if(this.dob.equals(profile.getDob()))
                         return true;
