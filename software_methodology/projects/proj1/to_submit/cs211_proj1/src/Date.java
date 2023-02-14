@@ -125,11 +125,18 @@ public class Date implements Comparable<Date> {
     /**
      * Method compares original date to given date and
      * determines if they are equal or not.
-     * @param date the date we are to compare
+     * @param obj the date we are to compare
      * @return true if the dates are equal, otherwise false
      */
-    public boolean equals(Date date) {
-
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+        final Date date = (Date) obj;
         String date1 = this.month + "/" + this.day + "/" + this.year;
         String date2 = date.toString();
         if(this.month == date.getMonth()) {
