@@ -176,12 +176,12 @@ public class RosterManager {
 
 
     /**
-     *
-     * @param firstName
-     * @param lastName
-     * @param DOB
-     * @param majorChangingTo
-     * @param myRoster
+     * Change the students major, first testing whether the major is valid and the student is in the roster.
+     * @param firstName First name of the student who wants to change their major
+     * @param lastName Last name of the student who wants to change their major
+     * @param DOB Date of birth of the student who wants to change their major
+     * @param majorChangingTo The major which the student wants to change to
+     * @param myRoster The roster which might contain the student who wants to change their major
      */
     private void C_Command(String firstName, String lastName, String DOB, String majorChangingTo, Roster myRoster) {
 

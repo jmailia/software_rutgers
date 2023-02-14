@@ -81,18 +81,10 @@ public class Student implements Comparable<Student> {
     /**
      * Method compares two students and returns true if they are
      * equal and false if they are not.
-     * @param obj the student which will be compared
+     * @param student the student which will be compared
      * @return true if students are equal, false otherwise
      */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (obj.getClass() != this.getClass()) {
-            return false;
-        }
-        final Student student = (Student) obj;
+    public boolean equals(Student student) {
         if(this.profile.equals(student.getProfile())) {
             if (this.major.equals(student.getMajor())) {
                 if (this.creditCompleted == student.getCreditCompleted()) {
@@ -100,6 +92,7 @@ public class Student implements Comparable<Student> {
                 }
             }
         }
+
         return false;
     }
 

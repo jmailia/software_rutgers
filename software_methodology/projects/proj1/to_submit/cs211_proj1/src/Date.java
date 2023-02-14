@@ -68,7 +68,7 @@ public class Date implements Comparable<Date> {
      * @param day The day of the given date
      * @param year The year of the given date
      */
-    public Date(int month, int day, int year){
+    public Date(int month, int day, int year) {
         this.month = month;
         this.day = day;
         this.year = year;
@@ -125,18 +125,11 @@ public class Date implements Comparable<Date> {
     /**
      * Method compares original date to given date and
      * determines if they are equal or not.
-     * @param obj the date we are to compare
+     * @param date the date we are to compare
      * @return true if the dates are equal, otherwise false
      */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (obj.getClass() != this.getClass()) {
-            return false;
-        }
-        final Date date = (Date) obj;
+    public boolean equals(Date date) {
+
         String date1 = this.month + "/" + this.day + "/" + this.year;
         String date2 = date.toString();
         if(this.month == date.getMonth()) {
