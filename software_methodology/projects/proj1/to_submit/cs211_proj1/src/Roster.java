@@ -6,10 +6,8 @@
  * where an instance of this class is a growable container defined by given constraints
  */
 public class Roster {
+
     private Student[] roster;
-    /**
-     * The size of the Roster
-     */
     private int size;
 
     /**
@@ -18,7 +16,7 @@ public class Roster {
     public Roster() {}
 
     /**
-     * constant identifier which is returned if the student is not in the Roster
+     * Constant identifier which is returned if the student is not in the Roster
      */
     public static final int NOT_FOUND = -1;
 
@@ -38,7 +36,7 @@ public class Roster {
     private int find(Student student) {
 
         if (this.roster!=null) {
-            for (int k = 0; k < this.roster.length; k++) {
+            for (int k = 0; k < size; k++) {
                 if (this.roster[k] != null) {
                     if (this.roster[k].getProfile().equals(student.getProfile())) {
                         this.roster[k].setMajor(student.getMajor());
@@ -58,16 +56,18 @@ public class Roster {
         // transfer old roster info into new temp array;
         // this new temp array is of length 4 if the roster is initially empty;
         // otherwise the temp array's length is the roster's length plus 4
-        Student[] temp = new Student[(this.roster == null) ? 4 : this.roster.length + 4];
+
+        Student[] temp = new Student[(this.roster == null) ? 4 : size + 4];
 
         for (int j = 0; j < ((this.roster == null) ? 0 : temp.length); j++) {
-            if (this.roster == null || j >= this.roster.length) {
+            if (this.roster == null || j >= size) {
                 temp[j] = null;
             } else {
                 temp[j] = this.roster[j];
             }
         }
         this.roster = temp;
+        size = this.roster.length;
     }
 
     /**
@@ -77,16 +77,18 @@ public class Roster {
      */
     public boolean add(Student student) { //add student to end of array
 
-        if (this.roster == null || this.roster[this.roster.length - 1] != null) { //if the roster is fully empty, or if it is entirely full
+        size = (this.roster == null ? 0 : this.roster.length); //set the size to 0 if the roster is null,
+                                                            // otherwise set it to its length
+
+        if (this.roster == null || this.roster[size - 1] != null) { //if the roster is fully empty, or if it is entirely full
             grow();
         }
-        for (int x = 0; x < this.roster.length; x++) { //add the student at the smallest index
+        for (int x = 0; x < size; x++) { //add the student at the smallest index
             if (this.roster[x] == null) {
                 this.roster[x] = student;
                 break;
             }
         }
-        //System.out.println(roster.length); //TODO: TO REMOVE THIS println
         return true;
     }
 
@@ -96,12 +98,12 @@ public class Roster {
      * @return true if the student was successfully removed, false otherwise.
      */
     public boolean remove(Student student) {
-        for (int indexOfCoveredOverStudent = find(student); indexOfCoveredOverStudent<this.roster.length-1;
+        for (int indexOfCoveredOverStudent = find(student); indexOfCoveredOverStudent < size - 1;
              indexOfCoveredOverStudent++) {
-            this.roster[indexOfCoveredOverStudent] = this.roster[indexOfCoveredOverStudent+1];
+            this.roster[indexOfCoveredOverStudent] = this.roster[indexOfCoveredOverStudent + 1];
         }
         // in cases where a full roster has to remove a student, we will explicitly set the last spot to null so there is no duplicated second-to-last student,
-        this.roster[this.roster.length-1] = null;
+        this.roster[size - 1] = null;
         return true;
     }//maintain the order after remove
 
@@ -127,12 +129,16 @@ public class Roster {
      */
     public Student[] insertionSort(String whichP) {
         Student[] tempRoster = this.roster;
-        for (int i = 0; i < this.roster.length; i++) { // Start of sort
-            for (int j = i + 1; j < this.roster.length; j++) {
+        for (int i = 0; i < size; i++) { // Start of sort
+            for (int j = i + 1; j < size; j++) {
                 if (tempRoster[i] != null && tempRoster[j] != null) {
                     //"P", which compares the students' profiles
                     if (whichP.equals("P")) {
                         if (tempRoster[i].compareTo(tempRoster[j]) < 0) {
+                            tempRoster = swapStudentsForInsertionSort(tempRoster, i, j);
+                        }
+                    }  else {
+                        if (tempRoster[i].getMajor().toString().charAt(0) > tempRoster[j].getMajor().toString().charAt(0)) {
                             tempRoster = swapStudentsForInsertionSort(tempRoster, i, j);
                         }
                     }
@@ -166,54 +172,29 @@ public class Roster {
      * Print the Roster sorted by School Major
      */
     public void printBySchoolMajor() {
-        Student[] temp = insertionSort("P");
-        for (int k = 0; k < temp.length; k++) {
-            if (temp[k] != null)
-                if (temp[k].getMajor() == Major.BAIT)
-                    System.out.println(temp[k].toString());
-        }
-        for (int k = 0; k < temp.length; k++) {
-            if (temp[k] != null)
-                if (temp[k].getMajor() == Major.CS)
-                    System.out.println(temp[k].toString());
-        }
-        for (int k = 0; k < temp.length; k++) {
-            if (temp[k] != null)
-                if (temp[k].getMajor() == Major.MATH)
-                    System.out.println(temp[k].toString());
-        }
-        for (int k = 0; k < temp.length; k++) {
-            if (temp[k] != null)
-                if (temp[k].getMajor() == Major.ITI)
-                    System.out.println(temp[k].toString());
-        }
-        for (int k = 0; k < temp.length; k++) {
-            if (temp[k] != null)
-                if (temp[k].getMajor() == Major.EE)
-                    System.out.println(temp[k].toString());
-        }
+        printRosterLines(insertionSort("PC"));
     }
 
     /**
      * Print the Roster by standing
      */
     public void printByStanding() {
-        for(int k = 0; k < this.roster.length; k++){
+        for(int k = 0; k < size; k++){
             if(this.roster[k] != null)
                 if(this.roster[k].getCreditCompleted() < 30)
                     System.out.println(this.roster[k].toString());
         }
-        for(int k = 0; k < this.roster.length; k++){
+        for(int k = 0; k < size; k++){
             if(this.roster[k] != null)
                 if(this.roster[k].getCreditCompleted() >= 60 && this.roster[k].getCreditCompleted() < 90)
                     System.out.println(this.roster[k].toString());
         }
-        for(int k = 0; k < this.roster.length; k++){
+        for(int k = 0; k < size; k++){
             if(this.roster[k] != null)
                 if(this.roster[k].getCreditCompleted() >= 90)
                     System.out.println(this.roster[k].toString());
         }
-        for(int k = 0; k < this.roster.length; k++){
+        for(int k = 0; k < size; k++){
             if(this.roster[k] != null)
                 if(this.roster[k].getCreditCompleted() >= 30 && this.roster[k].getCreditCompleted() < 60)
                     System.out.println(this.roster[k].toString());
@@ -221,12 +202,12 @@ public class Roster {
     }
 
     /**
-     * Print the roster with the correct formatting for each student
+     * Helper method to print the roster with the correct formatting for each student
      * @param roster the roster to be printed
      */
     public void printRosterLines (Student[] roster) {
         // Print New Sorted Temp Roster
-        for (int k = 0; k < roster.length; k++) {
+        for (int k = 0; k < size; k++) {
             if (roster[k] != null) {
                 System.out.println(roster[k].toString());
             }
