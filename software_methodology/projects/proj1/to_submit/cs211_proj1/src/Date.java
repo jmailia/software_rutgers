@@ -7,7 +7,7 @@ import java.util.Calendar;
  * The Date class creates Date objects, converts strings into these objects,
  * and determines whether a date is a valid calendar date
  */
-public class Date {
+public class Date implements Comparable<Date> {
     private int year;
     private int month;
     private int day;
@@ -93,6 +93,7 @@ public class Date {
      * @return 0 if dates are equal, a positive number if original date is younger than compared date,
      * or a negative number if original date is older than compared date
      */
+    @Override
     public int compareTo(Date dateToCompare) {
         String[] arrDate = dateToCompare.toString().split("/");
 
@@ -128,6 +129,7 @@ public class Date {
      * @return true if the dates are equal, otherwise false
      */
     public boolean equals(Date date) {
+
         String date1 = this.month + "/" + this.day + "/" + this.year;
         String date2 = date.toString();
         if(this.month == date.getMonth()) {

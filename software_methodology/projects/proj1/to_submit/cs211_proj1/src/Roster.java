@@ -155,7 +155,7 @@ public class Roster {
      * @param student2Index the index of Student 2 in tempRoster
      * @return an updated tempRoster with both students swapped
      */
-    public Student[] swapStudentsForInsertionSort(Student[] tempRoster, int student1Index, int student2Index) {
+    private Student[] swapStudentsForInsertionSort(Student[] tempRoster, int student1Index, int student2Index) {
         Student tempStu = tempRoster[student1Index];
         tempRoster[student1Index] = tempRoster[student2Index];
         tempRoster[student2Index] = tempStu;
@@ -205,7 +205,7 @@ public class Roster {
      * Helper method to print the roster with the correct formatting for each student
      * @param roster the roster to be printed
      */
-    public void printRosterLines (Student[] roster) {
+    private void printRosterLines (Student[] roster) {
         // Print New Sorted Temp Roster
         for (int k = 0; k < size; k++) {
             if (roster[k] != null) {

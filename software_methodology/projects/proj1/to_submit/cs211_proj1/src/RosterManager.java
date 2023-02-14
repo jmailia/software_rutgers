@@ -27,7 +27,7 @@ public class RosterManager {
         // The major does not exist
         boolean isMajorValid = false;
         for (Major value : Major.values()) {
-            if (value.name().equals(major.toUpperCase())) { //TODO: Is this equals() okay? I still dont know what is required
+            if (value.name().equals(major.toUpperCase())) {
                 isMajorValid = true;
             }
         }
@@ -116,13 +116,10 @@ public class RosterManager {
         else if (myRoster.getRoster()[0] == null) { //All students in an already established Student[] have been removed
             System.out.println("Student roster is empty!");
         } else {
-            //System.out.println(whichP); //TODO: REMOVE THIS
             if (whichP.equals("P")) {
                 System.out.println("* Student roster sorted by last name, first name, DOB **");
                 myRoster.print();
             } else if (whichP.equals("PS")) {
-                //TODO: IMPORTANT PLEASE FIX:
-                //TODO: Read my notes for PS. PS DOES NOT order by increasing credits but by (more generally) increasing standing. See the final TestOutput for PS for an example.
                 System.out.println("* Student roster sorted by standing **");
                 myRoster.printByStanding();
             } else {

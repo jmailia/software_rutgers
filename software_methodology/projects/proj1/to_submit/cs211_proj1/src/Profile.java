@@ -13,7 +13,7 @@ public class Profile implements Comparable<Profile> {
      * Getter method for lname
      * @return the last name of the profile
      */
-    public String getLname(){
+    private String getLname(){
         return this.lname;
     }
 
@@ -21,7 +21,7 @@ public class Profile implements Comparable<Profile> {
      * Getter method for fname
      * @return the first name of the profile
      */
-    public String getFname(){
+    private String getFname(){
         return this.fname;
     }
 
@@ -60,20 +60,22 @@ public class Profile implements Comparable<Profile> {
      * @return true if profiles are equal and false if they are not.
      */
     public boolean equals(Profile profile) {
-        if(this.lname.length() == profile.getLname().length()){
-            if(this.fname.length() == profile.getFname().length()){
-                if(this.dob.equals(profile.getDob())){
-                    for(int i = 0; i < lname.length(); i++){
-                        if(Character.toUpperCase(this.lname.charAt(i)) == Character.toUpperCase(profile.getLname().charAt(i)))
+        if(this.lname.length() == profile.getLname().length()) {
+            if(this.fname.length() == profile.getFname().length()) {
+                if(this.dob.equals(profile.getDob())) {
+                    for(int i = 0; i < lname.length(); i++) {
+                        if(Character.toUpperCase(this.lname.charAt(i)) == Character.toUpperCase(profile.getLname().charAt(i))) {
                             continue;
-                        else
+                        } else {
                             return false;
+                        }
                     }
                     for(int j = 0; j < fname.length(); j++){
-                        if(Character.toUpperCase(this.fname.charAt(j)) == Character.toUpperCase(profile.getFname().charAt(j)))
+                        if(Character.toUpperCase(this.fname.charAt(j)) == Character.toUpperCase(profile.getFname().charAt(j))) {
                             continue;
-                        else
+                        } else {
                             return false;
+                        }
                     }
                     if(this.dob.equals(profile.getDob()))
                         return true;
@@ -93,18 +95,22 @@ public class Profile implements Comparable<Profile> {
         String stu1 = this.lname + this.fname;
         String stu2 = profile.getLname() + profile.getFname();
         int min;
-        if(stu1.length() > stu2.length())
+        if(stu1.length() > stu2.length()) {
             min = stu2.length();
-        else
+        } else {
             min = stu1.length();
-        for(int i = 0; i < min; i++){
-            if(Character.toUpperCase(stu1.charAt(i)) < Character.toUpperCase(stu2.charAt(i))){ //stu1 is alphabetically before stu2
+        }
+        for(int i = 0; i < min; i++) {
+            //stu1 is alphabetically before stu2
+            if(Character.toUpperCase(stu1.charAt(i)) < Character.toUpperCase(stu2.charAt(i))) {
                 return 1;
             }
-            if(Character.toUpperCase(stu1.charAt(i)) == Character.toUpperCase(stu2.charAt(i))){ //Characters at this index are equal
+            //Characters at this index are equal
+            if(Character.toUpperCase(stu1.charAt(i)) == Character.toUpperCase(stu2.charAt(i))) {
                 continue;
             }
-            if(Character.toUpperCase(stu1.charAt(i)) > Character.toUpperCase(stu2.charAt(i))){ //stu1 is alphabetically after stu2
+            //stu1 is alphabetically after stu2
+            if(Character.toUpperCase(stu1.charAt(i)) > Character.toUpperCase(stu2.charAt(i))) {
                 return -1;
             }
         }
