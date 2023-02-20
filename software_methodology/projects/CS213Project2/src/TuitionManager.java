@@ -2,6 +2,7 @@
 /* @author Aidan Cronin */
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class TuitionManager {
@@ -271,7 +272,7 @@ public class TuitionManager {
 
     }
 
-    public void run(){
+    public void run() throws FileNotFoundException {
         boolean[] firstTimeLastTime = {true,false};
         Scanner file = new Scanner(new File("studentList.txt"));
         Enrollment myEnrollment = new Enrollment();
