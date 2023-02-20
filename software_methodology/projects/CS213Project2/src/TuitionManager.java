@@ -248,7 +248,12 @@ public class TuitionManager {
         }
     }
 
-    private void E_Command(String fname, String lname, String date, String major, int creditsEnrolled) {
+    private void E_Command(String fname, String lname, String date, int creditsEnrolled, Enrollment myEnrollment) { //TODO: Just started
+        EnrollStudent enrollStudent = new EnrollStudent(new Profile(lname, fname, new Date(date)), creditsEnrolled);
+        EnrollStudent[] enrollStudents = myEnrollment.getEnrollStudents();
+        if(myEnrollment.contains(enrollStudent)){
+            enrollStudents[myEnrollment.find(enrollStudent)].setCreditsEnrolled(creditsEnrolled);
+            }
 
     }
 
@@ -303,7 +308,7 @@ public class TuitionManager {
                     AI_Command(input[1], input[2], input[3], input[4],Integer.parseInt(input[5]), (input[6] == "true"), myRoster);
                     break;
                 case "E":
-                    E_Command(input[1], input[2], input[3], input[4],Integer.parseInt(input[5]));
+                    E_Command(input[1], input[2], input[3], Integer.parseInt(input[5]), myEnrollment);
                     break;
                 case "D":
                     D_Command(input[1], input[2], input[3]);
