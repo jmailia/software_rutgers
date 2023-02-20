@@ -5,6 +5,10 @@ public class Enrollment {
     private EnrollStudent[] enrollStudents;
     private int size;
 
+    public EnrollStudent[] getEnrollStudents(){
+        return this.enrollStudents;
+    }
+
     private void grow() {
         // transfer old roster info into new temp array;
         // this new temp array is of length 4 if the roster is initially empty;
@@ -37,7 +41,7 @@ public class Enrollment {
         }
     }
 
-    private int find(EnrollStudent enrollStudent) {
+    public int find(EnrollStudent enrollStudent) {
         if (this.enrollStudents!=null) {
             for (int k = 0; k < size; k++) {
                 if (this.enrollStudents[k] != null) {
