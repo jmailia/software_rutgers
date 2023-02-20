@@ -20,14 +20,17 @@ public class TuitionManager {
                 case "I":
                     Date tempDateI = new Date(lineInputs[3]);
                     Profile tempProfileI = new Profile(lineInputs[2], lineInputs[1], tempDateI);
+                    International international = new International(tempProfileR, lineInputs[4], Integer.parseInt(lineInputs[5]));
                     break;
                 case "T":
                     Date tempDateT = new Date(lineInputs[3]);
                     Profile tempProfileT = new Profile(lineInputs[2], lineInputs[1], tempDateT);
+                    TriState tristate = new TriState(tempProfileR, lineInputs[4], Integer.parseInt(lineInputs[5]));
                     break;
                 case "N":
                     Date tempDateN = new Date(lineInputs[3]);
                     Profile tempProfileN = new Profile(lineInputs[2], lineInputs[1], tempDateN);
+                    NonResident nonresident = new NonResident(tempProfileR, lineInputs[4], Integer.parseInt(lineInputs[5]));
                     break;
             }
         }
