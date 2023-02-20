@@ -13,6 +13,15 @@ public class EnrollStudent {
         return this.creditsEnrolled;
     }
 
+    public void setCreditsEnrolled(int creditsEnrolled){
+        this.creditsEnrolled = creditsEnrolled;
+    }
+
+    public EnrollStudent(Profile profile, int creditsEnrolled){
+        this.profile= profile;
+        this.creditsEnrolled = creditsEnrolled;
+    }
+
     @Override
     public String toString(){
         return this.profile.toString() + this.creditsEnrolled;
