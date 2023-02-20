@@ -11,57 +11,67 @@ public class TuitionManager {
         while(file.hasNextLine()) {
             String line = file.nextLine();
             String[] lineInputs = line.split(",");
-            switch (lineInputs[0]) {
-                case "R":
-                    Date tempDateR = new Date(lineInputs[3]);
-                    Profile tempProfileR = new Profile(lineInputs[2], lineInputs[1], tempDateR);
-                    Resident resident = new Resident(tempProfileR, lineInputs[4], Integer.parseInt(lineInputs[5]));
-                    break;
-                case "I":
-                    Date tempDateI = new Date(lineInputs[3]);
-                    Profile tempProfileI = new Profile(lineInputs[2], lineInputs[1], tempDateI);
-                    International international = new International(tempProfileR, lineInputs[4], Integer.parseInt(lineInputs[5]));
-                    break;
-                case "T":
-                    Date tempDateT = new Date(lineInputs[3]);
-                    Profile tempProfileT = new Profile(lineInputs[2], lineInputs[1], tempDateT);
-                    TriState tristate = new TriState(tempProfileR, lineInputs[4], Integer.parseInt(lineInputs[5]));
-                    break;
-                case "N":
-                    Date tempDateN = new Date(lineInputs[3]);
-                    Profile tempProfileN = new Profile(lineInputs[2], lineInputs[1], tempDateN);
-                    NonResident nonresident = new NonResident(tempProfileR, lineInputs[4], Integer.parseInt(lineInputs[5]));
-                    break;
+            boolean studyAbroad;
+            if (lineInputs[6] != null)
+                studyAbroad = (lineInputs[6] == "true");
+            else
+                studyAbroad = false;
+            Major tempmajor = Major.CS;
+            for (Major validMajor : Major.values()) {
+                if (validMajor.name().equals(lineInputs[4].toUpperCase())) {
+                    tempmajor = validMajor;
+                }
+                switch (lineInputs[0]) {
+                    case "R":
+                        Date tempDateR = new Date(lineInputs[3]);
+                        Profile tempProfileR = new Profile(lineInputs[2], lineInputs[1], tempDateR);
+                        Resident resident = new Resident(tempProfileR, tempmajor, Integer.parseInt(lineInputs[5]));
+                        break;
+                    case "I":
+                        Date tempDateI = new Date(lineInputs[3]);
+                        Profile tempProfileI = new Profile(lineInputs[2], lineInputs[1], tempDateI);
+                        International international = new International(tempProfileI, tempmajor, Integer.parseInt(lineInputs[5]), studyAbroad);
+                        break;
+                    case "T":
+                        Date tempDateT = new Date(lineInputs[3]);
+                        Profile tempProfileT = new Profile(lineInputs[2], lineInputs[1], tempDateT);
+                        TriState tristate = new TriState(tempProfileT, tempmajor, Integer.parseInt(lineInputs[5]), lineInputs[6]);
+                        break;
+                    case "N":
+                        Date tempDateN = new Date(lineInputs[3]);
+                        Profile tempProfileN = new Profile(lineInputs[2], lineInputs[1], tempDateN);
+                        NonResident nonresident = new NonResident(tempProfileN, tempmajor, Integer.parseInt(lineInputs[5]));
+                        break;
+                }
             }
         }
+    }
+
+    private void AR_Command(String fname, String lname, String date, String major, int creditsEnrolled) {
 
     }
 
-    private void AR_Command() {
+    private void AN_Command(String fname, String lname, String date, String major, int creditsEnrolled) {
 
     }
 
-    private void AN_Command() {
+    private void AT_Command(String fname, String lname, String date, String major, int creditsEnrolled, String state) {
 
     }
 
-    private void AT_Command() {
+    private void AI_Command(String fname, String lname, String date, String major, int creditsEnrolled, boolean studyAbroad) {
 
     }
 
-    private void AI_Command() {
+    private void E_Command(String fname, String lname, String date, String major, int creditsEnrolled) {
 
     }
 
-    private void E_Command() {
+    private void D_Command(String fname, String lname, String date) {
 
     }
 
-    private void D_Command() {
-
-    }
-
-    private void S_Command() {
+    private void S_Command(String fname, String lname, String date, int scholarship) {
 
     }
 
@@ -83,37 +93,37 @@ public class TuitionManager {
         Enrollment enrollStudents = new Enrollment();
         Scanner sc = new Scanner(System.in);
         while(! (firstTimeLastTime[1] && sc.hasNextLine())) {                           //continuously read the line commands until the user quits
-            String[] parsedCommandArguments = sc.nextLine().split("\\s+"); //parses arguments
+            String[] input = sc.nextLine().split("\\s+"); //parses arguments
             if (firstTimeLastTime[0]) {
                 System.out.println("Tuition Manager running...\n");    //user knows software is ready for commands
                 firstTimeLastTime[0] = false;
             }
-            switch (parsedCommandArguments[0]) {                                //get the current command\
+            switch (input[0]) {                                //get the current command\
                 case "":        //if the enter key is pressed without any input, this prevents an error
                     break;
                 case "LS":
                     LS_Command(file);
                     break;
                 case "AR":
-                    AR_Command();
+                    AR_Command(input[1], input[2], input[3], input[4],Integer.parseInt(input[5]));
                     break;
                 case "AN":
-                    AN_Command();
+                    AN_Command(input[1], input[2], input[3], input[4],Integer.parseInt(input[5]));
                     break;
                 case "AT":
-                    AT_Command();
+                    AT_Command(input[1], input[2], input[3], input[4],Integer.parseInt(input[5]) ,input[6]);
                     break;
                 case "AI":
-                    AT_Command();
+                    AI_Command(input[1], input[2], input[3], input[4],Integer.parseInt(input[5]), (input[6] == "true"));
                     break;
                 case "E":
-                    E_Command();
+                    E_Command(input[1], input[2], input[3], input[4],Integer.parseInt(input[5]));
                     break;
                 case "D":
-                    D_Command();
+                    D_Command(input[1], input[2], input[3]);
                     break;
                 case "S":
-                    S_Command();
+                    S_Command(input[1], input[2], input[3], Integer.parseInt(input[4]));
                     break;
                 case "PE":
                     PE_Command();
