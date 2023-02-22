@@ -7,47 +7,47 @@ import java.util.Scanner;
 
 public class TuitionManager {
 
+    /**
+     * Method loads a list of students from a given text file and adds them
+     * to a roster.
+     * @param file The file we want to scan through
+     * @param myRoster The roster we want to add to
+     */
     private void LS_Command(Scanner file, Roster myRoster) {
         while(file.hasNextLine()) {
             String line = file.nextLine();
             String[] lineInputs = line.split(",");
-            boolean studyAbroad;
-            if (lineInputs[6] != null)
+            boolean studyAbroad; 
+            if (lineInputs[6] != null) // Checking for study abroad boolean
                 studyAbroad = (lineInputs[6] == "true");
             else
                 studyAbroad = false;
-            Major tempmajor = Major.CS;
-            for (Major validMajor : Major.values()) {
-                if (validMajor.name().equals(lineInputs[4].toUpperCase())) {
-                    tempmajor = validMajor;
+            switch (lineInputs[0]) { // Checks first token to determine what kind of student is being added.
+                case "R": // Resident
+                    Date tempDateR = new Date(lineInputs[3]);
+                    Profile tempProfileR = new Profile(lineInputs[2], lineInputs[1], tempDateR);
+                    Resident resident = new Resident(tempProfileR, Major.valueOf(lineInputs[4].toUpperCase()), Integer.parseInt(lineInputs[5]));
+                    myRoster.add(resident); // Add student
+                    break; 
+                case "I": // International
+                    Date tempDateI = new Date(lineInputs[3]);
+                    Profile tempProfileI = new Profile(lineInputs[2], lineInputs[1], tempDateI);
+                    International international = new International(tempProfileI, Major.valueOf(lineInputs[4].toUpperCase()), Integer.parseInt(lineInputs[5]), studyAbroad);
+                    myRoster.add(international); // Add student
+                    break; 
+                case "T": // TriState
+                    Date tempDateT = new Date(lineInputs[3]);
+                    Profile tempProfileT = new Profile(lineInputs[2], lineInputs[1], tempDateT);
+                    TriState tristate = new TriState(tempProfileT, Major.valueOf(lineInputs[4].toUpperCase()), Integer.parseInt(lineInputs[5]), lineInputs[6]);
+                    myRoster.add(tristate); // Add student
+                    break;
+                case "N": //NonResident
+                    Date tempDateN = new Date(lineInputs[3]);
+                    Profile tempProfileN = new Profile(lineInputs[2], lineInputs[1], tempDateN);
+                    NonResident nonresident = new NonResident(tempProfileN, Major.valueOf(lineInputs[4].toUpperCase()), Integer.parseInt(lineInputs[5]));
+                    myRoster.add(nonresident); // Add student
+                    break;
                 }
-                switch (lineInputs[0]) {
-                    case "R":
-                        Date tempDateR = new Date(lineInputs[3]);
-                        Profile tempProfileR = new Profile(lineInputs[2], lineInputs[1], tempDateR);
-                        Resident resident = new Resident(tempProfileR, tempmajor, Integer.parseInt(lineInputs[5]));
-                        myRoster.add(resident);
-                        break;
-                    case "I":
-                        Date tempDateI = new Date(lineInputs[3]);
-                        Profile tempProfileI = new Profile(lineInputs[2], lineInputs[1], tempDateI);
-                        International international = new International(tempProfileI, tempmajor, Integer.parseInt(lineInputs[5]), studyAbroad);
-                        myRoster.add(international);
-                        break;
-                    case "T":
-                        Date tempDateT = new Date(lineInputs[3]);
-                        Profile tempProfileT = new Profile(lineInputs[2], lineInputs[1], tempDateT);
-                        TriState tristate = new TriState(tempProfileT, tempmajor, Integer.parseInt(lineInputs[5]), lineInputs[6]);
-                        myRoster.add(tristate);
-                        break;
-                    case "N":
-                        Date tempDateN = new Date(lineInputs[3]);
-                        Profile tempProfileN = new Profile(lineInputs[2], lineInputs[1], tempDateN);
-                        NonResident nonresident = new NonResident(tempProfileN, tempmajor, Integer.parseInt(lineInputs[5]));
-                        myRoster.add(nonresident);
-                        break;
-                }
-            }
         }
     }
 
@@ -255,20 +255,20 @@ public class TuitionManager {
      * @param myRoster Roster which might contain the student who, if in it, is to be removed
      */
     private void R_Command(String firstName, String lastName, String DOB, Roster myRoster) {
-        Profile profileToRemove = new Profile(lastName, firstName, new Date(DOB));
+        Profile profileToRemove = new Profile(lastName, firstName, new Date(DOB)); // Create profile with inputted information
         if (myRoster!=null) {
-            for (Student student : myRoster.getRoster()) {
+            for (Student student : myRoster.getRoster()) { // Search through roster to find student that will be removed.
                 if (student != null) {
                     if (student.getProfile().equals(profileToRemove)) {
-                        myRoster.remove(student);
+                        myRoster.remove(student); // Remove student
                         System.out.println(profileToRemove.toString() + " removed from the roster.");
                         return;
                     }
                 }
             }
-            System.out.println(profileToRemove.toString() + " is not in the roster.");
+            System.out.println(profileToRemove.toString() + " is not in the roster."); // Not in roster
         }
-        System.out.println("Roster is empty.");
+        System.out.println("Roster is empty."); // Roster is empty
     }
 
     private void E_Command(String fname, String lname, String date, int creditsEnrolled, Enrollment myEnrollment, Roster myRoster) {
@@ -436,8 +436,35 @@ public class TuitionManager {
         }
     }
 
-    private void SE_Command() {
+    /**
+     * Command ends the semester and adds all the enrolled students credits to their object in
+     * the roster. The students who are then eligible to graduate are then printed.
+     * @param myEnrollment the Enrollment we want to iterate through
+     * @param myRoster the Roster we want to iterate through
+     */
+    private void SE_Command(Enrollment myEnrollment, Roster myRoster) {
+        if (myEnrollment == null || myEnrollment.getEnrollStudents() == null) { // Check if enrollment is empty
+            System.out.println("Enrollment is empty!");
+            return;
+        }
+        if (myRoster == null || myRoster.getRoster() == null) { // Check if roster is empty
+            System.out.println("Roster is empty!");
+            return;
+        }
+        for(EnrollStudent enrollStudent : myEnrollment.getEnrollStudents()){ // Iterate through both Enrollment and roster to find matching profile
+            for(Student student : myRoster.getRoster()) {
+                if(enrollStudent.getProfile().equals(student.getProfile())){
+                    student.setCreditCompleted(student.getCreditCompleted() + enrollStudent.getCreditsEnrolled()); // Set new creditCompleted by adding current credits and enrolled credits
+                }
+            }
+        }
 
+        System.out.println("** list of students eligible for graudation **"); // Printing out list of students eligible for graduation
+        for(Student student : myRoster.getRoster()) {
+            if(student.getCreditCompleted() >= 120){
+                System.out.println(student.toString() + "(" + student.getClass() + ")");
+            }
+        }
     }
 
     public void run() throws FileNotFoundException {
