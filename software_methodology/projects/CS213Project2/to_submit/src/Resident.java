@@ -7,17 +7,9 @@ public class Resident extends Student {
         this.scholarship = 0;
     }
 
-    public void setScholarship(int scholarship) {
-        this.scholarship = scholarship;
-    }
-
-    /**
-     * The tuition due for resident students
-     * @param creditsEnrolled The number of credits the resident student is enrolled in
-     * @return the tuition which the student is to pay
-     */
     public double tuitionDue(int creditsEnrolled){
         if(isValid(creditsEnrolled)){
+            double tuition = 0;
             int universityFee = 3268;
             int creditsPerHour = 404;
             int exceededCredits = 16;
@@ -25,13 +17,19 @@ public class Resident extends Student {
             int fulltimeTuition = 12536;
             if(creditsEnrolled < fulltimeCredits){ //Parttime students
                 double parttimeFeePercentage = 0.8;
-                return (parttimeFeePercentage * universityFee) + (creditsPerHour * creditsEnrolled) - this.scholarship;
+                tuition = (parttimeFeePercentage * universityFee) + (creditsPerHour * creditsEnrolled);
+                tuition -= this.scholarship;
+                return tuition;
             }
             if(creditsEnrolled > exceededCredits){ //Students with over 16 credits
                 int extraCredits = creditsEnrolled - exceededCredits;
-                return (extraCredits * creditsPerHour) + universityFee + fulltimeTuition - this.scholarship;
+                tuition = (extraCredits * creditsPerHour) + universityFee + fulltimeTuition;
+                tuition -= this.scholarship;
+                return tuition;
             } // Fulltime students who don't exceed 16 credits
-            return universityFee + fulltimeTuition - this.scholarship;
+            tuition = universityFee + fulltimeTuition;
+            tuition -= this.scholarship;
+            return tuition;
         }
         return -1; //credits not valid
     }
@@ -39,5 +37,9 @@ public class Resident extends Student {
     public boolean isResident(){
             return true;
         }
+
+    public void setScholarship(int scholarship){
+        this.scholarship = scholarship;
+    }
 }
 
