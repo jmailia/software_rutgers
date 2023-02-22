@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 /**
  * The User Interface class to process the line commands entered on the console and display the results of the console
  */
-public class RosterManager {
+public class TuitionManager {
 
 
     private void LS_Command(Scanner file, Roster myRoster) {
@@ -142,7 +142,7 @@ public class RosterManager {
     }
 
     /**
-     * This helper method parses the arguments for the A_Command
+     * This helper method parses the arguments for the A_Command; this is needed as
      * @param input the arguments of the user when they are adding a student
      * @param myRoster the roster which we want to add the student to
      */
@@ -154,7 +154,6 @@ public class RosterManager {
             } else { //otherwise, international student
                 A_Command(input[0], input[1],input[2], new Date(input[3]),  input[4], input[5], myRoster, Boolean.parseBoolean(input[6]), "");
             }
-
         } else { //otherwise, resident/nonresident student
             A_Command(input[0], input[1], input[2], new Date(input[3]), input[4], input[5], myRoster, false, "");
         }
@@ -183,6 +182,7 @@ public class RosterManager {
 
         // The major does not exist
         isValidAddition = isMajorValid(major, isValidAddition);
+
         // The number of credits completed is invalid
         isValidAddition = (isValidAddition ? isCreditsCompletedValid(creditsCompleted, isValidAddition) : false);
         // The DOB is invalid
@@ -381,6 +381,12 @@ public class RosterManager {
 
     }
 
+
+    /**
+     * Helper method that, when the user has inputted their first command, prints out "Tuition Manager running..."
+     * @param firstTimeLastTime A boolean[] of size 2; index 0 keeps track of whether the user's command is their first, index 1 keeps track of whether the user's command is their last
+     * @return firstTimeLastTime
+     */
     private boolean[] ifFirstCommand(boolean[] firstTimeLastTime) {
         if (firstTimeLastTime[0]) {
             System.out.println("Tuition Manager running...\n");    //user knows software is ready for commands

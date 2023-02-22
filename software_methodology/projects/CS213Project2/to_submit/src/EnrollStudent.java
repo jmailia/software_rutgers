@@ -1,6 +1,9 @@
 /* @author Henry Hecht */
 /* @author Aidan Cronin */
 
+/**
+ * Class holds the list of students who are enrolled in classes this semester and allows for associated functionality
+ */
 public class EnrollStudent {
     private Profile profile;
     private int creditsEnrolled;

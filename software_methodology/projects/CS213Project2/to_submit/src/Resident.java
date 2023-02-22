@@ -11,9 +11,13 @@ public class Resident extends Student {
         this.scholarship = scholarship;
     }
 
+    /**
+     * The tuition due for resident students
+     * @param creditsEnrolled The number of credits the resident student is enrolled in
+     * @return the tuition which the student is to pay
+     */
     public double tuitionDue(int creditsEnrolled){
         if(isValid(creditsEnrolled)){
-            double tuition = 0;
             int universityFee = 3268;
             int creditsPerHour = 404;
             int exceededCredits = 16;
@@ -21,19 +25,13 @@ public class Resident extends Student {
             int fulltimeTuition = 12536;
             if(creditsEnrolled < fulltimeCredits){ //Parttime students
                 double parttimeFeePercentage = 0.8;
-                tuition = (parttimeFeePercentage * universityFee) + (creditsPerHour * creditsEnrolled);
-                tuition -= this.scholarship;
-                return tuition;
+                return (parttimeFeePercentage * universityFee) + (creditsPerHour * creditsEnrolled) - this.scholarship;
             }
             if(creditsEnrolled > exceededCredits){ //Students with over 16 credits
                 int extraCredits = creditsEnrolled - exceededCredits;
-                tuition = (extraCredits * creditsPerHour) + universityFee + fulltimeTuition;
-                tuition -= this.scholarship;
-                return tuition;
+                return (extraCredits * creditsPerHour) + universityFee + fulltimeTuition - this.scholarship;
             } // Fulltime students who don't exceed 16 credits
-            tuition = universityFee + fulltimeTuition;
-            tuition -= this.scholarship;
-            return tuition;
+            return universityFee + fulltimeTuition - this.scholarship;
         }
         return -1; //credits not valid
     }
