@@ -7,8 +7,7 @@ import java.util.Scanner;
 
 public class TuitionManager {
 
-    private void LS_Command(Scanner file) {
-        Roster temp = new Roster();
+    private void LS_Command(Scanner file, Roster myRoster) {
         while(file.hasNextLine()) {
             String line = file.nextLine();
             String[] lineInputs = line.split(",");
@@ -27,25 +26,25 @@ public class TuitionManager {
                         Date tempDateR = new Date(lineInputs[3]);
                         Profile tempProfileR = new Profile(lineInputs[2], lineInputs[1], tempDateR);
                         Resident resident = new Resident(tempProfileR, tempmajor, Integer.parseInt(lineInputs[5]));
-                        temp.add(resident);
+                        myRoster.add(resident);
                         break;
                     case "I":
                         Date tempDateI = new Date(lineInputs[3]);
                         Profile tempProfileI = new Profile(lineInputs[2], lineInputs[1], tempDateI);
                         International international = new International(tempProfileI, tempmajor, Integer.parseInt(lineInputs[5]), studyAbroad);
-                        temp.add(international);
+                        myRoster.add(international);
                         break;
                     case "T":
                         Date tempDateT = new Date(lineInputs[3]);
                         Profile tempProfileT = new Profile(lineInputs[2], lineInputs[1], tempDateT);
                         TriState tristate = new TriState(tempProfileT, tempmajor, Integer.parseInt(lineInputs[5]), lineInputs[6]);
-                        temp.add(tristate);
+                        myRoster.add(tristate);
                         break;
                     case "N":
                         Date tempDateN = new Date(lineInputs[3]);
                         Profile tempProfileN = new Profile(lineInputs[2], lineInputs[1], tempDateN);
                         NonResident nonresident = new NonResident(tempProfileN, tempmajor, Integer.parseInt(lineInputs[5]));
-                        temp.add(nonresident);
+                        myRoster.add(nonresident);
                         break;
                 }
             }
@@ -248,12 +247,21 @@ public class TuitionManager {
         }
     }
 
-    private void E_Command(String fname, String lname, String date, int creditsEnrolled, Enrollment myEnrollment) { //TODO: Just started
-        EnrollStudent enrollStudent = new EnrollStudent(new Profile(lname, fname, new Date(date)), creditsEnrolled);
-        EnrollStudent[] enrollStudents = myEnrollment.getEnrollStudents();
-        if(myEnrollment.contains(enrollStudent)){
-            enrollStudents[myEnrollment.find(enrollStudent)].setCreditsEnrolled(creditsEnrolled);
+    private void E_Command(String fname, String lname, String date, int creditsEnrolled, Enrollment myEnrollment, Roster myRoster) { //TODO: Just started
+        Profile profile = new Profile(lname, fname, new Date(date));
+        if (myRoster!=null) {
+            for (Student student : myRoster.getRoster()) {
+                if (student != null) {
+                    if (student.getProfile().equals(profile)) {
+                        EnrollStudent enrollStudent = new EnrollStudent(profile, creditsEnrolled);
+                        myEnrollment.add(enrollStudent);
+                        System.out.println(profile.toString() + " enrolled " + creditsEnrolled + " credits");
+                    }
+                }
             }
+            System.out.println("Cannot enroll: " + profile.toString() + " is not in the roster.");
+        }
+        System.out.println("Roster is empty!");
 
     }
 
@@ -261,16 +269,28 @@ public class TuitionManager {
 
     }
 
-    private void S_Command(String fname, String lname, String date, int scholarship) {
+    private void S_Command(String fname, String lname, String date, int scholarship, Enrollment myEnrollment, Roster myRoster) {
 
     }
 
-    private void PE_Command() {
-
+    private void PE_Command(Enrollment myEnrollment) {
+        if (myEnrollment == null || myEnrollment.getEnrollStudents() == null) {
+            System.out.println("Enrollment is empty!");
+            return;
+        }
+        myEnrollment.print();
     }
 
     private void PT_Command() {
 
+    }
+
+    private void P_Command(Roster myRoster) {
+        if (myRoster == null || myRoster.getRoster() == null) {
+            System.out.println("Student roster is empty!");
+            return;
+        }
+        myRoster.print();
     }
 
     private void SE_Command() {
@@ -293,7 +313,7 @@ public class TuitionManager {
                 case "":        //if the enter key is pressed without any input, this prevents an error
                     break;
                 case "LS":
-                    LS_Command(file);
+                    LS_Command(file, myRoster);
                     break;
                 case "AR":
                     AR_Command(input[1], input[2], input[3], input[4],Integer.parseInt(input[5]), myRoster);
@@ -308,19 +328,22 @@ public class TuitionManager {
                     AI_Command(input[1], input[2], input[3], input[4],Integer.parseInt(input[5]), (input[6] == "true"), myRoster);
                     break;
                 case "E":
-                    E_Command(input[1], input[2], input[3], Integer.parseInt(input[5]), myEnrollment);
+                    E_Command(input[1], input[2], input[3], Integer.parseInt(input[5]), myEnrollment, myRoster);
                     break;
                 case "D":
                     D_Command(input[1], input[2], input[3]);
                     break;
                 case "S":
-                    S_Command(input[1], input[2], input[3], Integer.parseInt(input[4]));
+                    S_Command(input[1], input[2], input[3], Integer.parseInt(input[4]), myEnrollment, myRoster);
                     break;
                 case "PE":
-                    PE_Command();
+                    PE_Command(myEnrollment);
                     break;
                 case "PT":
                     PT_Command();
+                    break;
+                case "P":
+                    P_Command(myRoster);
                     break;
                 case "SE":
                     SE_Command();
