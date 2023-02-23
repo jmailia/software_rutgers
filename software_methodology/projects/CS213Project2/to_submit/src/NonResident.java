@@ -33,4 +33,8 @@ public class NonResident extends Student {
     public boolean isResident(){
         return false;
     }
+    
+    public void setScholarship(int scholarship){
+        return;
+    }
 }
