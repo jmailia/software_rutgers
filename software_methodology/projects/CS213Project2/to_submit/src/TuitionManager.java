@@ -58,7 +58,7 @@ public class TuitionManager {
     private void A_Command_ParseArguments(String[] input, Roster myRoster){
         if ((input[0] == "AT" || input[0] == "T") && input.length > 5) { //if tristate student
             A_Command(input[0], input[1],input[2], new Date(input[3]),  input[4], input[5], myRoster, false, input[6]);
-        } else if ((input[0] == "AI" || input[0] == "T") && input.length > 5 ){ //otherwise, international student
+        } else if ((input[0] == "AI" || input[0] == "I") && input.length > 5 ){ //otherwise, international student
             A_Command(input[0], input[1],input[2], new Date(input[3]),  input[4], input[5], myRoster, Boolean.parseBoolean(input[6]), "");
         } else if (input.length > 5) { //otherwise, resident/nonresident student
             A_Command(input[0], input[1], input[2], new Date(input[3]), input[4], input[5], myRoster, false, "");
@@ -221,38 +221,47 @@ public class TuitionManager {
      * Method adds a given student into myEnrollment. If a student is already enrolled
      * then it will just change the currently enrolled credits. Method will not add to
      * enrollment if student is not in roster.
-     * @param fname First name of student
-     * @param lname Last name of student
-     * @param date Date of Birth of student
-     * @param creditsEnrolled Student's credits enrolled
+     * @param input Input
      * @param myEnrollment Enrollment that we want to add to
      * @param myRoster Roster that we need to iterate through
      */
-    private void E_Command(String fname, String lname, String date, int creditsEnrolled, Enrollment myEnrollment, Roster myRoster) {
-        Profile profile = new Profile(lname, fname, new Date(date));
-        if (myRoster!=null) {
-            for (Student student : myRoster.getRoster()) { //Check to see if student is in roster
-                if (student != null) {
-                    if (student.getProfile().equals(profile)) {
-                        for (EnrollStudent enrollStudent : myEnrollment.getEnrollStudents()) { //Check to see if student is already enrolled
-                            if (student != null) {
-                                if (student.getProfile().equals(profile)) {
-                                    enrollStudent.setCreditsEnrolled(creditsEnrolled);
-                                    System.out.println(profile.toString() + " enrolled " + creditsEnrolled + " credits");
-                                    return;
+    private void E_Command(String[] input, Enrollment myEnrollment, Roster myRoster) {
+        if (input.length < 5) {
+            System.out.println("Missing data in line command.");
+            return;
+        }
+        if (input[4] != null && input[4].matches("[-+]?\\d*\\.?\\d+")) {
+            int creditsEnrolled = Integer.parseInt(input[4]);
+            Profile profile = new Profile(input[2], input[1], new Date(input[3]));
+            if (myRoster != null) {
+                for (Student student : myRoster.getRoster()) { //Check to see if student is in roster
+                    if (student != null) {
+                        if (student.getProfile().equals(profile)) {
+                            if (myEnrollment.getEnrollStudents() != null) {
+                                for (EnrollStudent enrollStudent : myEnrollment.getEnrollStudents()) { //Check to see if student is already enrolled
+                                    if (enrollStudent != null) {
+                                        if (student.getProfile().equals(profile)) {
+                                            enrollStudent.setCreditsEnrolled(creditsEnrolled);
+                                            System.out.println(profile.toString() + " enrolled " + creditsEnrolled + " credits");
+                                            return;
+                                        }
+                                    }
                                 }
                             }
+                            EnrollStudent enrollStudent = new EnrollStudent(profile, creditsEnrolled);
+                            myEnrollment.add(enrollStudent);
+                            System.out.println(profile.toString() + " enrolled " + creditsEnrolled + " credits");
+                            return;
                         }
-                        EnrollStudent enrollStudent = new EnrollStudent(profile, creditsEnrolled);
-                        myEnrollment.add(enrollStudent);
-                        System.out.println(profile.toString() + " enrolled " + creditsEnrolled + " credits");
-                        return;
                     }
                 }
+                System.out.println("Cannot enroll: " + profile.toString() + " is not in the roster.");
+                return;
             }
-            System.out.println("Cannot enroll: " + profile.toString() + " is not in the roster.");
+            System.out.println("Enrollment is empty!");
+            return;
         }
-        System.out.println("Enrollment is empty!");
+        System.out.println("Credits enrolled is not an integer.");
     }
 
     /**
@@ -543,7 +552,7 @@ public class TuitionManager {
                     R_Command(input[1],input[2],input[3],myRoster);
                     break;
                 case "E":
-                    E_Command(input[1], input[2], input[3], Integer.parseInt(input[5]), myEnrollment, myRoster);
+                    E_Command(input, myEnrollment, myRoster);
                     break;
                 case "D":
                     D_Command(input[1], input[2], input[3], myEnrollment);
