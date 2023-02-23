@@ -54,6 +54,14 @@ public abstract class Student implements Comparable<Student> {
     }
 
     /**
+     * Setter method for creditCompleted
+     * @param creditCompleted credit to set
+     */
+    public void setCreditCompleted(int creditCompleted){
+        this.creditCompleted = creditCompleted;
+    }
+
+    /**
      * Method to print Student details.
      * @return String
      */
@@ -136,5 +144,7 @@ public abstract class Student implements Comparable<Student> {
     public abstract double tuitionDue(int creditsEnrolled);
 
     public abstract boolean isResident();
+
+    public abstract void setScholarship(int scholarship);
 
 }
