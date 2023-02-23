@@ -21,6 +21,7 @@ public class TuitionManager {
             String[] lineInputs = line.split(",");
             A_Command_ParseArguments(lineInputs, myRoster);
         }
+        file.close();
     }
 
     /**
@@ -31,27 +32,22 @@ public class TuitionManager {
      * @param creditsCompleted The number of credits completed by the student to be added;
      *                         inputted as a string in case it is not an integer
      * @param isStudyingAbroad true if student is studying abroad as an international student, false otherwise
-     * @param whichTriState a potential abbreviation for a tristate student, NY/NJ/CT
+     * @param whichTriState a potential abbreviation for a tristate student, NY/CT
      */
     private Student createCorrectStudentInstance(String typeOfStudent, Profile profile, Major major,
-                                                 int creditsCompleted, boolean isStudyingAbroad, String whichTriState) {
-        Student student; //TODO: I am not sure if this is correct, but it appears to work because res/nonres/intnl/trist is an extension of Student? Hope this makes sense.
+                                                 int creditsCompleted, boolean isStudyingAbroad, String whichTriState){
+        //TODO: I am not sure if this is correct, but it appears to work because res/nonres/intnl/trist is an extension of Student (the type which is returned as in the function definition)? Hope this makes sense.
 
         switch(typeOfStudent) {
             case "I":
-                student = new International(profile, major, creditsCompleted, isStudyingAbroad);
-                break;
+                return (new International(profile, major, creditsCompleted, isStudyingAbroad));
             case "T":
-                student = new TriState(profile, major, creditsCompleted, whichTriState);
-                break;
+                return (new TriState(profile, major, creditsCompleted, whichTriState));
             case "N":
-                student = new NonResident(profile, major, creditsCompleted);
-                break;
+                return (new NonResident(profile, major, creditsCompleted));
             default: //is resident
-                student = new Resident(profile, major, creditsCompleted);
-                break;
+                return (new Resident(profile, major, creditsCompleted));
         }
-        return student;
     }
     /**
      * This helper method parses the arguments for the A_Command; this is needed as
@@ -570,7 +566,7 @@ public class TuitionManager {
                     break;
                 case "SE":
                     SE_Command(myEnrollment, myRoster);
-                    break;    
+                    break;
                 case "Q":
                     System.out.println("Tuition Manager terminated.");    //user has terminated the software normally
                     firstTimeLastTime[1] = true;
