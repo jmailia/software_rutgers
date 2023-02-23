@@ -37,7 +37,7 @@ public class Resident extends Student {
     }
 
     public boolean isResident(){
-            return true;
-        }
+        return true;
+    }
 }
 
