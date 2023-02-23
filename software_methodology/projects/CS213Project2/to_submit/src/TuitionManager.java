@@ -22,6 +22,7 @@ public class TuitionManager {
             A_Command_ParseArguments(lineInputs, myRoster);
         }
         file.close();
+        System.out.println("Students loaded to the roster.");
     }
 
     /**
@@ -55,12 +56,15 @@ public class TuitionManager {
      * @param myRoster the roster which we want to add the student to
      */
     private void A_Command_ParseArguments(String[] input, Roster myRoster){
-        if (input[0] == "AT" || input[0] == "T") { //if tristate student
+        if ((input[0] == "AT" || input[0] == "T") && input.length > 5) { //if tristate student
             A_Command(input[0], input[1],input[2], new Date(input[3]),  input[4], input[5], myRoster, false, input[6]);
-        } else if (input[0] == "AI" || input[0] == "I"){ //otherwise, international student
+        } else if ((input[0] == "AI" || input[0] == "T") && input.length > 5 ){ //otherwise, international student
             A_Command(input[0], input[1],input[2], new Date(input[3]),  input[4], input[5], myRoster, Boolean.parseBoolean(input[6]), "");
-        } else { //otherwise, resident/nonresident student
+        } else if (input.length > 5) { //otherwise, resident/nonresident student
             A_Command(input[0], input[1], input[2], new Date(input[3]), input[4], input[5], myRoster, false, "");
+        }
+        else {
+            System.out.println("Missing data in line command.");
         }
     }
 
