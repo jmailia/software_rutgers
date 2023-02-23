@@ -12,68 +12,76 @@ public class TuitionManager {
 
     /**
      * Load the student roster from an external file of which each line is an instance of Student.
-     * @param file The external file which contains students of varying statuses.
+     * @param file     The external file which contains students of varying statuses.
      * @param myRoster The roster which we will want to add them to.
      */
     private void LS_Command(Scanner file, Roster myRoster) {
-        while(file.hasNextLine()) {
+        while (file.hasNextLine()) {
             String line = file.nextLine();
             String[] lineInputs = line.split(",");
-            boolean studyAbroad;
-            if (lineInputs.length == 6 [6] != null)
-                studyAbroad = (lineInputs[6] == "true");
-            else
-                studyAbroad = false;
-            Major tempmajor = Major.CS;
-            for (Major validMajor : Major.values()) {
-                if (validMajor.name().equals(lineInputs[4].toUpperCase())) {
-                    tempmajor = validMajor;
-                }
-                switch (lineInputs[0]) {
-                    case "R":
-                        Date tempDateR = new Date(lineInputs[3]);
-                        Profile tempProfileR = new Profile(lineInputs[2], lineInputs[1], tempDateR);
-                        Resident resident = new Resident(tempProfileR, tempmajor, Integer.parseInt(lineInputs[5]));
-                        myRoster.add(resident);
-                        break;
-                    case "I":
-                        Date tempDateI = new Date(lineInputs[3]);
-                        Profile tempProfileI = new Profile(lineInputs[2], lineInputs[1], tempDateI);
-                        International international = new International(tempProfileI, tempmajor, Integer.parseInt(lineInputs[5]), studyAbroad);
-                        myRoster.add(international);
-                        break;
-                    case "T":
-                        Date tempDateT = new Date(lineInputs[3]);
-                        Profile tempProfileT = new Profile(lineInputs[2], lineInputs[1], tempDateT);
-                        TriState tristate = new TriState(tempProfileT, tempmajor, Integer.parseInt(lineInputs[5]), lineInputs[6]);
-                        myRoster.add(tristate);
-                        break;
-                    case "N":
-                        Date tempDateN = new Date(lineInputs[3]);
-                        Profile tempProfileN = new Profile(lineInputs[2], lineInputs[1], tempDateN);
-                        NonResident nonresident = new NonResident(tempProfileN, tempmajor, Integer.parseInt(lineInputs[5]));
-                        myRoster.add(nonresident);
-                        break;
-                }
-            }
+            A_Command_ParseArguments(lineInputs, myRoster);
         }
     }
 
+    /**
+     * Add a student to the roster, but only if the student's provided information is valid and eligible
+     * @param typeOfStudent is "R" for Resident, "N" for NonResident, "T" for Tristate, "I" for International
+     * @param profile The profile of the student containing their first name, last name, and DOB
+     * @param major The major of the student to be added; major is NOT case-sensitive
+     * @param creditsCompleted The number of credits completed by the student to be added;
+     *                         inputted as a string in case it is not an integer
+     * @param isStudyingAbroad true if student is studying abroad as an international student, false otherwise
+     * @param whichTriState a potential abbreviation for a tristate student, NY/NJ/CT
+     */
+    private Student createCorrectStudentInstance(String typeOfStudent, Profile profile, Major major,
+                                                 int creditsCompleted, boolean isStudyingAbroad, String whichTriState) {
+        Student student; //TODO: I am not sure if this is correct, but it appears to work because res/nonres/intnl/trist is an extension of Student? Hope this makes sense.
+
+        switch(typeOfStudent) {
+            case "I":
+                student = new International(profile, major, creditsCompleted, isStudyingAbroad);
+                break;
+            case "T":
+                student = new TriState(profile, major, creditsCompleted, whichTriState);
+                break;
+            case "N":
+                student = new NonResident(profile, major, creditsCompleted);
+                break;
+            default: //is resident
+                student = new Resident(profile, major, creditsCompleted);
+                break;
+        }
+        return student;
+    }
+    /**
+     * This helper method parses the arguments for the A_Command; this is needed as
+     * @param input the arguments of the user when they are adding a student
+     * @param myRoster the roster which we want to add the student to
+     */
+    private void A_Command_ParseArguments(String[] input, Roster myRoster){
+        if (input[0] == "AT" || input[0] == "T") { //if tristate student
+            A_Command(input[0], input[1],input[2], new Date(input[3]),  input[4], input[5], myRoster, false, input[6]);
+        } else if (input[0] == "AI" || input[0] == "I"){ //otherwise, international student
+            A_Command(input[0], input[1],input[2], new Date(input[3]),  input[4], input[5], myRoster, Boolean.parseBoolean(input[6]), "");
+        } else { //otherwise, resident/nonresident student
+            A_Command(input[0], input[1], input[2], new Date(input[3]), input[4], input[5], myRoster, false, "");
+        }
+    }
 
 
     /**
      * Helper method for A_Command which checks if student is in the roster already
      * @param myRoster the roster which the student might already be part of
-     * @param myResident the student which we want to add to the roster, if they are not part of it already
+     * @param myStudent the student which we want to add to the roster, if they are not part of it already
      * @return the roster which the student had wanted to be added to
      */
-    private Roster checkIfStudentInRosterAlready (Roster myRoster, Resident myResident) {
-        if (myRoster.contains(myResident)) {
-            System.out.println(myResident.getProfile().toString() + " is already in the roster.");
+    private Roster checkIfStudentInRosterAlready (Roster myRoster, Student myStudent) {
+        if (myRoster.contains(myStudent)) {
+            System.out.println(myStudent.getProfile().toString() + " is already in the roster.");
         } else {
             // If the student meets the requirements to be added
-            myRoster.add(myResident);
-            System.out.println(myResident.printStudentProfile() + " added to the roster.");
+            myRoster.add(myStudent);
+            System.out.println(myStudent.printStudentProfile() + " added to the roster.");
         }
         return myRoster;
     }
@@ -145,23 +153,7 @@ public class TuitionManager {
         return isValidAddition;
     }
 
-    /**
-     * This helper method parses the arguments for the A_Command; this is needed as
-     * @param input the arguments of the user when they are adding a student
-     * @param myRoster the roster which we want to add the student to
-     */
-    private void A_Command_ParseArguments(String[] input, Roster myRoster){
-        if (input.length >  6) {
-            //if tristate student
-            if (input[6] == "NY" || input[6] == "NJ" || input[6] == "CT"){
-                A_Command(input[0], input[1],input[2], new Date(input[3]),  input[4], input[5], myRoster, false, input[6]);
-            } else { //otherwise, international student
-                A_Command(input[0], input[1],input[2], new Date(input[3]),  input[4], input[5], myRoster, Boolean.parseBoolean(input[6]), "");
-            }
-        } else { //otherwise, resident/nonresident student
-            A_Command(input[0], input[1], input[2], new Date(input[3]), input[4], input[5], myRoster, false, "");
-        }
-    }
+
 
 
     /**
@@ -191,9 +183,14 @@ public class TuitionManager {
         isValidAddition = (isValidAddition ? isCreditsCompletedValid(creditsCompleted, isValidAddition) : false);
         // The DOB is invalid
         isValidAddition = (isValidAddition ? isDOBValid(date) : false);
-        // The student is in the roster already, otherwise add the student
-        myRoster =  (isValidAddition ? checkIfStudentInRosterAlready(myRoster, new Resident(
-                new Profile(lname, fname, date), Major.valueOf(major.toUpperCase()), Integer.parseInt(creditsCompleted))) : myRoster);
+
+        // If the student remains a valid addition, check to see if student is in the roster already;
+        // if they are not, add the student
+
+        myRoster = (isValidAddition ? checkIfStudentInRosterAlready(myRoster,
+                createCorrectStudentInstance(typeOfStudent,
+                        new Profile(lname, fname, date), Major.valueOf(major.toUpperCase()),
+                        Integer.parseInt(creditsCompleted), isStudyingAbroad, whichTriState)): myRoster);
     }
 
     /**
