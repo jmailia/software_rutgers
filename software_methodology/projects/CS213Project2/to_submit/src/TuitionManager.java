@@ -443,9 +443,9 @@ public class TuitionManager {
      */
     private void PE_Command(Enrollment myEnrollment) {
         if (myEnrollment == null || myEnrollment.getEnrollStudents() == null) {
-            System.out.println("Student roster is empty!");
+            System.out.println("Enrollment is empty!");
         } else if (myEnrollment.getEnrollStudents()[0] == null) { //All students in an already established enrollStudents[] have been removed
-            System.out.println("Student roster is empty!");
+            System.out.println("Enrollment is empty!");
         } else {
             myEnrollment.print();
         }
