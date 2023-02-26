@@ -82,7 +82,7 @@ public class TuitionManager {
                     myRoster, false, "", isLS);
         }
         else {
-            System.out.println("Missing data in line command.");
+            System.out.println("Missing data in command line.");
         }
     }
 
