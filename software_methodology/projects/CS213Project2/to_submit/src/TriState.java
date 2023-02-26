@@ -6,12 +6,14 @@ public class TriState extends NonResident{
         this.state = state;
     }
 
+
+
     /**
      * Non-resident students from the tristate area get a tuition discount
      * @param state the state which the non-resident tri-state student is from
      * @return the tuition discount for the non-resident tri-state student
      */
-    public int tristateDiscount(String state){
+    private int tristateDiscount(String state){
         return (state == "CT") ? 5000 : (state == "NY") ? 4000 : 0;
     }
 
@@ -78,4 +80,10 @@ public class TriState extends NonResident{
     public boolean isStudyAbroad(){
         return false;
     }
+
+    /**
+     * If the student is a nonresident tristate student, returns the string containing their origin state.
+     * @return "NY" if the student is from NY, "CT" if the student is from CT, "" if not from either.
+     */
+    public String whichTristate(){return this.state;}
 }

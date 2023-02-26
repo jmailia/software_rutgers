@@ -112,10 +112,12 @@ public class Enrollment {
      * were added
      */
     public void print() {
+        System.out.println("** Enrollment **");
         for (int k = 0; k < size; k++) {
             if (this.enrollStudents[k] != null) {
                 System.out.println(this.enrollStudents[k].toString());
             }
         }
+        System.out.println("* end of enrollment *");
     }
 }

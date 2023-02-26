@@ -124,7 +124,8 @@ public class Roster {
      * for each in-place swap
      * @param whichP designates how we will compare each two students and will equal:
      *                            "P", which compares the students' profiles;
-     *                            "PC", which compares the students' majors.
+     *                            "PC", which compares the students' majors;
+     *                            "PCredit", which compares the students by credit count.
      * @return the Roster which was sorted by the comparison method for the corresponding print command
      */
     public Student[] insertionSort(String whichP) {
@@ -137,8 +138,12 @@ public class Roster {
                         if (tempRoster[i].compareTo(tempRoster[j]) < 0) {
                             tempRoster = swapStudentsForInsertionSort(tempRoster, i, j);
                         }
-                    }  else {
-                        if (tempRoster[i].getMajor().toString().charAt(0) > tempRoster[j].getMajor().toString().charAt(0)) {
+                    } else if (whichP.equals("Pcredit")) {
+                        if (tempRoster[i].getCreditCompleted() < tempRoster[j].getCreditCompleted()) {
+                            tempRoster = swapStudentsForInsertionSort(tempRoster, i, j);
+                        }
+                    } else {
+                        if (tempRoster[i].getMajor().majorOrderWhenSorted(tempRoster[j].getMajor())) {
                             tempRoster = swapStudentsForInsertionSort(tempRoster, i, j);
                         }
                     }
@@ -179,25 +184,33 @@ public class Roster {
      * Print the Roster by standing
      */
     public void printByStanding() {
-        for(int k = 0; k < size; k++){
-            if(this.roster[k] != null)
-                if(this.roster[k].getCreditCompleted() < 30)
-                    System.out.println(this.roster[k].toString());
+        for (int year = 1; year <=4; year++) {
+            for (int k = 0; k < size; k++) {
+                if (this.roster[k] != null) {
+                    if ((year == 1 && this.roster[k].getCreditCompleted() < 30) ||
+                            (year == 2 && this.roster[k].getCreditCompleted() >= 60
+                                    && this.roster[k].getCreditCompleted() < 90) ||
+                            (year == 3 && this.roster[k].getCreditCompleted() >= 90) ||
+                            (year == 4 && this.roster[k].getCreditCompleted() >= 30
+                                    && this.roster[k].getCreditCompleted() < 60)) {
+                        System.out.println(this.roster[k].toString());
+                    }
+                }
+            }
         }
-        for(int k = 0; k < size; k++){
-            if(this.roster[k] != null)
-                if(this.roster[k].getCreditCompleted() >= 60 && this.roster[k].getCreditCompleted() < 90)
-                    System.out.println(this.roster[k].toString());
-        }
-        for(int k = 0; k < size; k++){
-            if(this.roster[k] != null)
-                if(this.roster[k].getCreditCompleted() >= 90)
-                    System.out.println(this.roster[k].toString());
-        }
-        for(int k = 0; k < size; k++){
-            if(this.roster[k] != null)
-                if(this.roster[k].getCreditCompleted() >= 30 && this.roster[k].getCreditCompleted() < 60)
-                    System.out.println(this.roster[k].toString());
+    }
+
+    /**
+     * For each student in the roster, if their credits are over 120,
+     * add the student to an array sorted by credit count and print the students
+     */
+    public void printCanGraduate() {
+        System.out.println("** list of students eligible for graduation **"); // Printing out list of students eligible for graduation
+        Student[] toBeGraduated = insertionSort("Pcredit");
+        for (int currentStudent = 0; currentStudent<toBeGraduated.length; currentStudent++) {
+            if(toBeGraduated[currentStudent]!=null && toBeGraduated[currentStudent].getCreditCompleted()>=120){
+                System.out.println(toBeGraduated[currentStudent].toString());
+            }
         }
     }
 

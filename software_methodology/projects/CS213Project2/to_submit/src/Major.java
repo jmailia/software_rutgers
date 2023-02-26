@@ -48,4 +48,31 @@ public enum Major {
     public String getDisplayName(){
         return "(" + this.majorName + " "+  this.majorCode + " " + this.schoolName + ")";
     }
+
+    /**
+     * Compares a student's major with another student's major,
+     * all to determine whether two students should switch in the insertion sort; precedence is BAIT>CS>MATH>ITI>EE
+     * @param major The major of the second student
+     * @return true if the students should swap in insertion sort, false otherwise
+     */
+    public boolean majorOrderWhenSorted(Major major) {
+        if (this.majorCode == "BAIT") {
+            return false;
+        }
+        if (this.majorCode == "CS" && major.majorCode=="BAIT") {
+            return true;
+        }
+        if (this.majorCode == "MATH" && (major.majorCode == "BAIT" || major.majorCode=="CS")){
+            return true;
+        }
+        if (this.majorCode == "ITI" && (major.majorCode == "BAIT" || major.majorCode=="CS" ||
+                major.majorCode=="MATH")){
+            return true;
+        }
+        if (this.majorCode == "EE" && (major.majorCode == "BAIT" || major.majorCode=="CS" ||
+                major.majorCode == "MATH" || major.majorCode=="ITI")){
+            return true;
+        }
+        return false; // if both values are the same, dont switch them
+    }
 };

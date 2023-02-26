@@ -74,8 +74,13 @@ public abstract class Student implements Comparable<Student> {
         } else if (this.creditCompleted >= 90) {
             grade = " (Senior)";
         }
+        String resident = this.isResident() ? "(resident)" : "(non-resident)" +
+                (this.isTriState()?("(tri-state:"+this.whichTristate()+")"):
+                        (this.isInternational()?"(international" +
+                                (this.isStudyAbroad()?":study abroad)":")"):""));
+
         return printStudentProfile() + " " + this.major.getDisplayName() +
-                " credits completed: " + this.creditCompleted + grade;
+                " credits completed: " + this.creditCompleted + grade + resident;
     }
 
     /**
@@ -184,4 +189,9 @@ public abstract class Student implements Comparable<Student> {
      */
     public abstract void setScholarship(int scholarship);
 
+    /**
+     * If the student is a nonresident tristate student, returns the string containing their origin state.
+     * @return "NY" if the student is from NY, "CT" if the student is from CT, "" if not from either.
+     */
+    public abstract String whichTristate();
 }

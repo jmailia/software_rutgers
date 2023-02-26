@@ -77,4 +77,10 @@ public class International extends NonResident {
     public boolean isStudyAbroad(){
         return this.isStudyAbroad;
     }
+
+    /**
+     * If the student is a nonresident tristate student, returns the string containing their origin state.
+     * @return "NY" if the student is from NY, "CT" if the student is from CT, "" if not from either.
+     */
+    public String whichTristate(){return "";}
 }
