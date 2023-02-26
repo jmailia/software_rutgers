@@ -82,7 +82,7 @@ public class TuitionManager {
                     myRoster, false, "", isLS);
         }
         else {
-            System.out.println("Missing data in command line.");
+            System.out.println("Missing data in line command.");
         }
     }
 
@@ -547,12 +547,12 @@ public class TuitionManager {
             return;
         }
         System.out.println("** Tuition due **");
-        if (myRoster != null) {
-            for (Student student : myRoster.getRoster()) {
-                if (student != null) {
-                    if (myEnrollment != null) {
-                        for (EnrollStudent enrollStudent : myEnrollment.getEnrollStudents()) {
-                            if (enrollStudent != null) {
+        if (myEnrollment != null) {
+            for (EnrollStudent enrollStudent : myEnrollment.getEnrollStudents()) {
+                if (enrollStudent != null) {
+                    if (myRoster != null) {
+                        for (Student student : myRoster.getRoster()) {
+                            if (student != null) {
                                 if (enrollStudent.getProfile().equals(student.getProfile())) {
                                     System.out.println(student.getProfile().toString() + " " +
                                             printParenthesizedStudents(student,false) +
