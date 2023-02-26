@@ -27,7 +27,7 @@ public class TriState extends NonResident{
      * @return the tuition discount for the non-resident tri-state student
      */
     private int tristateDiscount(String state){
-        return ((state.toUpperCase() == "CT") ? 5000 : 4000);
+        return (state.toUpperCase().equals("CT") ? 5000 : (state.toUpperCase().equals("NY") ? 4000 : 0));
     }
 
     /**
