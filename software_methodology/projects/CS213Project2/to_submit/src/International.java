@@ -27,8 +27,8 @@ public class International extends NonResident {
     public double tuitionDue(int creditsEnrolled){
         if(isValid(creditsEnrolled)){
             int universityFee = 3268;
-            int creditsPerHour = 404;
-            int fulltimeTuition = 12536;
+            int creditsPerHour = 966;
+            int fulltimeTuition = 29737;
             int healthInsuranceFee = 2650;
             if(isStudyAbroad){
                 return universityFee + healthInsuranceFee;
