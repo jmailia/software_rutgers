@@ -264,12 +264,8 @@ public class TuitionManager {
                         ((!student.isStudyAbroad() && creditsEnrolled < 12) ||
                                 (student.isStudyAbroad() && creditsEnrolled > 12)))) {
 
-            System.out.println((student.isResident() ? "(Resident)" :
-                    (!student.isTriState() && !student.isInternational() ? "(Non-Resident)" :
-                            (student.isTriState() ? ("(Tri-state:" + student.whichTristate() + ")") :
-                                    (student.isInternational() ? "(International student" +
-                                            (student.isStudyAbroad() ? "study abroad)" : ")") : ""))))
-                            + " " + creditsEnrolled + ": invalid credit hours.");
+            System.out.println(printParenthesizedStudents(student,false) + " " +
+                    creditsEnrolled + ": invalid credit hours.");
 
             return false;
         }
@@ -277,7 +273,19 @@ public class TuitionManager {
         return true;
     }
 
-
+    /**
+     * Returns a print-ready string of the student's residence
+     * @param student The student which we want to print
+     * @param printColon whether the colon in tristate should be printed; true for yes, false for no
+     * @return String of either (Resident), (Non-Resident),(Tri-state), (International student) with correct variants
+     */
+    private String printParenthesizedStudents(Student student, boolean printColon){
+        return (student.isResident() ? "(Resident)" :
+                (!student.isTriState() && !student.isInternational() ? "(Non-Resident)" :
+                        (student.isTriState() ? ("(Tri-state" + (printColon?":":" ") + student.whichTristate() + ")") :
+                                (student.isInternational() ? "(International student" +
+                                        (student.isStudyAbroad() ? "study abroad)" : ")") : ""))));
+    }
 
 
 
@@ -337,13 +345,10 @@ public class TuitionManager {
     /**
      * Method searches the enrollment for a particular
      * student that is to be dropped.
-     * @param fname First name of student
-     * @param lname Last name of student
-     * @param date Date of birth of student
+     * @param profile profile of student
      * @param myEnrollment Enrollment that we want to drop from
      */
-    private void D_Command(String fname, String lname, String date, Enrollment myEnrollment) {
-        Profile profile = new Profile(lname, fname, new Date(date));
+    private void D_Command(Profile profile, Enrollment myEnrollment) {
         if (myEnrollment!=null) {
             for (EnrollStudent student : myEnrollment.getEnrollStudents()) {
                 if (student != null) {
@@ -360,21 +365,39 @@ public class TuitionManager {
     }
 
     /**
+     * Determines whether the scholarship is a valid amount
+     * @param scholarship the amount of money asked for in the scholarship
+     * @return true if the scholarship is not a valid monetary value, false otherwise
+     */
+    private boolean invalidScholarshipAmount (int scholarship) {
+        if(scholarship <= 0 || scholarship > 10000){
+            System.out.println(scholarship + ": invalid amount.");
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
      * Method g
      * @param input Input from user in terminal
      * @param myEnrollment Enrollment we want to access
      * @param myRoster Roster we want to iterate through
      */
     private void S_Command(String[] input, Enrollment myEnrollment,  Roster myRoster) {
-        if (input.length < 5) {
+        if (input.length < 3) {
             System.out.println("Missing data in line command.");
             return;
         }
+        Profile profile = new Profile(input[2], input[1], new Date(input[3]));
+        if (!myRoster.contains(new Resident (profile,Major.CS,10))) {
+            System.out.println(profile.toString() + " is not in the roster.");
+            return; // Not in roster
+        }
+
         if (input[4] != null && input[4].matches("[-+]?\\d*\\.?\\d+")) {
-            int scholarship = Integer.parseInt(input[4]);
-            Profile profile = new Profile(input[2], input[1], new Date(input[3]));
-            if(scholarship <= 0 || scholarship > 10000){
-                System.out.println(scholarship + ": invalid amount.");
+
+            if (invalidScholarshipAmount(Integer.parseInt(input[4]))){
                 return;
             }
             if (myRoster != null) {
@@ -387,20 +410,18 @@ public class TuitionManager {
                                         if (enrollStudent.getProfile().equals(profile)) {
                                             if (student.isResident()) {
                                                 if (enrollStudent.getCreditsEnrolled() >= 12) { // Check if fulltime
-                                                    student.setScholarship(scholarship);
+                                                    student.setScholarship(Integer.parseInt(input[4]));
                                                     System.out.println(profile.toString() + ": scholarship amount updated.");
+                                                    return;
                                                 } else {
                                                     System.out.println(student.getProfile().toString() + " part time student " +
                                                             "is not eligible for the scholarship."); // Student is parttime
                                                     return;
                                                 }
                                             }
-                                            System.out.println(student.getProfile().toString() +
-                                                    (!student.isTriState() && !student.isInternational() ? " (Non-Resident)" :
-                                                            (student.isTriState()?(" (Tri-state:"+student.whichTristate()+")"):
-                                                                    (student.isInternational()?" (International student" +
-                                                                            (student.isStudyAbroad()?"study abroad)" : ")") : "")))
-                                                    + " is not eligible for the scholarship."); // Student is not a resident
+                                            System.out.println(student.getProfile().toString() + " " +
+                                                    printParenthesizedStudents(student,false) +
+                                                    " is not eligible for the scholarship."); // Student is not a resident
                                             return;
                                         }
                                     }
@@ -410,7 +431,6 @@ public class TuitionManager {
                     }
                 }
             }
-            System.out.println(profile.toString() + " is not in the roster"); return; // Not in roster
         }
         System.out.println("Amount is not an integer.");
     }
@@ -530,12 +550,8 @@ public class TuitionManager {
                                 if (enrollStudent.getProfile().equals(student.getProfile())) {
                                     double tuitionDue = student.tuitionDue(enrollStudent.getCreditsEnrolled());
 
-                                    System.out.println(student.getProfile().toString() +
-                                            (student.isResident() ? " (Resident)" :
-                                                    (!student.isTriState() && !student.isInternational() ? " (Non-Resident)" :
-                                                            (student.isTriState()?(" (Tri-state "+student.whichTristate()+")"):
-                                                                    (student.isInternational()?" (International student" +
-                                                                            (student.isStudyAbroad()?"study abroad)" : ")") : "")))) +
+                                    System.out.println(student.getProfile().toString() + " " +
+                                            printParenthesizedStudents(student,false) +
                                             " enrolled " + enrollStudent.getCreditsEnrolled() +
                                             " credits: tuition due: $" + df.format(tuitionDue));
                                 }
@@ -553,13 +569,14 @@ public class TuitionManager {
      * @param whichP a String of either "P", "PS", or "PC"
      * @param myRoster the Roster we want to print
      */
-    private void P_Command(String whichP, Roster myRoster) {
-
-        if (myRoster == null || myRoster.getRoster() == null) {
+    private void P_Command(String whichP, Roster myRoster, Enrollment myEnrollment) {
+        if (whichP.equals("PE")) {
+            PE_Command(myEnrollment);
+        } else if (whichP.equals("PT")) {
+            PT_Command(myEnrollment, myRoster);
+        } else if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
             System.out.println("Student roster is empty!");
-        }
-        else if (myRoster.getRoster()[0] == null) { //All students in an already established Student[] have been removed
-            System.out.println("Student roster is empty!");
+            //Roster is empty/null or all students in an already established Student[] have been removed
         } else {
             if (whichP.equals("P")) {
                 System.out.println("** Student roster sorted by last name, first name, DOB **");
@@ -582,12 +599,12 @@ public class TuitionManager {
      * @param myEnrollment the Enrollment we want to iterate through
      * @param myRoster the Roster we want to iterate through
      */
-    private void SE_Command(Enrollment myEnrollment, Roster myRoster) {
+    private boolean SE_Command(Enrollment myEnrollment, Roster myRoster) {
         if (myEnrollment == null || myEnrollment.getEnrollStudents() == null) { // Check if enrollment is empty
-            System.out.println("Enrollment is empty!"); return;
+            System.out.println("Enrollment is empty!"); return false;
         }
         if (myRoster == null || myRoster.getRoster() == null) { // Check if roster is empty
-            System.out.println("Roster is empty!"); return;
+            System.out.println("Roster is empty!"); return false;
         }
         if (myRoster != null) {
             for (Student student : myRoster.getRoster()) {
@@ -606,83 +623,65 @@ public class TuitionManager {
         }
         System.out.println("Credit completed has been updated.");
         myRoster.printCanGraduate();
+        return true;
     }
+
 
     /**
      * Updates a boolean array which holds information regarding whether the user's command is their first or last
-     * @param firstTimeLastTime a boolean array of size 2, such that the boolean value at the 0th index corresponds to
-     *                         whether the current command is the user's first command, and the 1st index corresponds to
-     *                          whether it is the user's last
-     * @return firstTimeLastTime
+     * @param commandTimes a boolean array of size 3, such that the boolean value at
+     *                                the 0th index corresponds to whether the current command is the first command (1);
+     *                                the 1st index corresponds to whether an SE command has been executed already (SE);
+     *                                the 1st index corresponds to whether the Xth command is the last command (X).
+     * @return commandTimes
      */
-    private boolean[] firstTimeLastTime(boolean[] firstTimeLastTime){
-        if (firstTimeLastTime[0]) {
+    private boolean[] commandTimes(boolean[] commandTimes){
+        if (commandTimes[0]) {
             System.out.println("Tuition Manager running...\n");    //user knows software is ready for commands
-            firstTimeLastTime[0] = false;
+            commandTimes[0] = false;
         }
-        return firstTimeLastTime;
+        return commandTimes;
     }
 
+    /**
+     * Continuously processes the line commands until the 'Q' command is entered
+     * @throws FileNotFoundException
+     */
     public void run() throws FileNotFoundException {
-        boolean[] firstTimeLastTime = {true,false};
+        boolean[] commandTimes = {true, false, false};
         Enrollment myEnrollment = new Enrollment();
         Roster myRoster = new Roster();
         Scanner sc = new Scanner(System.in);
-        while(! (firstTimeLastTime[1] && sc.hasNextLine())) {   //continuously read the line commands until the user quits
+        while(! (commandTimes[2] && sc.hasNextLine())) {   //continuously read the line commands until the user quits
             String[] input = sc.nextLine().split("\\s+"); //parses arguments
-            firstTimeLastTime = firstTimeLastTime(firstTimeLastTime);
-
-            switch (input[0]) {                                //get the current command\
-                case "":        //if the enter key is pressed without any input, this prevents an error
-                    break;
-                case "LS":
-                    LS_Command(input[1], myRoster);
-                    break;
-                case "AR":
-                case "AN":
-                case "AT":
-                case "AI":
-                    A_Command_ParseArguments(input, myRoster, false);
-                    break;
-                case "R":
-                    R_Command(input[1],input[2],input[3],myRoster);
-                    break;
-                case "E":
-                    E_Command(input, myEnrollment, myRoster);
-                    break;
-                case "D":
-                    D_Command(input[1], input[2], input[3], myEnrollment);
-                    break;
-                case "S":
-                    S_Command(input, myEnrollment, myRoster);
-                    break;
-                case "P":
-                case "PS":
-                case "PC":
-                    P_Command(input[0],myRoster);
-                    break;
-                case "L":
-                    L_Command(input[1],myRoster);
-                    break;
-                case "C":
-                    C_Command(input[1],input[2],input[3],input[4],myRoster);
-                    break;
-                case "PE":
-                    PE_Command(myEnrollment);
-                    break;
-                case "PT":
-                    PT_Command(myEnrollment, myRoster);
-                    break;
-                case "SE":
-                    SE_Command(myEnrollment, myRoster);
-                    break;
-                case "Q":
-                    System.out.println("Tuition Manager terminated.");    //user has terminated the software normally
-                    firstTimeLastTime[1] = true;
-                    break;
-                default:
-                    System.out.println(input[0] + " is an invalid command!");
-                    break;
+            commandTimes = commandTimes(commandTimes);
+            if(input[0] == "") {
+                commandTimes[2] = false; //if the enter key is pressed without any input, this prevents an error
+            } else if (input[0].equals("LS")) {
+                LS_Command(input[1], myRoster);
+            } else if (input[0].charAt(0) == 'A') {
+                A_Command_ParseArguments(input, myRoster, false);
+            } else if (input[0].equals("C")) {
+                C_Command(input[1], input[2], input[3], input[4], myRoster);
+            } else if (input[0].equals("SE") && !commandTimes[1]) { //SE Command
+                commandTimes[1] = SE_Command(myEnrollment, myRoster);
+            } else if (input[0].equals("S")){
+                S_Command(input,myEnrollment,myRoster);
+            } else if (input[0].equals("E")){
+                E_Command(input, myEnrollment, myRoster);
+            } else if (input[0].equals("D")){
+                D_Command(new Profile(input[2],input[1],new Date(input[3])),myEnrollment);
+            } else if (input[0].equals("L")) {
+                L_Command(input[1], myRoster);
+            } else if (input[0].charAt(0) == 'P'){
+                P_Command(input[0], myRoster, myEnrollment);
+            } else if (input[0].equals("R")) {
+                R_Command(input[1], input[2], input[3], myRoster);
+            } else if (input[0].equals("Q")) {
+                System.out.println("Tuition Manager terminated.");    //user has terminated the software normally
+                commandTimes[2] = true;
+            } else {
+                System.out.println(input[0] + " is an invalid command!");
             }
         }
         sc.close();
