@@ -1,39 +1,46 @@
 /* @author Henry Hecht */
 /* @author Aidan Cronin */
 
+/**
+ * A nonresident student from another country, who may or may not be studying abroad.
+ */
 public class International extends NonResident {
     private boolean isStudyAbroad;
 
+    /**
+     * Construct an international student
+     * @param profile the profile of the international student
+     * @param major the major of the international student
+     * @param creditCompleted the credits completed by the international student
+     * @param isStudyAbroad is true if the student is studying abroad, false otherwise
+     */
     public International(Profile profile, Major major, int creditCompleted, boolean isStudyAbroad){
         super(profile, major, creditCompleted);
         this.isStudyAbroad = isStudyAbroad;
     }
 
+    /**
+     * Calculates the tuition due for an international student
+     * @param creditsEnrolled The number of credits the international student is enrolled in
+     * @return the calculated tuition of the student
+     */
     public double tuitionDue(int creditsEnrolled){
         if(isValid(creditsEnrolled)){
-            double tuition = 0;
             int universityFee = 3268;
             int creditsPerHour = 404;
-            int exceededCredits = 16;
-            int fulltimeCredits = 12;
             int fulltimeTuition = 12536;
             int healthInsuranceFee = 2650;
             if(isStudyAbroad){
-                tuition = universityFee + healthInsuranceFee;
-                return tuition;
+                return universityFee + healthInsuranceFee;
             }
-            if(creditsEnrolled < fulltimeCredits){ // Parttime students
-                double parttimeFeePercentage = 0.8;
-                tuition = (parttimeFeePercentage * universityFee) + (creditsPerHour * creditsEnrolled);
-                return tuition;
+            if(creditsEnrolled < 12){ // Parttime students (they are studying abroad)
+                return  (0.8 * universityFee) + (creditsPerHour * creditsEnrolled);
             }
-            if(creditsEnrolled > exceededCredits){ // Students with over 16 credits
-                int extraCredits = creditsEnrolled - exceededCredits;
-                tuition = (extraCredits * creditsPerHour) + universityFee + fulltimeTuition + healthInsuranceFee;
-                return tuition;
+            if(creditsEnrolled > 16){ // Students with over 16 credits
+                int extraCredits = creditsEnrolled - 16;
+                return (extraCredits * creditsPerHour) + universityFee + fulltimeTuition + healthInsuranceFee;
             } // Fulltime students who don't exceed 16 credits
-            tuition = universityFee + fulltimeTuition + healthInsuranceFee;
-            return tuition;
+            return universityFee + fulltimeTuition + healthInsuranceFee;
         }
         return -1; //credits not valid
     }

@@ -6,9 +6,15 @@ import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
+/**
+ * Processes line commands, with new functionality for processing tuitions based on the enrollment of the semester
+ */
 public class TuitionManager {
 
-    public static final DecimalFormat df = new DecimalFormat( "##,###.00" ); // Decimal format for PT_Command
+    /**
+     * Decimal format for PT_Command
+     */
+    public static final DecimalFormat df = new DecimalFormat( "##,###.00" );
 
     /**
      * Load the student roster from an external file of which each line is an instance of Student.
@@ -548,12 +554,11 @@ public class TuitionManager {
                         for (EnrollStudent enrollStudent : myEnrollment.getEnrollStudents()) {
                             if (enrollStudent != null) {
                                 if (enrollStudent.getProfile().equals(student.getProfile())) {
-                                    double tuitionDue = student.tuitionDue(enrollStudent.getCreditsEnrolled());
-
                                     System.out.println(student.getProfile().toString() + " " +
                                             printParenthesizedStudents(student,false) +
                                             " enrolled " + enrollStudent.getCreditsEnrolled() +
-                                            " credits: tuition due: $" + df.format(tuitionDue));
+                                            " credits: tuition due: $" +
+                                            df.format(student.tuitionDue(enrollStudent.getCreditsEnrolled())));
                                 }
                             }
                         }
@@ -645,7 +650,8 @@ public class TuitionManager {
 
     /**
      * Continuously processes the line commands until the 'Q' command is entered
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException signals that an attempt to open the file denoted by
+     * a specified pathname (namely for LS) has failed
      */
     public void run() throws FileNotFoundException {
         boolean[] commandTimes = {true, false, false};

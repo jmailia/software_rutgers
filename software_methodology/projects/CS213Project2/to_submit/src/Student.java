@@ -140,6 +140,11 @@ public abstract class Student implements Comparable<Student> {
         return 0; //stu1 and stu2 are equal
     }
 
+    /**
+     * If the credits enrolled of the student is valid
+     * @param creditEnrolled credits enrolled by the student
+     * @return true if the credits enrolled is valid, false otherwise
+     */
     public boolean isValid(int creditEnrolled) {
         if(creditEnrolled < 0 || creditEnrolled > 24)
             return false;

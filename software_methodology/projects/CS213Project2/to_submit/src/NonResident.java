@@ -1,7 +1,16 @@
 /* @author Henry Hecht */
 /* @author Aidan Cronin */
 
+/**
+ * A student who does not reside in New Jersey
+ */
 public class NonResident extends Student {
+    /**
+     * Construct a nonresident student
+     * @param profile the profile of the nonresident student
+     * @param major the major of the nonresident student
+     * @param creditCompleted the credits completed by the nonresident student
+     */
     public NonResident(Profile profile, Major major, int creditCompleted){
         super(profile, major, creditCompleted);
     }
@@ -15,14 +24,12 @@ public class NonResident extends Student {
         if(isValid(creditsEnrolled)){
             int universityFee = 3268;
             int creditsPerHour = 966;
-            int exceededCredits = 16;
-            int fulltimeCredits = 12;
             int fulltimeTuition = 29737;
-            if(creditsEnrolled < fulltimeCredits){ //Parttime students
+            if(creditsEnrolled < 12){ //Parttime students
                 return (0.8 * universityFee) + (creditsPerHour * creditsEnrolled);
             }
-            if(creditsEnrolled > exceededCredits){ //Students with over 16 credits
-                int extraCredits = creditsEnrolled - exceededCredits;
+            else if(creditsEnrolled > 16){ //Students with over 16 credits
+                int extraCredits = creditsEnrolled - 16;
                 return (extraCredits * creditsPerHour) + universityFee + fulltimeTuition;
             } // Fulltime students who don't exceed 16 credits
             return universityFee + fulltimeTuition;

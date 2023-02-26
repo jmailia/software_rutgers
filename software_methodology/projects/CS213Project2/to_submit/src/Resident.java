@@ -1,3 +1,9 @@
+/* @author Henry Hecht*/
+/* @author Aidan Cronin*/
+
+/**
+ * A student who resides in New Jersey, and may be eligible for a scholarship
+ */
 public class Resident extends Student {
 
     private int scholarship;
@@ -30,15 +36,14 @@ public class Resident extends Student {
         if(isValid(creditsEnrolled)){
             int universityFee = 3268;
             int creditsPerHour = 404;
-            int exceededCredits = 16;
-            int fulltimeCredits = 12;
             int fulltimeTuition = 12536;
-            if(creditsEnrolled < fulltimeCredits){ //Parttime students
+
+            if(creditsEnrolled < 12){ //Parttime students
                 double parttimeFeePercentage = 0.8;
                 return (parttimeFeePercentage * universityFee) + (creditsPerHour * creditsEnrolled) - this.scholarship;
             }
-            if(creditsEnrolled > exceededCredits){ //Students with over 16 credits
-                int extraCredits = creditsEnrolled - exceededCredits;
+            if(creditsEnrolled > 16){ //Students with over 16 credits
+                int extraCredits = creditsEnrolled - 16;
                 return (extraCredits * creditsPerHour) + universityFee + fulltimeTuition - this.scholarship;
             } // Fulltime students who don't exceed 16 credits
             return universityFee + fulltimeTuition - this.scholarship;

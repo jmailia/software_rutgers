@@ -1,6 +1,9 @@
 /* @author Henry Hecht */
 /* @author Aidan Cronin */
 
+/**
+ * Keeps track of credits enrolled by a student
+ */
 public class EnrollStudent {
     private Profile profile;
     private int creditsEnrolled;

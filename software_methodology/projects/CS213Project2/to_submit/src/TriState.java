@@ -1,6 +1,19 @@
+/* @author Henry Hecht*/
+/* @author Aidan Cronin*/
+
+/**
+ * A nonresident student from either Connecticut or New York
+ */
 public class TriState extends NonResident{
     private String state;
 
+    /**
+     * Construct a tristate student
+     * @param profile the profile of the tristate student
+     * @param major the major of the tristate student
+     * @param creditCompleted the credits completed by the tristate student
+     * @param state the origin state of the tristate student (either NY or CT)
+     */
     public TriState(Profile profile, Major major, int creditCompleted, String state){
         super(profile, major, creditCompleted);
         this.state = state;
@@ -9,12 +22,12 @@ public class TriState extends NonResident{
 
 
     /**
-     * Non-resident students from the tristate area get a tuition discount
+     * Non-resident students from the tristate area get a tuition discount; CT gets 5000 off, NY gets 4000.
      * @param state the state which the non-resident tri-state student is from
      * @return the tuition discount for the non-resident tri-state student
      */
     private int tristateDiscount(String state){
-        return (state == "CT") ? 5000 : (state == "NY") ? 4000 : 0;
+        return ((state.toUpperCase() == "CT") ? 5000 : 4000);
     }
 
     /**
@@ -26,14 +39,12 @@ public class TriState extends NonResident{
         if(isValid(creditsEnrolled)){
             int universityFee = 3268;
             int creditsPerHour = 966;
-            int exceededCredits = 16;
-            int fulltimeCredits = 12;
             int fulltimeTuition = 29737;
-            if(creditsEnrolled < fulltimeCredits){ //Parttime students
+            if(creditsEnrolled < 12){ //Parttime students
                 return (0.8 * universityFee) + (creditsPerHour * creditsEnrolled);
             }
-            if(creditsEnrolled > exceededCredits){ //Students with over 16 credits
-                int extraCredits = creditsEnrolled - exceededCredits;
+            if(creditsEnrolled > 16){ //Students with over 16 credits
+                int extraCredits = creditsEnrolled - 16;
                 return (extraCredits * creditsPerHour) + universityFee + fulltimeTuition - tristateDiscount(this.state);
             } // Fulltime students who don't exceed 16 credits
             return universityFee + fulltimeTuition - tristateDiscount(this.state);

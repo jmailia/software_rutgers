@@ -1,6 +1,9 @@
 /* @author Henry Hecht */
 /* @author Aidan Cronin */
 
+/**
+ * Holds the list of students who are enrolled in classes this semester
+ */
 public class Enrollment {
     private EnrollStudent[] enrollStudents;
     private int size;

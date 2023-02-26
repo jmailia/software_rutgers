@@ -4,7 +4,7 @@
 import java.util.Calendar;
 
 /**
- * The Date class creates Date objects, converts strings into these objects,
+ * Creates Date objects, converts strings into these objects,
  * and determines whether a date is a valid calendar date
  */
 public class Date implements Comparable<Date> {
