@@ -392,20 +392,14 @@ public class TuitionManager {
      */
     private void S_Command(String[] input, Enrollment myEnrollment,  Roster myRoster) {
         if (input.length < 3) {
-            System.out.println("Missing data in line command.");
-            return;
+            System.out.println("Missing data in line command."); return;
         }
         Profile profile = new Profile(input[2], input[1], new Date(input[3]));
         if (!myRoster.contains(new Resident (profile,Major.CS,10))) {
-            System.out.println(profile.toString() + " is not in the roster.");
-            return; // Not in roster
+            System.out.println(profile.toString() + " is not in the roster."); return; // Not in roster
         }
-
         if (input[4] != null && input[4].matches("[-+]?\\d*\\.?\\d+")) {
-
-            if (invalidScholarshipAmount(Integer.parseInt(input[4]))){
-                return;
-            }
+            if (invalidScholarshipAmount(Integer.parseInt(input[4]))){return;}
             if (myRoster != null) {
                 for (Student student : myRoster.getRoster()) { // Get access to student we are looking for in roster
                     if (student != null) {
@@ -417,18 +411,15 @@ public class TuitionManager {
                                             if (student.isResident()) {
                                                 if (enrollStudent.getCreditsEnrolled() >= 12) { // Check if fulltime
                                                     student.setScholarship(Integer.parseInt(input[4]));
-                                                    System.out.println(profile.toString() + ": scholarship amount updated.");
-                                                    return;
-                                                } else {
+                                                    System.out.println(profile.toString() + ": scholarship amount updated."); return;
+                                                } else { //Student is parttime
                                                     System.out.println(student.getProfile().toString() + " part time student " +
-                                                            "is not eligible for the scholarship."); // Student is parttime
-                                                    return;
+                                                            "is not eligible for the scholarship."); return;
                                                 }
                                             }
-                                            System.out.println(student.getProfile().toString() + " " +
+                                            System.out.println(student.getProfile().toString() + " " + //Student is not a resident
                                                     printParenthesizedStudents(student,false) +
-                                                    " is not eligible for the scholarship."); // Student is not a resident
-                                            return;
+                                                    " is not eligible for the scholarship."); return;
                                         }
                                     }
                                 }
