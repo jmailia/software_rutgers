@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -64,7 +65,7 @@ public class TuitionManagerController {
     @FXML
     private DatePicker dobScholarship;
     @FXML
-    private TextField creditsScholarshipTextField;
+    private TextField amountScholarshipTextField;
     @FXML
     private MenuItem printByProfileMenuItem;
     @FXML
@@ -93,7 +94,8 @@ public class TuitionManagerController {
         String fname = fnameRosterTextField.getText();
         String lname = lnameRosterTextField.getText();
         LocalDate dobTemp = dobRoster.getValue();
-        String dobString = dobTemp.toString();
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
+        String dobString = dobTemp.format(formatters);
         String creditsCompleted = creditsCompletedTextField.getText();
         String majorType;
         String studentType;
@@ -148,7 +150,8 @@ public class TuitionManagerController {
         String fname = fnameRosterTextField.getText();
         String lname = lnameRosterTextField.getText();
         LocalDate dobTemp = dobRoster.getValue();
-        String dobString = dobTemp.toString();
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
+        String dobString = dobTemp.format(formatters);
         R_Command(fname, lname, dobString, myRoster);
     }
 
@@ -157,7 +160,8 @@ public class TuitionManagerController {
         String fname = fnameRosterTextField.getText();
         String lname = lnameRosterTextField.getText();
         LocalDate dobTemp = dobRoster.getValue();
-        String dobString = dobTemp.toString();
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
+        String dobString = dobTemp.format(formatters);
         String majorType;
         if(BAITRadioButton.isSelected()) { //Major radio buttons
             majorType = "BAIT";
@@ -189,7 +193,8 @@ public class TuitionManagerController {
         String fname = fnameEnrollmentTextField.getText();
         String lname = lnameEnrollmentTextField.getText();
         LocalDate dobTemp = dobEnrollment.getValue();
-        String dobString = dobTemp.toString();
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
+        String dobString = dobTemp.format(formatters);
         String creditsCompleted = creditsEnrolledTextField.getText();
         E_Command(new String[]{"E", fname, lname, dobString, creditsCompleted}, myEnrollment, myRoster);
     }
@@ -199,7 +204,8 @@ public class TuitionManagerController {
         String fname = fnameEnrollmentTextField.getText();
         String lname = lnameEnrollmentTextField.getText();
         LocalDate dobTemp = dobEnrollment.getValue();
-        String dobString = dobTemp.toString();
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
+        String dobString = dobTemp.format(formatters);
         Date dob = new Date(dobString);
         Profile profile = new Profile(lname, fname, dob);
         D_Command(profile, myEnrollment);
@@ -210,22 +216,58 @@ public class TuitionManagerController {
         String fname = fnameScholarshipTextField.getText();
         String lname = lnameScholarshipTextField.getText();
         LocalDate dobTemp = dobScholarship.getValue();
-        String dobString = dobTemp.toString();
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
+        String dobString = dobTemp.format(formatters);
         S_Command(new String[]{"S", fname, lname, dobString}, myEnrollment, myRoster);
     }
 
     @FXML
-    void rosterMenu(ActionEvent event){
+    void printByProfile(ActionEvent event){
 
     }
 
     @FXML
-    void schoolCollegeMenu(ActionEvent event){
+    void printBySchool(ActionEvent event){
 
     }
 
     @FXML
-    void enrollmentMenu(ActionEvent event){
+    void printByStanding(ActionEvent event){
+
+    }
+
+    @FXML
+    void printRBS(ActionEvent event){
+
+    }
+
+    @FXML
+    void printSAS(ActionEvent event){
+
+    }
+
+    @FXML
+    void printSCI(ActionEvent event){
+
+    }
+
+    @FXML
+    void printSOE(ActionEvent event){
+
+    }
+
+    @FXML
+    void printEnrolled(ActionEvent event){
+
+    }
+
+    @FXML
+    void printTuitionDue(ActionEvent event){
+
+    }
+
+    @FXML
+    void semesterEnd(ActionEvent event){
 
     }
 
