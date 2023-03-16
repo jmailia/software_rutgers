@@ -48,13 +48,13 @@
                                         <Label text="First Name" />
                                         <Label text="Last Name" GridPane.rowIndex="1" />
                                         <Label text="Date of Birth" GridPane.rowIndex="2" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <TextField GridPane.columnIndex="1" />
-                                        <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <TextField fx:id="fnameRosterTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="lnameRosterTextField" GridPane.columnIndex="1" />
+                                        <DatePicker fx:id="dobRoster" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                         <Label text="Major" GridPane.rowIndex="3" />
                                         <Label text="Credits Completed" GridPane.rowIndex="4" />
                                         <Label text="Status" GridPane.rowIndex="5" />
-                                        <RadioButton mnemonicParsing="false" text="Resident" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                        <RadioButton fx:id="residentRadioButton" mnemonicParsing="false" text="Resident" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                                             <children>
                                                 <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" onAction="#clickAdd" text="Add" />
@@ -65,20 +65,20 @@
                                         </HBox>
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                             <children>
-                                                <RadioButton mnemonicParsing="false" prefHeight="18.0" prefWidth="70.0" text="BAIT" />
-                                                <RadioButton mnemonicParsing="false" prefHeight="18.0" prefWidth="58.0" text="CS" />
-                                                <RadioButton mnemonicParsing="false" prefHeight="18.0" prefWidth="61.0" text="ECE" />
-                                                <RadioButton mnemonicParsing="false" prefHeight="18.0" prefWidth="47.0" text="ITI" />
-                                                <RadioButton mnemonicParsing="false" text="MATH" />
+                                                <RadioButton fx:id="BAITRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="70.0" text="BAIT" />
+                                                <RadioButton fx:id="CSRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="58.0" text="CS" />
+                                                <RadioButton fx:id="ECERadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="61.0" text="ECE" />
+                                                <RadioButton fx:id="ITIRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="47.0" text="ITI" />
+                                                <RadioButton fx:id="MATHRadioButton" mnemonicParsing="false" text="MATH" />
                                             </children>
                                         </HBox>
                                         <HBox prefHeight="84.0" prefWidth="466.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                             <children>
-                                                <RadioButton mnemonicParsing="false" prefHeight="18.0" prefWidth="118.0" text="Non-Resident" />
+                                                <RadioButton fx:id="nonResidentRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="118.0" text="Non-Resident" />
                                                 <VBox prefHeight="38.0" prefWidth="118.0">
                                                     <children>
-                                                        <RadioButton mnemonicParsing="false" text="Tristate" />
-                                                        <RadioButton mnemonicParsing="false" prefHeight="18.0" prefWidth="123.0" text="International" />
+                                                        <RadioButton fx:id="tristateRadioButton" mnemonicParsing="false" text="Tristate" />
+                                                        <RadioButton fx:id="internationalRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="123.0" text="International" />
                                                     </children>
                                                 </VBox>
                                                 <VBox prefHeight="38.0" prefWidth="218.0">
@@ -87,18 +87,18 @@
                                                             <children>
                                                                 <HBox prefHeight="100.0" prefWidth="200.0">
                                                                     <children>
-                                                                        <RadioButton mnemonicParsing="false" prefHeight="18.0" prefWidth="54.0" text="NY" />
-                                                                        <RadioButton mnemonicParsing="false" text="CT" />
+                                                                        <RadioButton fx:id="nyRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="54.0" text="NY" />
+                                                                        <RadioButton fx:id="ctRadioButton" mnemonicParsing="false" text="CT" />
                                                                     </children>
                                                                 </HBox>
                                                             </children>
                                                         </HBox>
-                                                        <CheckBox mnemonicParsing="false" text="Study Abroad" />
+                                                        <CheckBox fx:id="studyAbroadCheckButton" mnemonicParsing="false" text="Study Abroad" />
                                                     </children>
                                                 </VBox>
                                             </children>
                                         </HBox>
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                        <TextField fx:id="creditsCompletedTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                     </children>
                                 </GridPane>
                             </children>
@@ -126,10 +126,10 @@
                                         <Label text="Last Name" GridPane.rowIndex="1" />
                                         <Label text="Date of Birth" GridPane.rowIndex="2" />
                                         <Label text="Credits" GridPane.rowIndex="3" />
-                                        <TextField GridPane.columnIndex="1" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                        <DatePicker prefHeight="26.0" prefWidth="410.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <TextField fx:id="fnameEnrollmentTextField" GridPane.columnIndex="1" />
+                                        <TextField fx:id="lnameEnrollmentTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="creditsEnrolledTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <DatePicker fx:id="dobEnrollment" prefHeight="26.0" prefWidth="410.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                             <children>
                                                 <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" onAction="#clickEnroll" text="Enroll" />
@@ -163,11 +163,11 @@
                                         <Label text="Last Name" GridPane.rowIndex="1" />
                                         <Label text="Date of Birth" GridPane.rowIndex="2" />
                                         <Label text="Amount" GridPane.rowIndex="3" />
-                                        <TextField GridPane.columnIndex="1" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <TextField fx:id="fnameScholarshipTextField" GridPane.columnIndex="1" />
+                                        <TextField fx:id="lnameScholarshipTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="amountScholarshipTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                         <Button mnemonicParsing="false" onAction="#updateScholarshipAmount" text="Update Scholarship Amount" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                        <DatePicker prefHeight="26.0" prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <DatePicker fx:id="dobScholarship" prefHeight="26.0" prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     </children>
                                 </GridPane>
                             </children>
@@ -182,24 +182,24 @@
                                     <menus>
                                         <Menu mnemonicParsing="false" text="Roster">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="Print by Profile" />
-                                                <MenuItem mnemonicParsing="false" text="Print by School and Major" />
-                                                <MenuItem mnemonicParsing="false" text="Print by Standing" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printByProfile" text="Print by Profile" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printBySchool" text="Print by School and Major" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printByStanding" text="Print by Standing" />
                                             </items>
                                         </Menu>
                                         <Menu mnemonicParsing="false" text="School/College">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="RBS" />
-                                                <MenuItem mnemonicParsing="false" text="SAS" />
-                                                <MenuItem mnemonicParsing="false" text="SC&amp;I" />
-                                                <MenuItem mnemonicParsing="false" text="SOE" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printRBS" text="RBS" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printSAS" text="SAS" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printSCI" text="SC&amp;I" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printSOE" text="SOE" />
                                             </items>
                                         </Menu>
                                         <Menu mnemonicParsing="false" text="Enrollment">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="Print Enrolled Students" />
-                                                <MenuItem mnemonicParsing="false" text="Print Tuition Due" />
-                                                <MenuItem mnemonicParsing="false" text="Semester End" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printEnrolled" text="Print Enrolled Students" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printTuitionDue" text="Print Tuition Due" />
+                                                <MenuItem mnemonicParsing="false" onAction="#semesterEnd" text="Semester End" />
                                             </items>
                                         </Menu>
                                     </menus>
