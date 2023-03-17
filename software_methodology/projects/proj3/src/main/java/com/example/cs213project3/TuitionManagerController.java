@@ -2,7 +2,6 @@ package com.example.cs213project3;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import java.io.File;
@@ -10,7 +9,6 @@ import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TuitionManagerController {
@@ -90,10 +88,22 @@ public class TuitionManagerController {
     private TextArea outputText;
 
     @FXML
-    void clickAdd(ActionEvent event) {
-        String fname = fnameRosterTextField.getText();
+    void clickAdd(ActionEvent event) { //TODO: Not tested
+        String fname = fnameRosterTextField.getText(); //TODO: Eventually turn this into a helper method to shorten
+        if(fname == null){
+            outputText.appendText("Please enter a first name.\n");
+            return;
+        }
         String lname = lnameRosterTextField.getText();
+        if(lname == null){
+            outputText.appendText("Please enter a last name.\n");
+            return;
+        }
         LocalDate dobTemp = dobRoster.getValue();
+        if(dobTemp == null){
+            outputText.appendText("Please select a date.\n");
+            return;
+        }
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
         String dobString = dobTemp.format(formatters);
         String creditsCompleted = creditsCompletedTextField.getText();
@@ -133,33 +143,62 @@ public class TuitionManagerController {
             }
         } else {
             outputText.appendText("Please select a status\n"); return; }
-       switch(studentType){
-           case "R":
-               A_Command_ParseArguments(new String[]{"AR", fname, lname, dobString, majorType, creditsCompleted}, myRoster, false);
-           case "N":
-               A_Command_ParseArguments(new String[]{"AN", fname, lname, dobString, majorType, creditsCompleted}, myRoster, false);
-           case "T":
-               A_Command_ParseArguments(new String[]{"AT", fname, lname, dobString, majorType, creditsCompleted, state}, myRoster, false);
-           case "I":
-               A_Command_ParseArguments(new String[]{"AI", fname, lname, dobString, majorType, creditsCompleted, studyAbroad}, myRoster, false);
-       }
+        switch(studentType){
+            case "R":
+                A_Command_ParseArguments(new String[]{"AR", fname, lname, dobString, majorType, creditsCompleted}, myRoster, false);
+                outputText.appendText(lname + " " + fname + " " + dobString + " added to the roster.\n"); return;
+            case "N":
+                A_Command_ParseArguments(new String[]{"AN", fname, lname, dobString, majorType, creditsCompleted}, myRoster, false);
+                outputText.appendText(lname + " " + fname + " " + dobString + " added to the roster.\n"); return;
+            case "T":
+                A_Command_ParseArguments(new String[]{"AT", fname, lname, dobString, majorType, creditsCompleted, state}, myRoster, false);
+                outputText.appendText(lname + " " + fname + " " + dobString + " added to the roster.\n"); return;
+            case "I":
+                A_Command_ParseArguments(new String[]{"AI", fname, lname, dobString, majorType, creditsCompleted, studyAbroad}, myRoster, false);
+                outputText.appendText(lname + " " + fname + " " + dobString + " added to the roster.\n"); return;
+        }
     }
 
     @FXML
-    void clickRemove(ActionEvent event) {
+    void clickRemove(ActionEvent event) { //TODO: Not tested
         String fname = fnameRosterTextField.getText();
+        if(fname == null){
+            outputText.appendText("Please enter a first name.\n");
+            return;
+        }
         String lname = lnameRosterTextField.getText();
+        if(lname == null){
+            outputText.appendText("Please enter a last name.\n");
+            return;
+        }
         LocalDate dobTemp = dobRoster.getValue();
+        if(dobTemp == null){
+            outputText.appendText("Please select a date.\n");
+            return;
+        }
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
         String dobString = dobTemp.format(formatters);
         R_Command(fname, lname, dobString, myRoster);
+        outputText.appendText(lname + " " + fname + " " + dobString + " removed from the roster.\n");
     }
 
     @FXML
-    void clickChangeMajor(ActionEvent event) {
+    void clickChangeMajor(ActionEvent event) { //TODO: Not tested
         String fname = fnameRosterTextField.getText();
+        if(fname == null){
+            outputText.appendText("Please enter a first name.\n");
+            return;
+        }
         String lname = lnameRosterTextField.getText();
+        if(lname == null){
+            outputText.appendText("Please enter a last name.\n");
+            return;
+        }
         LocalDate dobTemp = dobRoster.getValue();
+        if(dobTemp == null){
+            outputText.appendText("Please select a date.\n");
+            return;
+        }
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
         String dobString = dobTemp.format(formatters);
         String majorType;
@@ -176,99 +215,204 @@ public class TuitionManagerController {
         } else{
             outputText.appendText("Please select a major\n"); return; }//No major selected
         C_Command(fname, lname, dobString, majorType, myRoster);
+        outputText.appendText(lname + " " + fname + " " + dobString + " major changed to " + majorType + "\n");
     }
 
     @FXML
-    void loadFromFile(ActionEvent event) throws FileNotFoundException {
+    void loadFromFile(ActionEvent event) throws FileNotFoundException { //TODO: Not tested
         Scanner file = new Scanner(new File("studentList.txt"));
         while (file.hasNextLine()) {
             A_Command_ParseArguments(file.nextLine().split(","), myRoster, true);
         }
         file.close();
-        System.out.println("Students loaded to the roster.");
+        outputText.appendText("Students loaded to the roster.\n");
     }
 
     @FXML
-    void clickEnroll(ActionEvent event) {
-        String fname = fnameEnrollmentTextField.getText();
-        String lname = lnameEnrollmentTextField.getText();
-        LocalDate dobTemp = dobEnrollment.getValue();
+    void clickEnroll(ActionEvent event) { //TODO: Not tested
+        String fname = fnameRosterTextField.getText();
+        if(fname == null){
+            outputText.appendText("Please enter a first name.\n");
+            return;
+        }
+        String lname = lnameRosterTextField.getText();
+        if(lname == null){
+            outputText.appendText("Please enter a last name.\n");
+            return;
+        }
+        LocalDate dobTemp = dobRoster.getValue();
+        if(dobTemp == null){
+            outputText.appendText("Please select a date.\n");
+            return;
+        }
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
         String dobString = dobTemp.format(formatters);
         String creditsCompleted = creditsEnrolledTextField.getText();
         E_Command(new String[]{"E", fname, lname, dobString, creditsCompleted}, myEnrollment, myRoster);
+        outputText.appendText(lname + " " + fname + " " + dobString + " enrolled." + "\n");
     }
 
     @FXML
-    void clickDrop(ActionEvent event) {
-        String fname = fnameEnrollmentTextField.getText();
-        String lname = lnameEnrollmentTextField.getText();
-        LocalDate dobTemp = dobEnrollment.getValue();
+    void clickDrop(ActionEvent event) { //TODO: Not tested
+        String fname = fnameRosterTextField.getText();
+        if(fname == null){
+            outputText.appendText("Please enter a first name.\n");
+            return;
+        }
+        String lname = lnameRosterTextField.getText();
+        if(lname == null){
+            outputText.appendText("Please enter a last name.\n");
+            return;
+        }
+        LocalDate dobTemp = dobRoster.getValue();
+        if(dobTemp == null){
+            outputText.appendText("Please select a date.\n");
+            return;
+        }
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
         String dobString = dobTemp.format(formatters);
         Date dob = new Date(dobString);
         Profile profile = new Profile(lname, fname, dob);
         D_Command(profile, myEnrollment);
+        outputText.appendText(lname + " " + fname + " " + dobString + " dropped." + "\n");
     }
 
     @FXML
-    void updateScholarshipAmount(ActionEvent event) {
-        String fname = fnameScholarshipTextField.getText();
-        String lname = lnameScholarshipTextField.getText();
-        LocalDate dobTemp = dobScholarship.getValue();
+    void updateScholarshipAmount(ActionEvent event) { //TODO: Not tested
+        String fname = fnameRosterTextField.getText();
+        if(fname == null){
+            outputText.appendText("Please enter a first name.\n");
+            return;
+        }
+        String lname = lnameRosterTextField.getText();
+        if(lname == null){
+            outputText.appendText("Please enter a last name.\n");
+            return;
+        }
+        LocalDate dobTemp = dobRoster.getValue();
+        if(dobTemp == null){
+            outputText.appendText("Please select a date.\n");
+            return;
+        }
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
         String dobString = dobTemp.format(formatters);
         S_Command(new String[]{"S", fname, lname, dobString}, myEnrollment, myRoster);
     }
 
     @FXML
-    void printByProfile(ActionEvent event){
-
+    void printByProfile(ActionEvent event){ //TODO: Not tested
+        if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
+            outputText.appendText("Roster is empty!");
+            return;
+        }
+        Roster tempRoster = myRoster;
+        Student[] students = tempRoster.insertionSort("P");
+        for(Student student : students){
+            outputText.appendText(student.getProfile().toString());
+        }
     }
 
     @FXML
-    void printBySchool(ActionEvent event){
-
+    void printBySchool(ActionEvent event){ //TODO: Not tested
+        if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
+            outputText.appendText("Roster is empty!");
+            return;
+        }
+        Roster tempRoster = myRoster;
+        Student[] students = tempRoster.insertionSort("PC");
+        for(Student student : students){
+            outputText.appendText(student.getProfile().toString());
+        }
     }
 
     @FXML
-    void printByStanding(ActionEvent event){
-
+    void printByStanding(ActionEvent event){ //TODO: Not tested
+        if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
+            outputText.appendText("Roster is empty!");
+            return;
+        }
+        for (int year = 1; year <=4; year++) {
+            for (int k = 0; k < myRoster.getRoster().length; k++) {
+                if (myRoster.getRoster()[k] != null) {
+                    if ((year == 1 && myRoster.getRoster()[k].getCreditCompleted() < 30) ||
+                            (year == 2 && myRoster.getRoster()[k].getCreditCompleted() >= 60
+                                    && myRoster.getRoster()[k].getCreditCompleted() < 90) ||
+                            (year == 3 && myRoster.getRoster()[k].getCreditCompleted() >= 90) ||
+                            (year == 4 && myRoster.getRoster()[k].getCreditCompleted() >= 30
+                                    && myRoster.getRoster()[k].getCreditCompleted() < 60)) {
+                        outputText.appendText(myRoster.getRoster()[k].getProfile().toString());
+                    }
+                }
+            }
+        }
     }
 
     @FXML
-    void printRBS(ActionEvent event){
-
+    void printRBS(ActionEvent event){ //TODO: Not functional
+        if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
+            outputText.appendText("Roster is empty!");
+            return;
+        }
     }
 
     @FXML
-    void printSAS(ActionEvent event){
-
+    void printSAS(ActionEvent event){ //TODO: Not functional
+        if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
+            outputText.appendText("Roster is empty!");
+            return;
+        }
     }
 
     @FXML
-    void printSCI(ActionEvent event){
-
+    void printSCI(ActionEvent event){ //TODO: Not functional
+        if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
+            outputText.appendText("Roster is empty!");
+            return;
+        }
     }
 
     @FXML
-    void printSOE(ActionEvent event){
-
+    void printSOE(ActionEvent event){ //TODO: Not functional
+        if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
+            outputText.appendText("Roster is empty!");
+            return;
+        }
     }
 
     @FXML
-    void printEnrolled(ActionEvent event){
-
+    void printEnrolled(ActionEvent event){ //TODO: Not functional
+        if (myEnrollment == null || myEnrollment.getEnrollStudents() == null || myEnrollment.getEnrollStudents()[0] == null) {
+            outputText.appendText("Enrollment is empty!");
+            return;
+        }
     }
 
     @FXML
-    void printTuitionDue(ActionEvent event){
-
+    void printTuitionDue(ActionEvent event){ //TODO: Not functional
+        if (myEnrollment == null || myEnrollment.getEnrollStudents() == null || myEnrollment.getEnrollStudents()[0] == null) {
+            outputText.appendText("Enrollment is empty!");
+            return;
+        }
     }
 
     @FXML
-    void semesterEnd(ActionEvent event){
-
+    void semesterEnd(ActionEvent event){//TODO: Not tested
+        if (myEnrollment == null || myEnrollment.getEnrollStudents() == null || myEnrollment.getEnrollStudents()[0] == null) {
+            outputText.appendText("Enrollment is empty!");
+            return;
+        }
+        if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
+            outputText.appendText("Roster is empty!");
+            return;
+        }
+        SE_Command(myEnrollment, myRoster);
+        Roster tempRoster = myRoster;
+        Student[] toBeGraduated = tempRoster.insertionSort("Pcredit");
+        for (int currentStudent = 0; currentStudent<toBeGraduated.length; currentStudent++) {
+            if(toBeGraduated[currentStudent]!=null && toBeGraduated[currentStudent].getCreditCompleted()>=120){
+                outputText.appendText(toBeGraduated[currentStudent].toString() + "\n");
+            }
+        }
     }
 
     /**
