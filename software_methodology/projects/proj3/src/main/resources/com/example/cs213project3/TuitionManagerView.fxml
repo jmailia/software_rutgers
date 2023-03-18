@@ -12,6 +12,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -54,7 +55,11 @@
                                         <Label text="Major" GridPane.rowIndex="3" />
                                         <Label text="Credits Completed" GridPane.rowIndex="4" />
                                         <Label text="Status" GridPane.rowIndex="5" />
-                                        <RadioButton fx:id="residentRadioButton" mnemonicParsing="false" text="Resident" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                        <RadioButton fx:id="residentRadioButton" mnemonicParsing="false" text="Resident" GridPane.columnIndex="1" GridPane.rowIndex="5" >
+                                            <toggleGroup>
+                                                <ToggleGroup fx:id="residentGroup"/>
+                                            </toggleGroup>
+                                        </RadioButton>
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                                             <children>
                                                 <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" onAction="#clickAdd" text="Add" />
@@ -64,21 +69,26 @@
                                             </children>
                                         </HBox>
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+
                                             <children>
-                                                <RadioButton fx:id="BAITRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="70.0" text="BAIT" />
-                                                <RadioButton fx:id="CSRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="58.0" text="CS" />
-                                                <RadioButton fx:id="ECERadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="61.0" text="ECE" />
-                                                <RadioButton fx:id="ITIRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="47.0" text="ITI" />
-                                                <RadioButton fx:id="MATHRadioButton" mnemonicParsing="false" text="MATH" />
+                                                <RadioButton fx:id="BAITRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="70.0" text="BAIT">
+                                                    <toggleGroup>
+                                                        <ToggleGroup fx:id="majorGroup"/>
+                                                    </toggleGroup>
+                                                </RadioButton>
+                                                <RadioButton fx:id="CSRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="58.0" text="CS" toggleGroup="$majorGroup" />
+                                                <RadioButton fx:id="ECERadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="61.0" text="ECE"  toggleGroup="$majorGroup"/>
+                                                <RadioButton fx:id="ITIRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="47.0" text="ITI" toggleGroup="$majorGroup" />
+                                                <RadioButton fx:id="MATHRadioButton" mnemonicParsing="false" text="MATH" toggleGroup="$majorGroup" />
                                             </children>
                                         </HBox>
                                         <HBox prefHeight="84.0" prefWidth="466.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                             <children>
-                                                <RadioButton fx:id="nonResidentRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="118.0" text="Non-Resident" />
+                                                <RadioButton fx:id="nonResidentRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="118.0" text="Non-Resident" toggleGroup="$residentGroup" />
                                                 <VBox prefHeight="38.0" prefWidth="118.0">
                                                     <children>
-                                                        <RadioButton fx:id="tristateRadioButton" mnemonicParsing="false" text="Tristate" />
-                                                        <RadioButton fx:id="internationalRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="123.0" text="International" />
+                                                        <RadioButton fx:id="tristateRadioButton" mnemonicParsing="false" text="Tristate" toggleGroup="$residentGroup"/>
+                                                        <RadioButton fx:id="internationalRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="123.0" text="International" toggleGroup="$residentGroup"/>
                                                     </children>
                                                 </VBox>
                                                 <VBox prefHeight="38.0" prefWidth="218.0">
@@ -87,8 +97,8 @@
                                                             <children>
                                                                 <HBox prefHeight="100.0" prefWidth="200.0">
                                                                     <children>
-                                                                        <RadioButton fx:id="nyRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="54.0" text="NY" />
-                                                                        <RadioButton fx:id="ctRadioButton" mnemonicParsing="false" text="CT" />
+                                                                        <RadioButton fx:id="nyRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="54.0" text="NY" toggleGroup="$residentGroup"/>
+                                                                        <RadioButton fx:id="ctRadioButton" mnemonicParsing="false" text="CT" toggleGroup="$residentGroup" />
                                                                     </children>
                                                                 </HBox>
                                                             </children>
