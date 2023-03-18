@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -21,8 +22,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="600.0" fx:controller="com.example.cs213project3.TuitionManagerController" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cs213project3.TuitionManagerController">
     <center>
         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
@@ -46,24 +46,24 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <Label text="First Name" />
-                                        <Label text="Last Name" GridPane.rowIndex="1" />
-                                        <Label text="Date of Birth" GridPane.rowIndex="2" />
+                                        <Label text="First Name " GridPane.halignment="RIGHT" />
+                                        <Label text="Last Name " GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                                        <Label text="Date of Birth " GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
                                         <TextField fx:id="fnameRosterTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         <TextField fx:id="lnameRosterTextField" GridPane.columnIndex="1" />
                                         <DatePicker fx:id="dobRoster" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                        <Label text="Major" GridPane.rowIndex="3" />
-                                        <Label text="Credits Completed" GridPane.rowIndex="4" />
-                                        <Label text="Status" GridPane.rowIndex="5" />
-                                        <RadioButton fx:id="residentRadioButton" mnemonicParsing="false" text="Resident" GridPane.columnIndex="1" GridPane.rowIndex="5" >
+                                        <Label text="Major " GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                                        <Label text="Credits Completed " GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                                        <Label text="Status " GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+                                        <RadioButton fx:id="residentRadioButton" mnemonicParsing="false" text="Resident" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                             <toggleGroup>
-                                                <ToggleGroup fx:id="residentGroup"/>
+                                                <ToggleGroup fx:id="residentGroup" />
                                             </toggleGroup>
                                         </RadioButton>
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                                             <children>
-                                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" onAction="#clickAdd" text="Add" />
-                                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" onAction="#clickRemove" text="Remove" />
+                                                <Button mnemonicParsing="false" onAction="#clickAdd" prefHeight="26.0" prefWidth="86.0" text="Add" />
+                                                <Button mnemonicParsing="false" onAction="#clickRemove" prefHeight="26.0" prefWidth="82.0" text="Remove" />
                                                 <Button mnemonicParsing="false" onAction="#clickChangeMajor" text="Change Major" />
                                                 <Button mnemonicParsing="false" onAction="#loadFromFile" text="Load From File" />
                                             </children>
@@ -73,22 +73,25 @@
                                             <children>
                                                 <RadioButton fx:id="BAITRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="70.0" text="BAIT">
                                                     <toggleGroup>
-                                                        <ToggleGroup fx:id="majorGroup"/>
+                                                        <ToggleGroup fx:id="majorGroup" />
                                                     </toggleGroup>
                                                 </RadioButton>
                                                 <RadioButton fx:id="CSRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="58.0" text="CS" toggleGroup="$majorGroup" />
-                                                <RadioButton fx:id="ECERadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="61.0" text="ECE"  toggleGroup="$majorGroup"/>
+                                                <RadioButton fx:id="ECERadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="61.0" text="ECE" toggleGroup="$majorGroup" />
                                                 <RadioButton fx:id="ITIRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="47.0" text="ITI" toggleGroup="$majorGroup" />
                                                 <RadioButton fx:id="MATHRadioButton" mnemonicParsing="false" text="MATH" toggleGroup="$majorGroup" />
                                             </children>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
                                         </HBox>
                                         <HBox prefHeight="84.0" prefWidth="466.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                             <children>
                                                 <RadioButton fx:id="nonResidentRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="118.0" text="Non-Resident" toggleGroup="$residentGroup" />
                                                 <VBox prefHeight="38.0" prefWidth="118.0">
                                                     <children>
-                                                        <RadioButton fx:id="tristateRadioButton" mnemonicParsing="false" text="Tristate" toggleGroup="$residentGroup"/>
-                                                        <RadioButton fx:id="internationalRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="123.0" text="International" toggleGroup="$residentGroup"/>
+                                                        <RadioButton fx:id="tristateRadioButton" mnemonicParsing="false" text="Tristate" toggleGroup="$residentGroup" />
+                                                        <RadioButton fx:id="internationalRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="123.0" text="International" toggleGroup="$residentGroup" />
                                                     </children>
                                                 </VBox>
                                                 <VBox prefHeight="38.0" prefWidth="218.0">
@@ -97,7 +100,7 @@
                                                             <children>
                                                                 <HBox prefHeight="100.0" prefWidth="200.0">
                                                                     <children>
-                                                                        <RadioButton fx:id="nyRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="54.0" text="NY" toggleGroup="$residentGroup"/>
+                                                                        <RadioButton fx:id="nyRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="54.0" text="NY" toggleGroup="$residentGroup" />
                                                                         <RadioButton fx:id="ctRadioButton" mnemonicParsing="false" text="CT" toggleGroup="$residentGroup" />
                                                                     </children>
                                                                 </HBox>
@@ -132,18 +135,18 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <Label text="First Name" />
-                                        <Label text="Last Name" GridPane.rowIndex="1" />
-                                        <Label text="Date of Birth" GridPane.rowIndex="2" />
-                                        <Label text="Credits" GridPane.rowIndex="3" />
+                                        <Label text="First Name " GridPane.halignment="RIGHT" />
+                                        <Label text="Last Name " GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                                        <Label text="Date of Birth " GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                                        <Label text="Credits " GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
                                         <TextField fx:id="fnameEnrollmentTextField" GridPane.columnIndex="1" />
                                         <TextField fx:id="lnameEnrollmentTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         <TextField fx:id="creditsEnrolledTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                         <DatePicker fx:id="dobEnrollment" prefHeight="26.0" prefWidth="410.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                             <children>
-                                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="115.0" onAction="#clickEnroll" text="Enroll" />
-                                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="108.0" onAction="#clickDrop" text="Drop" />
+                                                <Button mnemonicParsing="false" onAction="#clickEnroll" prefHeight="26.0" prefWidth="115.0" text="Enroll" />
+                                                <Button mnemonicParsing="false" onAction="#clickDrop" prefHeight="26.0" prefWidth="108.0" text="Drop" />
                                             </children>
                                         </HBox>
                                     </children>
@@ -169,10 +172,10 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <Label text="First Name" />
-                                        <Label text="Last Name" GridPane.rowIndex="1" />
-                                        <Label text="Date of Birth" GridPane.rowIndex="2" />
-                                        <Label text="Amount" GridPane.rowIndex="3" />
+                                        <Label text="First Name " GridPane.halignment="RIGHT" />
+                                        <Label text="Last Name " GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                                        <Label text="Date of Birth " GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                                        <Label text="Amount " GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
                                         <TextField fx:id="fnameScholarshipTextField" GridPane.columnIndex="1" />
                                         <TextField fx:id="lnameScholarshipTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         <TextField fx:id="amountScholarshipTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
