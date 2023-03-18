@@ -88,29 +88,39 @@ public class TuitionManagerController {
     private TextArea outputText;
 
     @FXML
-    void clickAdd(ActionEvent event) { //TODO: Not tested
-        String fname = fnameRosterTextField.getText(); //TODO: Eventually turn this into a helper method to shorten
-        if(fname == null){
+    boolean checkForNullInRoster() {
+        if (fnameRosterTextField.getText() == null) {
             outputText.appendText("Please enter a first name.\n");
-            return;
+            return false;
         }
-        String lname = lnameRosterTextField.getText();
-        if(lname == null){
+        if (lnameRosterTextField.getText() == null) {
             outputText.appendText("Please enter a last name.\n");
-            return;
+            return false;
         }
-        LocalDate dobTemp = dobRoster.getValue();
-        if(dobTemp == null){
+        if (dobRoster.getValue() == null) {
             outputText.appendText("Please select a date.\n");
-            return;
+            return false;
         }
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
-        String dobString = dobTemp.format(formatters);
-        String creditsCompleted = creditsCompletedTextField.getText();
-        String majorType;
-        String studentType;
-        String state = "";
-        String studyAbroad = "false";
+        if (!BAITRadioButton.isSelected() && !CSRadioButton.isSelected() && !ECERadioButton.isSelected() && !ITIRadioButton.isSelected()
+                && !MATHRadioButton.isSelected()){
+            outputText.appendText("Please select a major.\n");
+            return false;
+        }
+        if(creditsCompletedTextField.getText() == null) {
+            outputText.appendText("Please enter credits completed.\n");
+            return false;
+        }
+        if (!residentRadioButton.isSelected() && !nonResidentRadioButton.isSelected() && !internationalRadioButton.isSelected()
+            && !tristateRadioButton.isSelected() && !nyRadioButton.isSelected() && !ctRadioButton.isSelected()){
+            outputText.appendText("Please select a status.\n");
+            return false;
+        }
+        return true;
+    }
+
+    @FXML
+    String findMajor(){
+        String majorType = "";
         if(BAITRadioButton.isSelected()) { //Major radio buttons
             majorType = "BAIT";
         } else if(CSRadioButton.isSelected()) {
@@ -122,9 +132,19 @@ public class TuitionManagerController {
         } else if(MATHRadioButton.isSelected()) {
             majorType = "MATH";
         } else{
-            outputText.appendText("Please select a major.\n"); return; }//No major selected
+            outputText.appendText("Please select a major.\n");
+        }//No major selected
+        return majorType;
+    }
+
+    @FXML
+    String[] findStatus(){
+        String[] empty = {""};
+        String studentType = "";
+        String state = "";
+        String studyAbroad = "";
         if (!internationalRadioButton.isSelected() && studyAbroadCheckButton.isSelected()) { //Check if study abroad check is valid
-            outputText.appendText("Only international students can be study abroad.\n"); return;
+            outputText.appendText("Only international students can be study abroad.\n"); return empty;
         }
         if(residentRadioButton.isSelected()) { //Checking status radio buttons
             studentType = "R";
@@ -145,7 +165,30 @@ public class TuitionManagerController {
                 }
             }
         } else {
-            outputText.appendText("Please select a status\n"); return; }
+            outputText.appendText("Please select a status\n");
+            return empty;
+        }
+        String[] statusStudyState = new String[]{studentType, studyAbroad, state};
+        return statusStudyState;
+    }
+
+    @FXML
+    void clickAdd(ActionEvent event) { //TODO: Not tested
+        if(!checkForNullInRoster())
+            return;
+        String fname = fnameRosterTextField.getText();
+        String lname = lnameRosterTextField.getText();
+        LocalDate dobTemp = dobRoster.getValue();
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
+        String dobString = dobTemp.format(formatters);
+        String creditsCompleted = creditsCompletedTextField.getText();
+        String majorType = findMajor();
+        String[] statusStudyState = findStatus();
+        if(statusStudyState[1] == null)
+            return;
+        String studentType = statusStudyState[0];
+        String studyAbroad = statusStudyState[1];
+        String state = statusStudyState[2];
         if(!myRoster.contains(createCorrectStudentInstance(studentType, new Profile(lname, fname,
                 new Date(dobString)), Major.valueOf(majorType), Integer.parseInt(creditsCompleted), studyAbroadCheckButton.isSelected(), state)))
         {
@@ -370,56 +413,139 @@ public class TuitionManagerController {
     }
 
     @FXML
-    void printRBS(ActionEvent event){ //TODO: Not functional
+    void printRBS(ActionEvent event){ //TODO: Not tested
         if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
             outputText.appendText("Roster is empty! \n");
             return;
         }
+        Roster tempRoster = new Roster();
+        for (int k = 0; k < myRoster.getRoster().length; k++) {
+            if (myRoster.getRoster()[k] != null) {
+                if ((myRoster.getRoster()[k].getMajor() == Major.BAIT)) {
+                    tempRoster.add(myRoster.getRoster()[k]);
+                }
+            }
+        }
+        outputText.appendText("** Students in RBS **");
+        Student[] students = tempRoster.getRoster();
+        for(Student student : students){
+            if(student != null)
+                outputText.appendText(student.getProfile().toString() + "\n");
+        }
+        outputText.appendText("** end of list **");
     }
 
     @FXML
-    void printSAS(ActionEvent event){ //TODO: Not functional
+    void printSAS(ActionEvent event){ //TODO: Not tested
         if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
             outputText.appendText("Roster is empty! \n");
             return;
         }
+        Roster tempRoster = new Roster();
+        for (int k = 0; k < myRoster.getRoster().length; k++) {
+            if (myRoster.getRoster()[k] != null) {
+                if ((myRoster.getRoster()[k].getMajor() == Major.CS || myRoster.getRoster()[k].getMajor() == Major.MATH)) {
+                    tempRoster.add(myRoster.getRoster()[k]);
+                }
+            }
+        }
+        outputText.appendText("** Students in SAS **");
+        Student[] students = tempRoster.getRoster();
+        for(Student student : students){
+            if(student != null)
+                outputText.appendText(student.getProfile().toString() + "\n");
+        }
+        outputText.appendText("** end of list **");
     }
 
+
     @FXML
-    void printSCI(ActionEvent event){ //TODO: Not functional
+    void printSCI(ActionEvent event){ //TODO: Not tested
         if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
             outputText.appendText("Roster is empty! \n");
             return;
         }
+        Roster tempRoster = new Roster();
+        for (int k = 0; k < myRoster.getRoster().length; k++) {
+            if (myRoster.getRoster()[k] != null) {
+                if ((myRoster.getRoster()[k].getMajor() == Major.ITI)) {
+                    tempRoster.add(myRoster.getRoster()[k]);
+                }
+            }
+        }
+        outputText.appendText("** Students in SC&I **");
+        Student[] students = tempRoster.getRoster();
+        for(Student student : students){
+            if(student != null)
+                outputText.appendText(student.getProfile().toString() + "\n");
+        }
+        outputText.appendText("** end of list **");
     }
 
     @FXML
-    void printSOE(ActionEvent event){ //TODO: Not functional
+    void printSOE(ActionEvent event){ //TODO: Not tested
         if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
             outputText.appendText("Roster is empty! \n");
             return;
         }
-    }
+        Roster tempRoster = new Roster();
+        for (int k = 0; k < myRoster.getRoster().length; k++) {
+            if (myRoster.getRoster()[k] != null) {
+                if ((myRoster.getRoster()[k].getMajor() == Major.EE)) {
+                    tempRoster.add(myRoster.getRoster()[k]);
+                }
+            }
+        }
+        outputText.appendText("** Students in SOE **");
+        Student[] students = tempRoster.getRoster();
+        for(Student student : students){
+            if(student != null)
+                outputText.appendText(student.getProfile().toString() + "\n");
+        }
+        outputText.appendText("** end of list **");
+        }
 
     @FXML
-    void printEnrolled(ActionEvent event){ //TODO: Not functional
+    void printEnrolled(ActionEvent event){ //TODO: Not tested
         if (myEnrollment == null || myEnrollment.getEnrollStudents() == null || myEnrollment.getEnrollStudents()[0] == null) {
             outputText.appendText("Enrollment is empty! \n");
             return;
         }
         outputText.appendText("** Enrollment **\n");
-
+        for (int k = 0; k < myEnrollment.getEnrollStudents().length; k++) {
+            if (myEnrollment.getEnrollStudents()[k] != null) {
+                outputText.appendText(myEnrollment.getEnrollStudents()[k].toString() + "\n");
+            }
+        }
         outputText.appendText("** end of enrollment **\n");
     }
 
     @FXML
-    void printTuitionDue(ActionEvent event){ //TODO: Not functional
+    void printTuitionDue(ActionEvent event){ //TODO: Not tested
         if (myEnrollment == null || myEnrollment.getEnrollStudents() == null || myEnrollment.getEnrollStudents()[0] == null) {
             outputText.appendText("Enrollment is empty! \n");
             return;
         }
         outputText.appendText("** Tuition due **\n");
-
+        if (myEnrollment != null) {
+            for (EnrollStudent enrollStudent : myEnrollment.getEnrollStudents()) {
+                if (enrollStudent != null) {
+                    if (myRoster != null) {
+                        for (Student student : myRoster.getRoster()) {
+                            if (student != null) {
+                                if (enrollStudent.getProfile().equals(student.getProfile())) {
+                                    outputText.appendText(student.getProfile().toString() + " " +
+                                            printParenthesizedStudents(student,false) +
+                                            " enrolled " + enrollStudent.getCreditsEnrolled() +
+                                            " credits: tuition due: $" +
+                                            df.format(student.tuitionDue(enrollStudent.getCreditsEnrolled())) + "\n");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         outputText.appendText("** end of tuition due **\n");
     }
 
