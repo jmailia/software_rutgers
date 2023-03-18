@@ -257,19 +257,7 @@ public class TuitionManagerController {
         }
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
         String dobString = dobTemp.format(formatters);
-        String majorType;
-        if(BAITRadioButton.isSelected()) { //Major radio buttons
-            majorType = "BAIT";
-        } else if(CSRadioButton.isSelected()) {
-            majorType = "CS";
-        } else if(ECERadioButton.isSelected()) {
-            majorType = "ECE";
-        } else if(ITIRadioButton.isSelected()) {
-            majorType = "ITI";
-        } else if(MATHRadioButton.isSelected()) {
-            majorType = "MATH";
-        } else{
-            outputText.appendText("Please select a major\n"); return; }//No major selected
+        String majorType = findMajor();
         C_Command(fname, lname, dobString, majorType, myRoster);
         outputText.appendText(lname + " " + fname + " " + dobString + " major changed to " + majorType + "\n");
     }
