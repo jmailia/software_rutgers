@@ -65,35 +65,49 @@ public class TuitionManagerController {
     private TextArea outputText;
 
     /**
-     * Helper method for checking if any of the fields in the roster tab are null
-     * @return true if there is no null fields in roster, false if there are
+     * Helper method for checking if the first name field is valid
+     * @return true if the user entered a first name, false otherwise
      */
     @FXML
-    boolean checkForNullInRoster() {
+    boolean isFNameValid(){
         if (fnameRosterTextField.getText().equals("")) {
             outputText.appendText("Please enter a first name.\n");
             return false;
         }
+        return true;
+    }
+
+    /**
+     * Helper method to check if the user inputted a value for last name
+     * @return true if the user entered a last name, false otherwise
+     */
+    boolean isLNameValid() {
         if (lnameRosterTextField.getText().equals("")) {
             outputText.appendText("Please enter a last name.\n");
             return false;
         }
+        return true;
+    }
+
+    /**
+     * Helper method to check if the user inputted a value for DOB
+     * @return true if the user selected a date, false otherwise
+     */
+    boolean isDOBValid() {
         if (dobRoster.getValue() == null) {
             outputText.appendText("Please select a date.\n");
             return false;
         }
-        if (!BAITRadioButton.isSelected() && !CSRadioButton.isSelected() && !ECERadioButton.isSelected() && !ITIRadioButton.isSelected()
-                && !MATHRadioButton.isSelected()){
-            outputText.appendText("Please select a major.\n");
-            return false;
-        }
-        if(creditsCompletedTextField.getText().equals("")) {
+        return true;
+    }
+
+    /**
+     * Helper method to check if the user inputted credits completed
+     * @return true if the user entered their credits completed, false otherwise
+     */
+    boolean isCreditsValid() {
+        if (creditsCompletedTextField.getText().equals("")) {
             outputText.appendText("Please enter credits completed.\n");
-            return false;
-        }
-        if (!residentRadioButton.isSelected() && !nonResidentRadioButton.isSelected() && !internationalRadioButton.isSelected()
-                && !nyRadioButton.isSelected() && !ctRadioButton.isSelected()){
-            outputText.appendText("Please select a status.\n");
             return false;
         }
         return true;
@@ -146,11 +160,11 @@ public class TuitionManagerController {
                 studentType = "T";
                 state = "CT";
             }
-            } else if (internationalRadioButton.isSelected()) {
-                studentType = "I";
-                if(studyAbroadCheckButton.isSelected()){ //Study abroad check
-                    studyAbroad = "true";
-                }
+        } else if (internationalRadioButton.isSelected()) {
+            studentType = "I";
+            if(studyAbroadCheckButton.isSelected()){ //Study abroad check
+                studyAbroad = "true";
+            }
         } else {
             outputText.appendText("Please select a status\n");
             return empty;
@@ -166,8 +180,11 @@ public class TuitionManagerController {
      */
     @FXML
     void clickAdd(ActionEvent event) { //TODO: Not tested
-        if(!checkForNullInRoster())
+        if(!isFNameValid() || !isLNameValid() || !isDOBValid()
+                || !isCreditsValid() || findMajor() == ""
+                || (findStatus()[0] == "")) {
             return;
+        }
         String fname = fnameRosterTextField.getText();
         String lname = lnameRosterTextField.getText();
         LocalDate dobTemp = dobRoster.getValue();
@@ -214,25 +231,12 @@ public class TuitionManagerController {
      */
     @FXML
     void clickRemove(ActionEvent event) { //TODO: Not tested
-        String fname = fnameRosterTextField.getText();
-        if(fname.equals("")){
-            outputText.appendText("Please enter a first name.\n");
-            return;
-        }
-        String lname = lnameRosterTextField.getText();
-        if(lname.equals("")){
-            outputText.appendText("Please enter a last name.\n");
-            return;
-        }
-        LocalDate dobTemp = dobRoster.getValue();
-        if(dobTemp == null){
-            outputText.appendText("Please select a date.\n");
-            return;
-        }
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
-        String dobString = dobTemp.format(formatters);
-        R_Command(fname, lname, dobString, myRoster);
-        outputText.appendText(lname + " " + fname + " " + dobString + " removed from the roster.\n");
+        if(!isFNameValid() || !isLNameValid() || !isDOBValid()) {return;}
+        R_Command(fnameRosterTextField.getText(), lnameRosterTextField.getText(),
+                dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")), myRoster);
+        outputText.appendText(lnameRosterTextField.getText() + " " + fnameRosterTextField.getText() + " " +
+                dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu"))
+                + " removed from the roster.\n");
     }
 
     /**
@@ -242,26 +246,13 @@ public class TuitionManagerController {
      */
     @FXML
     void clickChangeMajor(ActionEvent event) { //TODO: Not tested
-        String fname = fnameRosterTextField.getText();
-        if(fname.equals("")){
-            outputText.appendText("Please enter a first name.\n");
-            return;
-        }
-        String lname = lnameRosterTextField.getText();
-        if(lname.equals("")){
-            outputText.appendText("Please enter a last name.\n");
-            return;
-        }
-        LocalDate dobTemp = dobRoster.getValue();
-        if(dobTemp == null){
-            outputText.appendText("Please select a date.\n");
-            return;
-        }
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
-        String dobString = dobTemp.format(formatters);
-        String majorType = findMajor();
-        C_Command(fname, lname, dobString, majorType, myRoster);
-        outputText.appendText(lname + " " + fname + " " + dobString + " major changed to " + majorType + "\n");
+        if(!isFNameValid() || !isLNameValid() || !isDOBValid()) {return;}
+        C_Command(fnameRosterTextField.getText(), lnameRosterTextField.getText(),
+                dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")), findMajor(), myRoster);
+        outputText.appendText(lnameRosterTextField.getText() + " " +
+                fnameRosterTextField.getText() + " " +
+                dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")) +
+                " major changed to " + findMajor() + "\n");
     }
 
     /**
@@ -287,26 +278,15 @@ public class TuitionManagerController {
      */
     @FXML
     void clickEnroll(ActionEvent event) { //TODO: Not tested
-        String fname = fnameEnrollmentTextField.getText();
-        if(fname.equals("")){
-            outputText.appendText("Please enter a first name.\n");
-            return;
-        }
-        String lname = lnameEnrollmentTextField.getText();
-        if(lname.equals("")){
-            outputText.appendText("Please enter a last name.\n");
-            return;
-        }
-        LocalDate dobTemp = dobEnrollment.getValue();
-        if(dobTemp == null){
-            outputText.appendText("Please select a date.\n");
-            return;
-        }
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
-        String dobString = dobTemp.format(formatters);
+        if(!isFNameValid() || !isLNameValid() || !isDOBValid()) {return;}
+
         String creditsEnrolled = creditsEnrolledTextField.getText();
-        E_Command(new String[]{"E", fname, lname, dobString, creditsEnrolled}, myEnrollment, myRoster);
-        outputText.appendText(lname + " " + fname + " " + dobString + " enrolled " + creditsEnrolled + " credits\n");
+        E_Command(new String[]{"E", fnameRosterTextField.getText(), lnameRosterTextField.getText(),
+                dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")), creditsEnrolled},
+                myEnrollment, myRoster);
+        outputText.appendText(lnameRosterTextField.getText() + " " + fnameRosterTextField.getText() + " " +
+                dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")) + " enrolled " +
+                creditsEnrolled + " credits\n");
     }
 
     /**
@@ -316,27 +296,12 @@ public class TuitionManagerController {
      */
     @FXML
     void clickDrop(ActionEvent event) { //TODO: Not tested
-        String fname = fnameEnrollmentTextField.getText();
-        if(fname.equals("")){
-            outputText.appendText("Please enter a first name.\n");
-            return;
-        }
-        String lname = lnameEnrollmentTextField.getText();
-        if(lname.equals("")){
-            outputText.appendText("Please enter a last name.\n");
-            return;
-        }
-        LocalDate dobTemp = dobEnrollment.getValue();
-        if(dobTemp == null){
-            outputText.appendText("Please select a date.\n");
-            return;
-        }
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
-        String dobString = dobTemp.format(formatters);
-        Date dob = new Date(dobString);
-        Profile profile = new Profile(lname, fname, dob);
+        if(!isFNameValid() || !isLNameValid() || !isDOBValid()) {return;}
+        Date dob = new Date(dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")));
+        Profile profile = new Profile(lnameRosterTextField.getText(), fnameRosterTextField.getText(), dob);
         D_Command(profile, myEnrollment);
-        outputText.appendText(lname + " " + fname + " " + dobString + " dropped." + "\n");
+        outputText.appendText(lnameRosterTextField.getText() + " " + fnameRosterTextField.getText() + " " +
+                dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")) + " dropped." + "\n");
     }
 
     /**
@@ -345,40 +310,29 @@ public class TuitionManagerController {
      */
     @FXML
     void updateScholarshipAmount(ActionEvent event) {
-        String fname = fnameScholarshipTextField.getText();
-        if(fname.equals("")){
-            outputText.appendText("Please enter a first name.\n");
-            return;
-        }
-        String lname = lnameScholarshipTextField.getText();
-        if(lname.equals("")){
-            outputText.appendText("Please enter a last name.\n");
-            return;
-        }
-        LocalDate dobTemp = dobScholarship.getValue();
-        if(dobTemp == null){
-            outputText.appendText("Please select a date.\n");
-            return;
-        }
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
-        String dobString = dobTemp.format(formatters);
-        char result = S_Command(new String[]{"S", fname, lname, dobString, amountScholarshipTextField.getText()}, myEnrollment, myRoster);
+        if(!isFNameValid() || !isLNameValid() || !isDOBValid()) {return;}
+
+        char result = S_Command(new String[]{"S", fnameRosterTextField.getText(), lnameRosterTextField.getText(),
+                dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")),
+                amountScholarshipTextField.getText()}, myEnrollment, myRoster);
+        String studentProfile = lnameRosterTextField.getText() + " " + fnameRosterTextField.getText() + " " +
+                dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu"));
         switch(result){
             case 'p':
-                outputText.appendText(lname + " " + fname + " " + dobString + " part time student " +
+                outputText.appendText( studentProfile + " part time student " +
                         "is not eligible for the scholarship.");
                 return;
             case 's':
-                outputText.appendText(lname+ " " + fname+ " " + dobString + ": scholarship amount updated.\n");
+                outputText.appendText(studentProfile + ": scholarship amount updated.\n");
                 return;
             case 'i':
                 outputText.appendText(amountScholarshipTextField.getText() + ": invalid amount.\n");
                 return;
             case 'n':
-                outputText.appendText(lname+ " " + fname+ " " + dobString + " is not in the roster.\n");
+                outputText.appendText(studentProfile + " is not in the roster.\n");
                 return;
             case 'e':
-                outputText.appendText(lname + " " + fname + " " + dobString + " is not eligible for the scholarship.\n");
+                outputText.appendText(studentProfile + " is not eligible for the scholarship.\n");
                 return;
             case 'q':
                 outputText.appendText("Amount is not an integer.\n");
@@ -559,11 +513,11 @@ public class TuitionManagerController {
                 outputText.appendText(student.getProfile().toString() + "\n");
         }
         outputText.appendText("** end of list **");
-        }
+    }
 
     /**
      * Method prints the Enrollment in the text area.
-      * @param event
+     * @param event
      */
     @FXML
     void printEnrolled(ActionEvent event){ //TODO: Not tested
@@ -700,7 +654,7 @@ public class TuitionManagerController {
                     myRoster, false, input[6], isLS);
         } else if ((input[0].equals("AI") || input[0].equals("I")) && input.length > 5 ){ //otherwise, international student
             // if there is no seventh argument for an international student, assume false (for study abroad)
-             A_Command(input[0], input[1], input[2], new Date(input[3]),  input[4], input[5],
+            A_Command(input[0], input[1], input[2], new Date(input[3]),  input[4], input[5],
                     myRoster, (input.length != 6) ? Boolean.parseBoolean(input[6]) : false,
                     "", isLS);
         } else if (input.length > 5) { //otherwise, resident/nonresident student
