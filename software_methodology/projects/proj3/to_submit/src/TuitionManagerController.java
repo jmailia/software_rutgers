@@ -39,8 +39,6 @@ public class TuitionManagerController {
     @FXML
     private RadioButton nonResidentRadioButton;
     @FXML
-    private RadioButton tristateRadioButton;
-    @FXML
     private RadioButton internationalRadioButton;
     @FXML
     private RadioButton nyRadioButton;
@@ -93,11 +91,11 @@ public class TuitionManagerController {
      */
     @FXML
     boolean checkForNullInRoster() {
-        if (fnameRosterTextField.getText() == null) {
+        if (fnameRosterTextField.getText() == "") {
             outputText.appendText("Please enter a first name.\n");
             return false;
         }
-        if (lnameRosterTextField.getText() == null) {
+        if (lnameRosterTextField.getText() == "") {
             outputText.appendText("Please enter a last name.\n");
             return false;
         }
@@ -110,12 +108,12 @@ public class TuitionManagerController {
             outputText.appendText("Please select a major.\n");
             return false;
         }
-        if(creditsCompletedTextField.getText() == null) {
+        if(creditsCompletedTextField.getText() == "") {
             outputText.appendText("Please enter credits completed.\n");
             return false;
         }
         if (!residentRadioButton.isSelected() && !nonResidentRadioButton.isSelected() && !internationalRadioButton.isSelected()
-            && !tristateRadioButton.isSelected() && !nyRadioButton.isSelected() && !ctRadioButton.isSelected()){
+                && !nyRadioButton.isSelected() && !ctRadioButton.isSelected()){
             outputText.appendText("Please select a status.\n");
             return false;
         }
@@ -162,20 +160,18 @@ public class TuitionManagerController {
             studentType = "R";
         } else if(nonResidentRadioButton.isSelected()) {
             studentType = "N";
-            if (tristateRadioButton.isSelected()) {
-                if (nyRadioButton.isSelected()) {
-                    studentType = "T";
-                    state = "NY";
-                } else if (ctRadioButton.isSelected()) {
-                    studentType = "T";
-                    state = "CT";
-                }
+            if (nyRadioButton.isSelected()) {
+                studentType = "T";
+                state = "NY";
+            } else if (ctRadioButton.isSelected()) {
+                studentType = "T";
+                state = "CT";
+            }
             } else if (internationalRadioButton.isSelected()) {
                 studentType = "I";
                 if(studyAbroadCheckButton.isSelected()){ //Study abroad check
                     studyAbroad = "true";
                 }
-            }
         } else {
             outputText.appendText("Please select a status\n");
             return empty;
@@ -240,12 +236,12 @@ public class TuitionManagerController {
     @FXML
     void clickRemove(ActionEvent event) { //TODO: Not tested
         String fname = fnameRosterTextField.getText();
-        if(fname == null){
+        if(fname == ""){
             outputText.appendText("Please enter a first name.\n");
             return;
         }
         String lname = lnameRosterTextField.getText();
-        if(lname == null){
+        if(lname == ""){
             outputText.appendText("Please enter a last name.\n");
             return;
         }
@@ -268,12 +264,12 @@ public class TuitionManagerController {
     @FXML
     void clickChangeMajor(ActionEvent event) { //TODO: Not tested
         String fname = fnameRosterTextField.getText();
-        if(fname == null){
+        if(fname == ""){
             outputText.appendText("Please enter a first name.\n");
             return;
         }
         String lname = lnameRosterTextField.getText();
-        if(lname == null){
+        if(lname == ""){
             outputText.appendText("Please enter a last name.\n");
             return;
         }
@@ -297,7 +293,7 @@ public class TuitionManagerController {
      */
     @FXML
     void loadFromFile(ActionEvent event) throws FileNotFoundException { //TODO: Not tested
-        Scanner file = new Scanner(new File("studentList.txt"));
+        Scanner file = new Scanner(new File("src\\main\\java\\com\\example\\cs213project3\\studentList.txt"));
         while (file.hasNextLine()) {
             A_Command_ParseArguments(file.nextLine().split(","), myRoster, true);
         }
@@ -313,12 +309,12 @@ public class TuitionManagerController {
     @FXML
     void clickEnroll(ActionEvent event) { //TODO: Not tested
         String fname = fnameRosterTextField.getText();
-        if(fname == null){
+        if(fname == ""){
             outputText.appendText("Please enter a first name.\n");
             return;
         }
         String lname = lnameRosterTextField.getText();
-        if(lname == null){
+        if(lname == ""){
             outputText.appendText("Please enter a last name.\n");
             return;
         }
@@ -342,12 +338,12 @@ public class TuitionManagerController {
     @FXML
     void clickDrop(ActionEvent event) { //TODO: Not tested
         String fname = fnameRosterTextField.getText();
-        if(fname == null){
+        if(fname == ""){
             outputText.appendText("Please enter a first name.\n");
             return;
         }
         String lname = lnameRosterTextField.getText();
-        if(lname == null){
+        if(lname == ""){
             outputText.appendText("Please enter a last name.\n");
             return;
         }
@@ -369,14 +365,14 @@ public class TuitionManagerController {
      * @param event
      */
     @FXML
-    void updateScholarshipAmount(ActionEvent event) { //TODO: Not tested
+    void updateScholarshipAmount(ActionEvent event) {
         String fname = fnameRosterTextField.getText();
-        if(fname == null){
+        if(fname == ""){
             outputText.appendText("Please enter a first name.\n");
             return;
         }
         String lname = lnameRosterTextField.getText();
-        if(lname == null){
+        if(lname == ""){
             outputText.appendText("Please enter a last name.\n");
             return;
         }
@@ -387,8 +383,27 @@ public class TuitionManagerController {
         }
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
         String dobString = dobTemp.format(formatters);
-        S_Command(new String[]{"S", fname, lname, dobString, amountScholarshipTextField.getText()}, myEnrollment, myRoster);
-        outputText.appendText(lname+ " " + fname+ " " + dobString + ": scholarship amount updated.\n");
+        char result = S_Command(new String[]{"S", fname, lname, dobString, amountScholarshipTextField.getText()}, myEnrollment, myRoster);
+        switch(result){
+            case 'p':
+                outputText.appendText(lname + " " + fname + " " + dobString + " part time student " +
+                        "is not eligible for the scholarship.");
+                return;
+            case 's':
+                outputText.appendText(lname+ " " + fname+ " " + dobString + ": scholarship amount updated.\n");
+                return;
+            case 'i':
+                outputText.appendText(amountScholarshipTextField.getText() + ": invalid amount.\n");
+                return;
+            case 'n':
+                outputText.appendText(lname+ " " + fname+ " " + dobString + " is not in the roster.\n");
+                return;
+            case 'e':
+                outputText.appendText(lname + " " + fname + " " + dobString + " is not eligible for the scholarship.\n");
+                return;
+            case 'q':
+                outputText.appendText("Amount is not an integer.\n");
+        }
     }
 
     /**
@@ -1022,16 +1037,16 @@ public class TuitionManagerController {
      * @param myEnrollment Enrollment we want to access
      * @param myRoster Roster we want to iterate through
      */
-    private void S_Command(String[] input, Enrollment myEnrollment,  Roster myRoster) {
+    private char S_Command(String[] input, Enrollment myEnrollment,  Roster myRoster) {
         if (input.length < 3) {
-            System.out.println("Missing data in line command."); return;
+            System.out.println("Missing data in line command."); return ' ';
         }
         Profile profile = new Profile(input[2], input[1], new Date(input[3]));
         if (!myRoster.contains(new Resident (profile,Major.CS,10))) {
-            System.out.println(profile.toString() + " is not in the roster."); return; // Not in roster
+            System.out.println(profile.toString() + " is not in the roster."); return 'n'; // Not in roster
         }
         if (input[4] != null && input[4].matches("[-+]?\\d*\\.?\\d+")) {
-            if (invalidScholarshipAmount(Integer.parseInt(input[4]))){return;}
+            if (invalidScholarshipAmount(Integer.parseInt(input[4]))){return 'i';}
             if (myRoster != null) {
                 for (Student student : myRoster.getRoster()) { // Get access to student we are looking for in roster
                     if (student != null) {
@@ -1043,15 +1058,15 @@ public class TuitionManagerController {
                                             if (student.isResident()) {
                                                 if (enrollStudent.getCreditsEnrolled() >= 12) { // Check if fulltime
                                                     student.setScholarship(Integer.parseInt(input[4]));
-                                                    System.out.println(profile.toString() + ": scholarship amount updated."); return;
+                                                    System.out.println(profile.toString() + ": scholarship amount updated."); return 's';
                                                 } else { //Student is parttime
                                                     System.out.println(student.getProfile().toString() + " part time student " +
-                                                            "is not eligible for the scholarship."); return;
+                                                            "is not eligible for the scholarship."); return 'p';
                                                 }
                                             }
                                             System.out.println(student.getProfile().toString() + " " + //Student is not a resident
                                                     printParenthesizedStudents(student,false) +
-                                                    " is not eligible for the scholarship."); return;
+                                                    " is not eligible for the scholarship."); return 'e';
                                         }
                                     }
                                 }
@@ -1062,6 +1077,7 @@ public class TuitionManagerController {
             }
         }
         System.out.println("Amount is not an integer.");
+        return 'q';
     }
 
 
