@@ -167,11 +167,11 @@ public class TuitionManagerController {
                 studentType = "T";
                 state = "CT";
             }
-        } else if (internationalRadioButton.isSelected()) {
-            studentType = "I";
-            if(studyAbroadCheckButton.isSelected()){ //Study abroad check
-                studyAbroad = "true";
-            }
+            } else if (internationalRadioButton.isSelected()) {
+                studentType = "I";
+                if(studyAbroadCheckButton.isSelected()){ //Study abroad check
+                    studyAbroad = "true";
+                }
         } else {
             outputText.appendText("Please select a status\n");
             return empty;
@@ -308,17 +308,17 @@ public class TuitionManagerController {
      */
     @FXML
     void clickEnroll(ActionEvent event) { //TODO: Not tested
-        String fname = fnameRosterTextField.getText();
+        String fname = fnameEnrollmentTextField.getText();
         if(fname == ""){
             outputText.appendText("Please enter a first name.\n");
             return;
         }
-        String lname = lnameRosterTextField.getText();
+        String lname = lnameEnrollmentTextField.getText();
         if(lname == ""){
             outputText.appendText("Please enter a last name.\n");
             return;
         }
-        LocalDate dobTemp = dobRoster.getValue();
+        LocalDate dobTemp = dobEnrollment.getValue();
         if(dobTemp == null){
             outputText.appendText("Please select a date.\n");
             return;
@@ -337,17 +337,17 @@ public class TuitionManagerController {
      */
     @FXML
     void clickDrop(ActionEvent event) { //TODO: Not tested
-        String fname = fnameRosterTextField.getText();
+        String fname = fnameEnrollmentTextField.getText();
         if(fname == ""){
             outputText.appendText("Please enter a first name.\n");
             return;
         }
-        String lname = lnameRosterTextField.getText();
+        String lname = lnameEnrollmentTextField.getText();
         if(lname == ""){
             outputText.appendText("Please enter a last name.\n");
             return;
         }
-        LocalDate dobTemp = dobRoster.getValue();
+        LocalDate dobTemp = dobEnrollment.getValue();
         if(dobTemp == null){
             outputText.appendText("Please select a date.\n");
             return;
@@ -366,17 +366,17 @@ public class TuitionManagerController {
      */
     @FXML
     void updateScholarshipAmount(ActionEvent event) {
-        String fname = fnameRosterTextField.getText();
+        String fname = fnameScholarshipTextField.getText();
         if(fname == ""){
             outputText.appendText("Please enter a first name.\n");
             return;
         }
-        String lname = lnameRosterTextField.getText();
+        String lname = lnameScholarshipTextField.getText();
         if(lname == ""){
             outputText.appendText("Please enter a last name.\n");
             return;
         }
-        LocalDate dobTemp = dobRoster.getValue();
+        LocalDate dobTemp = dobScholarship.getValue();
         if(dobTemp == null){
             outputText.appendText("Please select a date.\n");
             return;
@@ -580,11 +580,11 @@ public class TuitionManagerController {
                 outputText.appendText(student.getProfile().toString() + "\n");
         }
         outputText.appendText("** end of list **");
-    }
+        }
 
     /**
      * Method prints the Enrollment in the text area.
-     * @param event
+      * @param event
      */
     @FXML
     void printEnrolled(ActionEvent event){ //TODO: Not tested
@@ -721,7 +721,7 @@ public class TuitionManagerController {
                     myRoster, false, input[6], isLS);
         } else if ((input[0].equals("AI") || input[0].equals("I")) && input.length > 5 ){ //otherwise, international student
             // if there is no seventh argument for an international student, assume false (for study abroad)
-            A_Command(input[0], input[1], input[2], new Date(input[3]),  input[4], input[5],
+             A_Command(input[0], input[1], input[2], new Date(input[3]),  input[4], input[5],
                     myRoster, (input.length != 6) ? Boolean.parseBoolean(input[6]) : false,
                     "", isLS);
         } else if (input.length > 5) { //otherwise, resident/nonresident student
