@@ -87,6 +87,10 @@ public class TuitionManagerController {
     @FXML
     private TextArea outputText;
 
+    /**
+     * Helper method for checking if any of the fields in the roster tab are null
+     * @return true if there is no null fields in roster, false if there are
+     */
     @FXML
     boolean checkForNullInRoster() {
         if (fnameRosterTextField.getText() == null) {
@@ -118,6 +122,10 @@ public class TuitionManagerController {
         return true;
     }
 
+    /**
+     * Helper method for finding the major selected in the roster tab
+     * @return the major selected as a string
+     */
     @FXML
     String findMajor(){
         String majorType = "";
@@ -137,6 +145,10 @@ public class TuitionManagerController {
         return majorType;
     }
 
+    /**
+     * Helper method to find the status selected in the roster tab
+     * @return a String array that gives the status, studyAbroad, and state in that order
+     */
     @FXML
     String[] findStatus(){
         String[] empty = {""};
@@ -172,6 +184,11 @@ public class TuitionManagerController {
         return statusStudyState;
     }
 
+    /**
+     * Method takes input from user in GUI and adds the student to the roster. All fields need to be filled
+     * in order for method to perform.
+     * @param event
+     */
     @FXML
     void clickAdd(ActionEvent event) { //TODO: Not tested
         if(!checkForNullInRoster())
@@ -215,6 +232,11 @@ public class TuitionManagerController {
             outputText.appendText(lname + " " + fname + " " + dobString + " is already in the roster.\n");
     }
 
+    /**
+     * Method takes input from user in GUI and removes a student from the roster if all fields are filled and student
+     * is in the roster.
+     * @param event
+     */
     @FXML
     void clickRemove(ActionEvent event) { //TODO: Not tested
         String fname = fnameRosterTextField.getText();
@@ -238,6 +260,11 @@ public class TuitionManagerController {
         outputText.appendText(lname + " " + fname + " " + dobString + " removed from the roster.\n");
     }
 
+    /**
+     * Method changes the major of a student in the roster by taking input from user in the GUI. The correct fields
+     * must be filled to do so.
+     * @param event
+     */
     @FXML
     void clickChangeMajor(ActionEvent event) { //TODO: Not tested
         String fname = fnameRosterTextField.getText();
@@ -262,6 +289,12 @@ public class TuitionManagerController {
         outputText.appendText(lname + " " + fname + " " + dobString + " major changed to " + majorType + "\n");
     }
 
+    /**
+     * Method loads students in the studentList.txt file into the roster. No fields need to be filled for this
+     * method to perform
+     * @param event
+     * @throws FileNotFoundException if file is not found
+     */
     @FXML
     void loadFromFile(ActionEvent event) throws FileNotFoundException { //TODO: Not tested
         Scanner file = new Scanner(new File("studentList.txt"));
@@ -272,6 +305,11 @@ public class TuitionManagerController {
         outputText.appendText("Students loaded to the roster.\n");
     }
 
+    /**
+     * Method takes input from user in GUI and enrolls a student if they are in the roster and fit the requirements
+     * for enrollment. All fields must be filled in order to perform.
+     * @param event
+     */
     @FXML
     void clickEnroll(ActionEvent event) { //TODO: Not tested
         String fname = fnameRosterTextField.getText();
@@ -291,11 +329,16 @@ public class TuitionManagerController {
         }
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
         String dobString = dobTemp.format(formatters);
-        String creditsCompleted = creditsEnrolledTextField.getText();
-        E_Command(new String[]{"E", fname, lname, dobString, creditsCompleted}, myEnrollment, myRoster);
-        outputText.appendText(lname + " " + fname + " " + dobString + " enrolled." + "\n");
+        String creditsEnrolled = creditsEnrolledTextField.getText();
+        E_Command(new String[]{"E", fname, lname, dobString, creditsEnrolled}, myEnrollment, myRoster);
+        outputText.appendText(lname + " " + fname + " " + dobString + " enrolled " + creditsEnrolled + " credits\n");
     }
 
+    /**
+     * Method takes input from user in GUI and drops a student from enrollment if they have been enrolled. All
+     * fields must be filled in order for method to perform.
+     * @param event
+     */
     @FXML
     void clickDrop(ActionEvent event) { //TODO: Not tested
         String fname = fnameRosterTextField.getText();
@@ -321,6 +364,10 @@ public class TuitionManagerController {
         outputText.appendText(lname + " " + fname + " " + dobString + " dropped." + "\n");
     }
 
+    /**
+     * Method takes input from user in GUI and updates the scholarship amount for a student if they are eligible for one.
+     * @param event
+     */
     @FXML
     void updateScholarshipAmount(ActionEvent event) { //TODO: Not tested
         String fname = fnameRosterTextField.getText();
@@ -340,10 +387,14 @@ public class TuitionManagerController {
         }
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
         String dobString = dobTemp.format(formatters);
-        S_Command(new String[]{"S", fname, lname, dobString}, myEnrollment, myRoster);
-        outputText.appendText("** end of roster **\n");
+        S_Command(new String[]{"S", fname, lname, dobString, amountScholarshipTextField.getText()}, myEnrollment, myRoster);
+        outputText.appendText(lname+ " " + fname+ " " + dobString + ": scholarship amount updated.\n");
     }
 
+    /**
+     * Method prints roster by profile in the text area.
+     * @param event
+     */
     @FXML
     void printByProfile(ActionEvent event){ //TODO: Not tested
         if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
@@ -360,6 +411,10 @@ public class TuitionManagerController {
         outputText.appendText("** end of roster **\n");
     }
 
+    /**
+     * Method prints roster by school in the text area.
+     * @param event
+     */
     @FXML
     void printBySchool(ActionEvent event){ //TODO: Not tested
         if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
@@ -376,6 +431,10 @@ public class TuitionManagerController {
         outputText.appendText("** end of roster **\n");
     }
 
+    /**
+     * Method prints roster by standing in the text area.
+     * @param event
+     */
     @FXML
     void printByStanding(ActionEvent event){ //TODO: Not tested
         if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
@@ -400,6 +459,10 @@ public class TuitionManagerController {
         outputText.appendText("** end of roster **\n");
     }
 
+    /**
+     * Method prints only RBS students in the text area.
+     * @param event
+     */
     @FXML
     void printRBS(ActionEvent event){ //TODO: Not tested
         if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
@@ -423,6 +486,10 @@ public class TuitionManagerController {
         outputText.appendText("** end of list **");
     }
 
+    /**
+     * Method prints only SAS students in the text area.
+     * @param event
+     */
     @FXML
     void printSAS(ActionEvent event){ //TODO: Not tested
         if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
@@ -446,7 +513,10 @@ public class TuitionManagerController {
         outputText.appendText("** end of list **");
     }
 
-
+    /**
+     * Method prints only SC&I students in the text area.
+     * @param event
+     */
     @FXML
     void printSCI(ActionEvent event){ //TODO: Not tested
         if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
@@ -470,6 +540,10 @@ public class TuitionManagerController {
         outputText.appendText("** end of list **");
     }
 
+    /**
+     * Method prints only SOE students in the text area.
+     * @param event
+     */
     @FXML
     void printSOE(ActionEvent event){ //TODO: Not tested
         if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
@@ -493,6 +567,10 @@ public class TuitionManagerController {
         outputText.appendText("** end of list **");
         }
 
+    /**
+     * Method prints the Enrollment in the text area.
+      * @param event
+     */
     @FXML
     void printEnrolled(ActionEvent event){ //TODO: Not tested
         if (myEnrollment == null || myEnrollment.getEnrollStudents() == null || myEnrollment.getEnrollStudents()[0] == null) {
@@ -508,6 +586,10 @@ public class TuitionManagerController {
         outputText.appendText("** end of enrollment **\n");
     }
 
+    /**
+     * Method prints the tuition due for enrolled students in the text area.
+     * @param event
+     */
     @FXML
     void printTuitionDue(ActionEvent event){ //TODO: Not tested
         if (myEnrollment == null || myEnrollment.getEnrollStudents() == null || myEnrollment.getEnrollStudents()[0] == null) {
@@ -537,6 +619,11 @@ public class TuitionManagerController {
         outputText.appendText("** end of tuition due **\n");
     }
 
+    /**
+     * Method ends the semester of enrolled students and adds their credits enrolled to credits completed.
+     * Once this is done a print out of all students eligible for graduation is given in the text area.
+     * @param event
+     */
     @FXML
     void semesterEnd(ActionEvent event){//TODO: Not tested
         if (myEnrollment == null || myEnrollment.getEnrollStudents() == null || myEnrollment.getEnrollStudents()[0] == null) {
@@ -1175,7 +1262,7 @@ public class TuitionManagerController {
      *                                the 1st index corresponds to whether an SE command has been executed already (SE);
      *                                the 1st index corresponds to whether the Xth command is the last command (X).
      * @return commandTimes
-     */ 
+     */
     private boolean[] commandTimes(boolean[] commandTimes){
         if (commandTimes[0]) {
             System.out.println("Tuition Manager running...\n");    //user knows software is ready for commands
