@@ -58,8 +58,8 @@
                                  <GridPane.margin>
                                     <Insets right="4.0" />
                                  </GridPane.margin></Label>
-                                        <TextField fx:id="fnameRosterTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <TextField fx:id="lnameRosterTextField" GridPane.columnIndex="1" />
+                                        <TextField fx:id="fnameRosterTextField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <TextField fx:id="lnameRosterTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         <DatePicker fx:id="dobRoster" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                         <Label text="Major" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                                  <GridPane.margin>
