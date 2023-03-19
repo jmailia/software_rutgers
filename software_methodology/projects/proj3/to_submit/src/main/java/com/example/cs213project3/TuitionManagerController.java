@@ -63,26 +63,6 @@ public class TuitionManagerController {
     @FXML
     private TextField amountScholarshipTextField;
     @FXML
-    private MenuItem printByProfileMenuItem;
-    @FXML
-    private MenuItem printBySchoolMenuItem;
-    @FXML
-    private MenuItem printByStandingMenuItem;
-    @FXML
-    private MenuItem printRBSMenuItem;
-    @FXML
-    private MenuItem printSASMenuItem;
-    @FXML
-    private MenuItem printSCIMenuItem;
-    @FXML
-    private MenuItem printSOEMenuItem;
-    @FXML
-    private MenuItem printEnrolledStudentsMenuItem;
-    @FXML
-    private MenuItem printTuitionDueMenuItem;
-    @FXML
-    private MenuItem semesterEndMenuItem;
-    @FXML
     private TextArea outputText;
 
     /**
