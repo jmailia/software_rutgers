@@ -2,7 +2,6 @@ package com.example.cs213project3;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -71,11 +70,11 @@ public class TuitionManagerController {
      */
     @FXML
     boolean checkForNullInRoster() {
-        if (fnameRosterTextField.getText() == "") {
+        if (fnameRosterTextField.getText().equals("")) {
             outputText.appendText("Please enter a first name.\n");
             return false;
         }
-        if (lnameRosterTextField.getText() == "") {
+        if (lnameRosterTextField.getText().equals("")) {
             outputText.appendText("Please enter a last name.\n");
             return false;
         }
@@ -88,7 +87,7 @@ public class TuitionManagerController {
             outputText.appendText("Please select a major.\n");
             return false;
         }
-        if(creditsCompletedTextField.getText() == "") {
+        if(creditsCompletedTextField.getText().equals("")) {
             outputText.appendText("Please enter credits completed.\n");
             return false;
         }
@@ -216,12 +215,12 @@ public class TuitionManagerController {
     @FXML
     void clickRemove(ActionEvent event) { //TODO: Not tested
         String fname = fnameRosterTextField.getText();
-        if(fname == ""){
+        if(fname.equals("")){
             outputText.appendText("Please enter a first name.\n");
             return;
         }
         String lname = lnameRosterTextField.getText();
-        if(lname == ""){
+        if(lname.equals("")){
             outputText.appendText("Please enter a last name.\n");
             return;
         }
@@ -244,12 +243,12 @@ public class TuitionManagerController {
     @FXML
     void clickChangeMajor(ActionEvent event) { //TODO: Not tested
         String fname = fnameRosterTextField.getText();
-        if(fname == ""){
+        if(fname.equals("")){
             outputText.appendText("Please enter a first name.\n");
             return;
         }
         String lname = lnameRosterTextField.getText();
-        if(lname == ""){
+        if(lname.equals("")){
             outputText.appendText("Please enter a last name.\n");
             return;
         }
@@ -289,12 +288,12 @@ public class TuitionManagerController {
     @FXML
     void clickEnroll(ActionEvent event) { //TODO: Not tested
         String fname = fnameEnrollmentTextField.getText();
-        if(fname == ""){
+        if(fname.equals("")){
             outputText.appendText("Please enter a first name.\n");
             return;
         }
         String lname = lnameEnrollmentTextField.getText();
-        if(lname == ""){
+        if(lname.equals("")){
             outputText.appendText("Please enter a last name.\n");
             return;
         }
@@ -318,12 +317,12 @@ public class TuitionManagerController {
     @FXML
     void clickDrop(ActionEvent event) { //TODO: Not tested
         String fname = fnameEnrollmentTextField.getText();
-        if(fname == ""){
+        if(fname.equals("")){
             outputText.appendText("Please enter a first name.\n");
             return;
         }
         String lname = lnameEnrollmentTextField.getText();
-        if(lname == ""){
+        if(lname.equals("")){
             outputText.appendText("Please enter a last name.\n");
             return;
         }
@@ -347,12 +346,12 @@ public class TuitionManagerController {
     @FXML
     void updateScholarshipAmount(ActionEvent event) {
         String fname = fnameScholarshipTextField.getText();
-        if(fname == ""){
+        if(fname.equals("")){
             outputText.appendText("Please enter a first name.\n");
             return;
         }
         String lname = lnameScholarshipTextField.getText();
-        if(lname == ""){
+        if(lname.equals("")){
             outputText.appendText("Please enter a last name.\n");
             return;
         }
