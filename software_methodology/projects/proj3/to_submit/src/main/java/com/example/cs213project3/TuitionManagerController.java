@@ -1,4 +1,6 @@
 package com.example.cs213project3;
+/* @author Henry Hecht */
+/* @author Aidan Cronin */
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -294,7 +296,7 @@ public class TuitionManagerController {
         outputText.appendText("** Student roster sorted by last name, first name, DOB **\n");
         for(Student student : students){
             if(student != null)
-                outputText.appendText(student.getProfile().toString() + "\n");
+                outputText.appendText(student.toString() + "\n");
         }
         outputText.appendText("** end of roster **\n");
     }
@@ -314,7 +316,7 @@ public class TuitionManagerController {
         outputText.appendText("** Student roster sorted by school, major **\n");
         for(Student student : students){
             if(student != null)
-                outputText.appendText(student.getProfile().toString() + "\n");
+                outputText.appendText(student.toString() + "\n");
         }
         outputText.appendText("** end of roster **\n");
     }
@@ -339,7 +341,7 @@ public class TuitionManagerController {
                             (year == 3 && myRoster.getRoster()[k].getCreditCompleted() >= 90) ||
                             (year == 4 && myRoster.getRoster()[k].getCreditCompleted() >= 30
                                     && myRoster.getRoster()[k].getCreditCompleted() < 60)) {
-                        outputText.appendText(myRoster.getRoster()[k].getProfile().toString() + "\n");
+                        outputText.appendText(myRoster.getRoster()[k].toString() + "\n");
                     }
                 }
             }
@@ -369,7 +371,7 @@ public class TuitionManagerController {
         Student[] students = tempRoster.getRoster();
         for(Student student : students){
             if(student != null)
-                outputText.appendText(student.getProfile().toString() + "\n");
+                outputText.appendText(student.toString() + "\n");
         }
         outputText.appendText("** end of list **\n");
     }
@@ -396,7 +398,7 @@ public class TuitionManagerController {
         Student[] students = tempRoster.getRoster();
         for(Student student : students){
             if(student != null)
-                outputText.appendText(student.getProfile().toString() + "\n");
+                outputText.appendText(student.toString() + "\n");
         }
         outputText.appendText("** end of list **\n");
     }
@@ -423,7 +425,7 @@ public class TuitionManagerController {
         Student[] students = tempRoster.getRoster();
         for(Student student : students){
             if(student != null)
-                outputText.appendText(student.getProfile().toString() + "\n");
+                outputText.appendText(student.toString() + "\n");
         }
         outputText.appendText("** end of list **\n");
     }
@@ -450,7 +452,7 @@ public class TuitionManagerController {
         Student[] students = tempRoster.getRoster();
         for(Student student : students){
             if(student != null)
-                outputText.appendText(student.getProfile().toString() + "\n");
+                outputText.appendText(student.toString() + "\n");
         }
         outputText.appendText("** end of list **\n");
     }
