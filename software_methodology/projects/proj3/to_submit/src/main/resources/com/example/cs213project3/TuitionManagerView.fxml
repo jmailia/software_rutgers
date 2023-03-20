@@ -185,7 +185,7 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <Label text="First Name" GridPane.halignment="RIGHT">
+                                        <Label text="First Name" GridPane.halignment="RIGHT" GridPane.rowIndex="0">
                                  <GridPane.margin>
                                     <Insets right="4.0" />
                                  </GridPane.margin></Label>

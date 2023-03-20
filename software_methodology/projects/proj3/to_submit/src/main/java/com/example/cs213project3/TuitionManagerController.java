@@ -93,24 +93,25 @@ public class TuitionManagerController {
      * Helper method to check if the user inputted a value for DOB
      * @return true if the user selected a date, false otherwise
      */
-    boolean isDOBValid() {
+    boolean wasDOBInputted() {
         if (dobRoster.getValue() == null) {
             outputText.appendText("Please select a date.\n");
             return false;
         }
-        return true;
+        return isDOBValid(new Date(dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu"))));
     }
 
     /**
-     * Helper method to check if the user inputted credits completed
+     * Helper method to check if the user inputted credits completed; then passes it onto
+     * isCreditsCompletedValid to see if the number is correct.
      * @return true if the user entered their credits completed, false otherwise
      */
-    boolean isCreditsValid() {
+    boolean wasCreditsInputted() {
         if (creditsCompletedTextField.getText().equals("")) {
             outputText.appendText("Please enter credits completed.\n");
             return false;
         }
-        return true;
+        return isCreditsCompletedValid(creditsCompletedTextField.getText(), true);
     }
 
     /**
@@ -144,11 +145,11 @@ public class TuitionManagerController {
      */
     boolean isStatusValid(String studentType){
         if (studentType==""){
-            outputText.appendText("The student must have a location status.");
+            outputText.appendText("\nThe student must have a location status.");
             return false;
         }
         else if (studentType == "I" && studyAbroadCheckButton.isSelected()){
-            outputText.appendText("Only international students can study abroad.");
+            outputText.appendText("\nOnly international students can study abroad.");
             return false;
         }
         return true;
@@ -162,26 +163,20 @@ public class TuitionManagerController {
      */
     @FXML
     void clickAdd(ActionEvent event) { //TODO: Not tested
-        if (!isFNameValid() || !isLNameValid() || !isDOBValid() || !isCreditsValid() || findMajor() == "") {
-            return;
-        }
+        if (!isFNameValid() ||!isLNameValid() || !wasDOBInputted() || findMajor() == ""||!wasCreditsInputted()){return;}
 
-        String fname = fnameRosterTextField.getText();
-        String lname = lnameRosterTextField.getText();
-        String dobString = dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu"));
-        String creditsCompleted = creditsCompletedTextField.getText();
         String studentType = (residentRadioButton.isSelected() ? "R" : (nonResidentRadioButton.isSelected() ? "N" :
                 ((nyRadioButton.isSelected() || ctRadioButton.isSelected()) ? "T" :
                         (internationalRadioButton.isSelected() ? "I" : ""))));
 
-        if (isStatusValid(studentType)) {
-            return;
-        }
+        if (!isStatusValid(studentType)) {return;}
+
         boolean studyAbroad = (studentType == "I" && studyAbroadCheckButton.isSelected()) ? true : false;
         String state = (nyRadioButton.isSelected() ? "NY" : (ctRadioButton.isSelected() ? "CT" : ""));
 
-        A_Command(studentType, fname, lname, new Date(dobString), findMajor(), creditsCompleted, myRoster,
-                studyAbroad, state, false);
+        A_Command(studentType, fnameRosterTextField.getText(), lnameRosterTextField.getText(),
+                new Date(dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu"))), findMajor(),
+                creditsCompletedTextField.getText(), myRoster, studyAbroad, state, false);
     }
     /**
      * Method takes input from user in GUI and removes a student from the roster if all fields are filled and student
@@ -190,7 +185,7 @@ public class TuitionManagerController {
      */
     @FXML
     void clickRemove(ActionEvent event) { //TODO: Not tested
-        if(!isFNameValid() || !isLNameValid() || !isDOBValid()) {return;}
+        if(!isFNameValid() || !isLNameValid() || !wasDOBInputted()) {return;}
         R_Command(fnameRosterTextField.getText(), lnameRosterTextField.getText(),
                 dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")), myRoster);
         outputText.appendText(lnameRosterTextField.getText() + " " + fnameRosterTextField.getText() + " " +
@@ -205,7 +200,7 @@ public class TuitionManagerController {
      */
     @FXML
     void clickChangeMajor(ActionEvent event) { //TODO: Not tested
-        if(!isFNameValid() || !isLNameValid() || !isDOBValid()) {return;}
+        if(!isFNameValid() || !isLNameValid() || !wasDOBInputted()) {return;}
         C_Command(fnameRosterTextField.getText(), lnameRosterTextField.getText(),
                 dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")), findMajor(), myRoster);
         outputText.appendText(lnameRosterTextField.getText() + " " +
@@ -232,7 +227,7 @@ public class TuitionManagerController {
      */
     @FXML
     void clickEnroll(ActionEvent event) { //TODO: Not tested
-        if(!isFNameValid() || !isLNameValid() || !isDOBValid()) {return;}
+        if(!isFNameValid() || !isLNameValid() || !wasDOBInputted()) {return;}
 
         String creditsEnrolled = creditsEnrolledTextField.getText();
         E_Command(new String[]{"E", fnameRosterTextField.getText(), lnameRosterTextField.getText(),
@@ -250,7 +245,7 @@ public class TuitionManagerController {
      */
     @FXML
     void clickDrop(ActionEvent event) { //TODO: Not tested
-        if(!isFNameValid() || !isLNameValid() || !isDOBValid()) {return;}
+        if(!isFNameValid() || !isLNameValid() || !wasDOBInputted()) {return;}
         Date dob = new Date(dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")));
         Profile profile = new Profile(lnameRosterTextField.getText(), fnameRosterTextField.getText(), dob);
         D_Command(profile, myEnrollment);
@@ -264,7 +259,7 @@ public class TuitionManagerController {
      */
     @FXML
     void updateScholarshipAmount(ActionEvent event) {
-        if(!isFNameValid() || !isLNameValid() || !isDOBValid()) {return;}
+        if(!isFNameValid() || !isLNameValid() || !wasDOBInputted()) {return;}
 
         char result = S_Command(new String[]{"S", fnameRosterTextField.getText(), lnameRosterTextField.getText(),
                 dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")),
@@ -648,7 +643,7 @@ public class TuitionManagerController {
     private boolean isDOBValid (Date myDate) {
         //Any date of birth that is not a valid calendar date
         if (!myDate.isCalendarDateValid()) {
-            outputText.appendText("DOB invalid: " + myDate + " not a valid calendar date!");
+            outputText.appendText("DOB invalid: " + myDate + " not a valid calendar date!\n");
             return false;
         }
 
@@ -657,7 +652,7 @@ public class TuitionManagerController {
         // (NOTE: there is no example of today/future the sample output,
         // but it is required by the written instructions; I use the same error message)
         if (!myDate.isStudentOver16()) {
-            outputText.appendText("DOB invalid: " + myDate + " younger than 16 years old.");
+            outputText.appendText("DOB invalid: " + myDate + " younger than 16 years old.\n");
             return false;
         }
         return true;
@@ -675,12 +670,12 @@ public class TuitionManagerController {
             numberOfCredits = Integer.parseInt(creditsCompleted);
             // Negative number of credits completed
             if ((numberOfCredits!=0 && numberOfCredits != +0) && (numberOfCredits < 0 || numberOfCredits == -0)) {
-                outputText.appendText("Credits completed invalid: cannot be negative!");
+                outputText.appendText("Credits completed invalid: cannot be negative!\n");
                 isValidAddition = false;
             }
         } catch (NumberFormatException e) {
             // Non-integer inputted for of credits completed
-            outputText.appendText("Credits completed invalid: not an integer!");
+            outputText.appendText("Credits completed invalid: not an integer!\n");
             isValidAddition = false;
         }
         return isValidAddition;
@@ -701,7 +696,7 @@ public class TuitionManagerController {
             }
         }
         if (!isMajorValid) {
-            outputText.appendText("Major code invalid: " + major);
+            outputText.appendText("Major code invalid: " + major+"\n");
             isValidAddition = false;
         }
         return isValidAddition;
@@ -717,7 +712,7 @@ public class TuitionManagerController {
         if (state.toUpperCase().equals("CT") || state.toUpperCase().equals("NY")){
             return true;
         }
-        outputText.appendText(state + ": Invalid state code.");
+        outputText.appendText(state + ": Invalid state code.\n");
         return false;
     }
 
