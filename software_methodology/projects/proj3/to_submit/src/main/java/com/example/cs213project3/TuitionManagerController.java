@@ -162,31 +162,27 @@ public class TuitionManagerController {
      */
     @FXML
     void clickAdd(ActionEvent event) { //TODO: Not tested
-        if(!isFNameValid() || !isLNameValid() || !isDOBValid() || !isCreditsValid() || findMajor() == "") {return;}
+        if (!isFNameValid() || !isLNameValid() || !isDOBValid() || !isCreditsValid() || findMajor() == "") {
+            return;
+        }
 
         String fname = fnameRosterTextField.getText();
         String lname = lnameRosterTextField.getText();
         String dobString = dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu"));
         String creditsCompleted = creditsCompletedTextField.getText();
-        String studentType = (residentRadioButton.isSelected()?"R": (nonResidentRadioButton.isSelected()?"N":
-                                    ((nyRadioButton.isSelected() || ctRadioButton.isSelected())?"T":
-                                            (internationalRadioButton.isSelected()? "I" : ""))));
+        String studentType = (residentRadioButton.isSelected() ? "R" : (nonResidentRadioButton.isSelected() ? "N" :
+                ((nyRadioButton.isSelected() || ctRadioButton.isSelected()) ? "T" :
+                        (internationalRadioButton.isSelected() ? "I" : ""))));
 
-        if (isStatusValid(studentType)){return;}
-        String studyAbroad = (studentType == "I" && studyAbroadCheckButton.isSelected())?"true":"false";
-        String state = (nyRadioButton.isSelected()?"NY":(ctRadioButton.isSelected()?"CT":""));
-
-        if(!myRoster.contains(createCorrectStudentInstance(studentType, new Profile(lname, fname, new Date(dobString)),
-                Major.valueOf(findMajor()), Integer.parseInt(creditsCompleted), studyAbroadCheckButton.isSelected(),
-                state))) {
-            A_Command_ParseArguments(new String[]{"A"+studentType, fname, lname, dobString, findMajor(), creditsCompleted,
-                    ((studentType=="I")?studyAbroad:((studentType == "T")?state:""))}, myRoster, false);
-            outputText.appendText(lname + " " + fname + " " + dobString + " added to the roster.\n");
+        if (isStatusValid(studentType)) {
+            return;
         }
-        else
-            outputText.appendText(lname + " " + fname + " " + dobString + " is already in the roster.\n");
-    }
+        boolean studyAbroad = (studentType == "I" && studyAbroadCheckButton.isSelected()) ? true : false;
+        String state = (nyRadioButton.isSelected() ? "NY" : (ctRadioButton.isSelected() ? "CT" : ""));
 
+        A_Command(studentType, fname, lname, new Date(dobString), findMajor(), creditsCompleted, myRoster,
+                studyAbroad, state, false);
+    }
     /**
      * Method takes input from user in GUI and removes a student from the roster if all fields are filled and student
      * is in the roster.
@@ -566,7 +562,7 @@ public class TuitionManagerController {
             A_Command_ParseArguments(file.nextLine().split(","), myRoster, true);
         }
         file.close();
-        System.out.println("Students loaded to the roster.");
+        outputText.appendText("Students loaded to the roster.");
     }
 
     /**
@@ -605,7 +601,7 @@ public class TuitionManagerController {
     private void A_Command_ParseArguments(String[] input, Roster myRoster, boolean isLS){
         if ((input[0].equals("AT") || input[0].equals("T")) && input.length > 5) { //if tristate student
             if (input.length == 6) {
-                System.out.println("Missing the state code.");
+                outputText.appendText("Missing the state code.");
                 return;
             }
             A_Command(input[0], input[1], input[2], new Date(input[3]),  input[4], input[5],
@@ -620,7 +616,7 @@ public class TuitionManagerController {
                     myRoster, false, "", isLS);
         }
         else {
-            System.out.println("Missing data in line command.");
+            outputText.appendText("Missing data in line command.");
         }
     }
 
@@ -633,12 +629,12 @@ public class TuitionManagerController {
      */
     private Roster checkIfStudentInRosterAlready (Roster myRoster, Student myStudent, boolean isLS) {
         if (myRoster.contains(myStudent)) {
-            System.out.println(myStudent.getProfile().toString() + " is already in the roster.");
+            outputText.appendText(myStudent.getProfile().toString() + " is already in the roster.");
         } else {
             // If the student meets the requirements to be added
             myRoster.add(myStudent);
             if(!isLS) {
-                System.out.println(myStudent.printStudentProfile() + " added to the roster.");
+                outputText.appendText(myStudent.printStudentProfile() + " added to the roster.");
             }
         }
         return myRoster;
@@ -652,7 +648,7 @@ public class TuitionManagerController {
     private boolean isDOBValid (Date myDate) {
         //Any date of birth that is not a valid calendar date
         if (!myDate.isCalendarDateValid()) {
-            System.out.println("DOB invalid: " + myDate + " not a valid calendar date!");
+            outputText.appendText("DOB invalid: " + myDate + " not a valid calendar date!");
             return false;
         }
 
@@ -661,7 +657,7 @@ public class TuitionManagerController {
         // (NOTE: there is no example of today/future the sample output,
         // but it is required by the written instructions; I use the same error message)
         if (!myDate.isStudentOver16()) {
-            System.out.println("DOB invalid: " + myDate + " younger than 16 years old.");
+            outputText.appendText("DOB invalid: " + myDate + " younger than 16 years old.");
             return false;
         }
         return true;
@@ -679,12 +675,12 @@ public class TuitionManagerController {
             numberOfCredits = Integer.parseInt(creditsCompleted);
             // Negative number of credits completed
             if ((numberOfCredits!=0 && numberOfCredits != +0) && (numberOfCredits < 0 || numberOfCredits == -0)) {
-                System.out.println("Credits completed invalid: cannot be negative!");
+                outputText.appendText("Credits completed invalid: cannot be negative!");
                 isValidAddition = false;
             }
         } catch (NumberFormatException e) {
             // Non-integer inputted for of credits completed
-            System.out.println("Credits completed invalid: not an integer!");
+            outputText.appendText("Credits completed invalid: not an integer!");
             isValidAddition = false;
         }
         return isValidAddition;
@@ -705,7 +701,7 @@ public class TuitionManagerController {
             }
         }
         if (!isMajorValid) {
-            System.out.println("Major code invalid: " + major);
+            outputText.appendText("Major code invalid: " + major);
             isValidAddition = false;
         }
         return isValidAddition;
@@ -721,7 +717,7 @@ public class TuitionManagerController {
         if (state.toUpperCase().equals("CT") || state.toUpperCase().equals("NY")){
             return true;
         }
-        System.out.println(state + ": Invalid state code.");
+        outputText.appendText(state + ": Invalid state code.");
         return false;
     }
 
@@ -750,7 +746,6 @@ public class TuitionManagerController {
 
         // The major does not exist
         isValidAddition = isMajorValid(major, isValidAddition);
-
         // The number of credits completed is invalid
         isValidAddition = (isValidAddition ? isCreditsCompletedValid(creditsCompleted, isValidAddition) : false);
         // The DOB is invalid
@@ -780,14 +775,14 @@ public class TuitionManagerController {
                 if (student != null) {
                     if (student.getProfile().equals(profileToRemove)) {
                         myRoster.remove(student); // Remove student
-                        System.out.println(profileToRemove.toString() + " removed from the roster.");
+                        outputText.appendText(profileToRemove.toString() + " removed from the roster.");
                         return;
                     }
                 }
             }
-            System.out.println(profileToRemove.toString() + " is not in the roster."); // Not in roster
+            outputText.appendText(profileToRemove.toString() + " is not in the roster."); // Not in roster
         } else {
-            System.out.println("Roster is empty."); // Roster is empty
+            outputText.appendText("Roster is empty."); // Roster is empty
         }
     }
 
@@ -808,12 +803,12 @@ public class TuitionManagerController {
                         ((!student.isStudyAbroad() && creditsEnrolled < 12) ||
                                 (student.isStudyAbroad() && creditsEnrolled > 12)))) {
 
-            System.out.println(printParenthesizedStudents(student,false) + " " +
+            outputText.appendText(printParenthesizedStudents(student,false) + " " +
                     creditsEnrolled + ": invalid credit hours.");
 
             return false;
         }
-        System.out.println(student.getProfile().toString() + " enrolled " + creditsEnrolled + " credits");
+        outputText.appendText(student.getProfile().toString() + " enrolled " + creditsEnrolled + " credits");
         return true;
     }
 
@@ -831,9 +826,6 @@ public class TuitionManagerController {
                                         (student.isStudyAbroad() ? "study abroad)" : ")") : ""))));
     }
 
-
-
-
     /**
      * Method adds a given student into myEnrollment. If a student is already enrolled
      * then it will just change the currently enrolled credits. Method will not add to
@@ -844,7 +836,7 @@ public class TuitionManagerController {
      */
     private void E_Command(String[] input, Enrollment myEnrollment, Roster myRoster) {
         if (input.length < 5) {
-            System.out.println("Missing data in line command.");
+            outputText.appendText("Missing data in line command.");
             return;
         }
         if (input[4] != null && input[4].matches("[-+]?\\d*\\.?\\d+")) {
@@ -879,11 +871,11 @@ public class TuitionManagerController {
                     }
                     return;
                 }
-                System.out.println("Cannot enroll: " + profile.toString() + " is not in the roster."); return;
+                outputText.appendText("Cannot enroll: " + profile.toString() + " is not in the roster."); return;
             }
-            System.out.println("Roster is empty!"); return;
+            outputText.appendText("Roster is empty!"); return;
         }
-        System.out.println("Credits enrolled is not an integer."); return;
+        outputText.appendText("Credits enrolled is not an integer."); return;
     }
 
     /**
@@ -898,14 +890,14 @@ public class TuitionManagerController {
                 if (student != null) {
                     if (student.getProfile().equals(profile)) {
                         myEnrollment.remove(student);
-                        System.out.println(profile.toString() + " dropped.");
+                        outputText.appendText(profile.toString() + " dropped.");
                         return;
                     }
                 }
             }
-            System.out.println(profile.toString() + " is not enrolled."); return;
+            outputText.appendText(profile.toString() + " is not enrolled."); return;
         }
-        System.out.println("Enrollment is empty!");
+        outputText.appendText("Enrollment is empty!");
     }
 
     /**
@@ -915,7 +907,7 @@ public class TuitionManagerController {
      */
     private boolean invalidScholarshipAmount (int scholarship) {
         if(scholarship <= 0 || scholarship > 10000){
-            System.out.println(scholarship + ": invalid amount.");
+            outputText.appendText(scholarship + ": invalid amount.");
             return true;
         }
         return false;
@@ -930,11 +922,11 @@ public class TuitionManagerController {
      */
     private char S_Command(String[] input, Enrollment myEnrollment,  Roster myRoster) {
         if (input.length < 3) {
-            System.out.println("Missing data in line command."); return ' ';
+            outputText.appendText("Missing data in line command."); return ' ';
         }
         Profile profile = new Profile(input[2], input[1], new Date(input[3]));
         if (!myRoster.contains(new Resident (profile,Major.CS,10))) {
-            System.out.println(profile.toString() + " is not in the roster."); return 'n'; // Not in roster
+            outputText.appendText(profile.toString() + " is not in the roster."); return 'n'; // Not in roster
         }
         if (input[4] != null && input[4].matches("[-+]?\\d*\\.?\\d+")) {
             if (invalidScholarshipAmount(Integer.parseInt(input[4]))){return 'i';}
@@ -949,13 +941,13 @@ public class TuitionManagerController {
                                             if (student.isResident()) {
                                                 if (enrollStudent.getCreditsEnrolled() >= 12) { // Check if fulltime
                                                     student.setScholarship(Integer.parseInt(input[4]));
-                                                    System.out.println(profile.toString() + ": scholarship amount updated."); return 's';
+                                                    outputText.appendText(profile.toString() + ": scholarship amount updated."); return 's';
                                                 } else { //Student is parttime
-                                                    System.out.println(student.getProfile().toString() + " part time student " +
+                                                    outputText.appendText(student.getProfile().toString() + " part time student " +
                                                             "is not eligible for the scholarship."); return 'p';
                                                 }
                                             }
-                                            System.out.println(student.getProfile().toString() + " " + //Student is not a resident
+                                            outputText.appendText(student.getProfile().toString() + " " + //Student is not a resident
                                                     printParenthesizedStudents(student,false) +
                                                     " is not eligible for the scholarship."); return 'e';
                                         }
@@ -967,7 +959,7 @@ public class TuitionManagerController {
                 }
             }
         }
-        System.out.println("Amount is not an integer.");
+        outputText.appendText("Amount is not an integer.");
         return 'q';
     }
 
@@ -1008,11 +1000,11 @@ public class TuitionManagerController {
                 }
 
             }
-            System.out.println("* Students in " + school + " *");
+            outputText.appendText("* Students in " + school + " *");
             tempRoster.print();
-            System.out.println("* end of list **");
+            outputText.appendText("* end of list **");
         } else {
-            System.out.println("School doesn't exist: " + school);
+            outputText.appendText("School doesn't exist: " + school);
         }
     }
 
@@ -1027,7 +1019,7 @@ public class TuitionManagerController {
     private void C_Command(String firstName, String lastName, String DOB, String majorChangingTo, Roster myRoster) {
 
         if (myRoster == null) {
-            System.out.println("Roster is empty!");
+            outputText.appendText("Roster is empty!");
             return;
         }
         Profile profileOfStudent = new Profile(lastName, firstName, new Date(DOB));
@@ -1039,16 +1031,16 @@ public class TuitionManagerController {
                     if (student != null) {
                         if (student.getProfile().equals(profileOfStudent)) {
                             student.setMajor(Major.valueOf(majorChangingTo.toUpperCase()));
-                            System.out.println(profileOfStudent.toString() + " major changed to " + majorChangingTo);
+                            outputText.appendText(profileOfStudent.toString() + " major changed to " + majorChangingTo);
                             return;
                         }
                     }
                 }
-                System.out.println(profileOfStudent.toString() + " is not in the roster.");
+                outputText.appendText(profileOfStudent.toString() + " is not in the roster.");
             }
         }
         if (isMajorInvalid) {
-            System.out.println("Major code invalid: " + majorChangingTo);
+            outputText.appendText("Major code invalid: " + majorChangingTo);
         }
     }
 
@@ -1060,7 +1052,7 @@ public class TuitionManagerController {
     private void PE_Command(Enrollment myEnrollment) {
         //Enrollment is empty OR students in an already established enrollStudents[] have been removed
         if (myEnrollment == null || myEnrollment.getEnrollStudents() == null || myEnrollment.getEnrollStudents()[0] == null) {
-            System.out.println("Enrollment is empty!");
+            outputText.appendText("Enrollment is empty!");
         } else {
             myEnrollment.print();
         }
@@ -1073,10 +1065,10 @@ public class TuitionManagerController {
      */
     private void PT_Command(Enrollment myEnrollment, Roster myRoster) {
         if (myRoster == null || myEnrollment == null || myEnrollment.getEnrollStudents() == null){
-            System.out.println("Student roster is empty!");
+            outputText.appendText("Student roster is empty!");
             return;
         }
-        System.out.println("** Tuition due **");
+        outputText.appendText("** Tuition due **");
         if (myEnrollment != null) {
             for (EnrollStudent enrollStudent : myEnrollment.getEnrollStudents()) {
                 if (enrollStudent != null) {
@@ -1084,7 +1076,7 @@ public class TuitionManagerController {
                         for (Student student : myRoster.getRoster()) {
                             if (student != null) {
                                 if (enrollStudent.getProfile().equals(student.getProfile())) {
-                                    System.out.println(student.getProfile().toString() + " " +
+                                    outputText.appendText(student.getProfile().toString() + " " +
                                             printParenthesizedStudents(student,false) +
                                             " enrolled " + enrollStudent.getCreditsEnrolled() +
                                             " credits: tuition due: $" +
@@ -1096,7 +1088,7 @@ public class TuitionManagerController {
                 }
             }
         }
-        System.out.println("* end of tuition due *");
+        outputText.appendText("* end of tuition due *");
     }
 
     /**
@@ -1110,20 +1102,20 @@ public class TuitionManagerController {
         } else if (whichP.equals("PT")) {
             PT_Command(myEnrollment, myRoster);
         } else if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
-            System.out.println("Student roster is empty!");
+            outputText.appendText("Student roster is empty!");
             //Roster is empty/null or all students in an already established Student[] have been removed
         } else {
             if (whichP.equals("P")) {
-                System.out.println("** Student roster sorted by last name, first name, DOB **");
+                outputText.appendText("** Student roster sorted by last name, first name, DOB **");
                 myRoster.print();
             } else if (whichP.equals("PS")) {
-                System.out.println("** Student roster sorted by standing **");
+                outputText.appendText("** Student roster sorted by standing **");
                 myRoster.printByStanding();
             } else {
-                System.out.println("** Student roster sorted by school, major **");
+                outputText.appendText("** Student roster sorted by school, major **");
                 myRoster.printBySchoolMajor();
             }
-            System.out.println("* end of roster *");
+            outputText.appendText("* end of roster *");
         }
     }
 
@@ -1136,10 +1128,10 @@ public class TuitionManagerController {
      */
     private boolean SE_Command(Enrollment myEnrollment, Roster myRoster) {
         if (myEnrollment == null || myEnrollment.getEnrollStudents() == null) { // Check if enrollment is empty
-            System.out.println("Enrollment is empty!"); return false;
+            outputText.appendText("Enrollment is empty!"); return false;
         }
         if (myRoster == null || myRoster.getRoster() == null) { // Check if roster is empty
-            System.out.println("Roster is empty!"); return false;
+            outputText.appendText("Roster is empty!"); return false;
         }
         if (myRoster != null) {
             for (Student student : myRoster.getRoster()) {
@@ -1156,7 +1148,7 @@ public class TuitionManagerController {
                 }
             }
         }
-        System.out.println("Credit completed has been updated.");
+        outputText.appendText("Credit completed has been updated.");
         myRoster.printCanGraduate();
         return true;
     }
@@ -1172,7 +1164,7 @@ public class TuitionManagerController {
      */
     private boolean[] commandTimes(boolean[] commandTimes){
         if (commandTimes[0]) {
-            System.out.println("Tuition Manager running...\n");    //user knows software is ready for commands
+            outputText.appendText("Tuition Manager running...\n");    //user knows software is ready for commands
             commandTimes[0] = false;
         }
         return commandTimes;
