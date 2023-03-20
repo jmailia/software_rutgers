@@ -114,13 +114,13 @@ public class Enrollment {
      * Print this objects array in the order that students
      * were added
      */
-    public void print() {
-        System.out.println("** Enrollment **");
+    public String print() {
+        String enrollmentLines = "** Enrollment **\n";
         for (int k = 0; k < size; k++) {
             if (this.enrollStudents[k] != null) {
-                System.out.println(this.enrollStudents[k].toString());
+                enrollmentLines += this.enrollStudents[k].toString() + "\n";
             }
         }
-        System.out.println("* end of enrollment *");
+        return enrollmentLines + "* end of enrollment *\n";
     }
 }

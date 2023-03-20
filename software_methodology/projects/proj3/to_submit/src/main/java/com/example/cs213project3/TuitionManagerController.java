@@ -26,7 +26,7 @@ public class TuitionManagerController {
     @FXML
     private RadioButton CSRadioButton;
     @FXML
-    private RadioButton ECERadioButton;
+    private RadioButton EERadioButton;
     @FXML
     private RadioButton ITIRadioButton;
     @FXML
@@ -66,11 +66,15 @@ public class TuitionManagerController {
 
     /**
      * Helper method for checking if the first name field is valid
+     *
+     * @param tab 0 if roster tab, 1 if enrollment tab, 2 if scholarship tab
      * @return true if the user entered a first name, false otherwise
      */
     @FXML
-    boolean isFNameValid(){
-        if (fnameRosterTextField.getText().equals("")) {
+    boolean isFNameValid(int tab) {
+        if ((tab == 0 && fnameRosterTextField.getText().equals("")) ||
+                (tab == 1 && fnameEnrollmentTextField.getText().equals("") ||
+                        (tab == 2 && fnameScholarshipTextField.getText().equals("")))) {
             outputText.appendText("Please enter a first name.\n");
             return false;
         }
@@ -79,10 +83,14 @@ public class TuitionManagerController {
 
     /**
      * Helper method to check if the user inputted a value for last name
+     *
+     * @param tab 0 if roster tab, 1 if enrollment tab, 2 if scholarship tab
      * @return true if the user entered a last name, false otherwise
      */
-    boolean isLNameValid() {
-        if (lnameRosterTextField.getText().equals("")) {
+    boolean isLNameValid(int tab) {
+        if ((tab == 0 && lnameRosterTextField.getText().equals("")) ||
+                (tab == 1 && lnameEnrollmentTextField.getText().equals("") ||
+                        (tab == 2 && lnameScholarshipTextField.getText().equals("")))) {
             outputText.appendText("Please enter a last name.\n");
             return false;
         }
@@ -91,27 +99,40 @@ public class TuitionManagerController {
 
     /**
      * Helper method to check if the user inputted a value for DOB
+     *
+     * @param tab 0 if roster tab, 1 if enrollment tab, 2 if scholarship tab
      * @return true if the user selected a date, false otherwise
      */
-    boolean wasDOBInputted() {
-        if (dobRoster.getValue() == null) {
+    boolean wasDOBInputted(int tab) {
+        if ((tab == 0 && dobRoster.getValue() == null) ||
+                (tab == 1 && dobEnrollment.getValue() == null) ||
+                (tab == 2 && dobScholarship.getValue() == null)) {
             outputText.appendText("Please select a date.\n");
             return false;
         }
-        return isDOBValid(new Date(dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu"))));
-    }
 
+        if (tab == 0) {
+            return isDOBValid(new Date(dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu"))));
+        } else if (tab == 1) {
+            return isDOBValid(new Date(dobEnrollment.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu"))));
+        } else {
+            return isDOBValid(new Date(dobScholarship.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu"))));
+        }
+    }
     /**
      * Helper method to check if the user inputted credits completed; then passes it onto
      * isCreditsCompletedValid to see if the number is correct.
+     * @param tab 0 if roster tab, 1 if enrollment tab
      * @return true if the user entered their credits completed, false otherwise
      */
-    boolean wasCreditsInputted() {
-        if (creditsCompletedTextField.getText().equals("")) {
+    boolean wasCreditsInputted(int tab) {
+        if ((tab == 0 && creditsCompletedTextField.getText().equals("")) ||
+                (tab == 1 && creditsEnrolledTextField.getText().equals(""))) {
             outputText.appendText("Please enter credits completed.\n");
             return false;
         }
-        return isCreditsCompletedValid(creditsCompletedTextField.getText(), true);
+        if (tab == 0) {return isCreditsCompletedValid(creditsCompletedTextField.getText(), true);}
+        return isCreditsCompletedValid(creditsEnrolledTextField.getText(), true);
     }
 
     /**
@@ -125,8 +146,8 @@ public class TuitionManagerController {
             majorType = "BAIT";
         } else if(CSRadioButton.isSelected()) {
             majorType = "CS";
-        } else if(ECERadioButton.isSelected()) {
-            majorType = "ECE";
+        } else if(EERadioButton.isSelected()) {
+            majorType = "EE";
         } else if(ITIRadioButton.isSelected()) {
             majorType = "ITI";
         } else if(MATHRadioButton.isSelected()) {
@@ -145,11 +166,11 @@ public class TuitionManagerController {
      */
     boolean isStatusValid(String studentType){
         if (studentType==""){
-            outputText.appendText("\nThe student must have a location status.");
+            outputText.appendText("The student must have a location status.\n");
             return false;
         }
-        else if (studentType == "I" && studyAbroadCheckButton.isSelected()){
-            outputText.appendText("\nOnly international students can study abroad.");
+        if (studentType != "I" && studyAbroadCheckButton.isSelected()){
+            outputText.appendText("Only international students can study abroad.\n");
             return false;
         }
         return true;
@@ -162,8 +183,9 @@ public class TuitionManagerController {
      * @param event
      */
     @FXML
-    void clickAdd(ActionEvent event) { //TODO: Not tested
-        if (!isFNameValid() ||!isLNameValid() || !wasDOBInputted() || findMajor() == ""||!wasCreditsInputted()){return;}
+    void clickAdd(ActionEvent event) {
+        if (!isFNameValid(0) ||!isLNameValid(0) || !wasDOBInputted(0) ||
+                findMajor() == ""||!wasCreditsInputted(0)){return;}
 
         String studentType = (residentRadioButton.isSelected() ? "R" : (nonResidentRadioButton.isSelected() ? "N" :
                 ((nyRadioButton.isSelected() || ctRadioButton.isSelected()) ? "T" :
@@ -184,13 +206,10 @@ public class TuitionManagerController {
      * @param event
      */
     @FXML
-    void clickRemove(ActionEvent event) { //TODO: Not tested
-        if(!isFNameValid() || !isLNameValid() || !wasDOBInputted()) {return;}
+    void clickRemove(ActionEvent event) {
+        if(!isFNameValid(0) || !isLNameValid(0) || !wasDOBInputted(0)) {return;}
         R_Command(fnameRosterTextField.getText(), lnameRosterTextField.getText(),
                 dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")), myRoster);
-        outputText.appendText(lnameRosterTextField.getText() + " " + fnameRosterTextField.getText() + " " +
-                dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu"))
-                + " removed from the roster.\n");
     }
 
     /**
@@ -199,14 +218,10 @@ public class TuitionManagerController {
      * @param event
      */
     @FXML
-    void clickChangeMajor(ActionEvent event) { //TODO: Not tested
-        if(!isFNameValid() || !isLNameValid() || !wasDOBInputted()) {return;}
+    void clickChangeMajor(ActionEvent event) {
+        if(!isFNameValid(0) || !isLNameValid(0) || !wasDOBInputted(0)) {return;}
         C_Command(fnameRosterTextField.getText(), lnameRosterTextField.getText(),
                 dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")), findMajor(), myRoster);
-        outputText.appendText(lnameRosterTextField.getText() + " " +
-                fnameRosterTextField.getText() + " " +
-                dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")) +
-                " major changed to " + findMajor() + "\n");
     }
 
     /**
@@ -216,9 +231,10 @@ public class TuitionManagerController {
      * @throws FileNotFoundException if file is not found
      */
     @FXML
-    void loadFromFile(ActionEvent event) throws FileNotFoundException { //TODO: Not tested
+    void loadFromFile(ActionEvent event) throws FileNotFoundException {
         LS_Command("src\\main\\java\\com\\example\\cs213project3\\studentList.txt", myRoster);
     }
+
 
     /**
      * Method takes input from user in GUI and enrolls a student if they are in the roster and fit the requirements
@@ -226,16 +242,13 @@ public class TuitionManagerController {
      * @param event
      */
     @FXML
-    void clickEnroll(ActionEvent event) { //TODO: Not tested
-        if(!isFNameValid() || !isLNameValid() || !wasDOBInputted()) {return;}
+    void clickEnroll(ActionEvent event) {
 
-        String creditsEnrolled = creditsEnrolledTextField.getText();
-        E_Command(new String[]{"E", fnameRosterTextField.getText(), lnameRosterTextField.getText(),
-                dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")), creditsEnrolled},
-                myEnrollment, myRoster);
-        outputText.appendText(lnameRosterTextField.getText() + " " + fnameRosterTextField.getText() + " " +
-                dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")) + " enrolled " +
-                creditsEnrolled + " credits\n");
+        if(!isFNameValid(1) || !isLNameValid(1) || !wasDOBInputted(1)) {return;}
+
+        E_Command(new String[]{"E", fnameEnrollmentTextField.getText(), lnameEnrollmentTextField.getText(),
+                dobEnrollment.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")),
+                creditsEnrolledTextField.getText()}, myEnrollment, myRoster);
     }
 
     /**
@@ -244,13 +257,12 @@ public class TuitionManagerController {
      * @param event
      */
     @FXML
-    void clickDrop(ActionEvent event) { //TODO: Not tested
-        if(!isFNameValid() || !isLNameValid() || !wasDOBInputted()) {return;}
-        Date dob = new Date(dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")));
-        Profile profile = new Profile(lnameRosterTextField.getText(), fnameRosterTextField.getText(), dob);
-        D_Command(profile, myEnrollment);
-        outputText.appendText(lnameRosterTextField.getText() + " " + fnameRosterTextField.getText() + " " +
-                dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")) + " dropped." + "\n");
+    void clickDrop(ActionEvent event) {
+
+        if(!isFNameValid(1) || !isLNameValid(1) || !wasDOBInputted(1)) {return;}
+
+        D_Command(new Profile(lnameEnrollmentTextField.getText(), fnameEnrollmentTextField.getText(),
+                new Date(dobEnrollment.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")))), myEnrollment);
     }
 
     /**
@@ -259,33 +271,12 @@ public class TuitionManagerController {
      */
     @FXML
     void updateScholarshipAmount(ActionEvent event) {
-        if(!isFNameValid() || !isLNameValid() || !wasDOBInputted()) {return;}
+        if(!isFNameValid(2) || !isLNameValid(2) || !wasDOBInputted(2)) {return;}
 
-        char result = S_Command(new String[]{"S", fnameRosterTextField.getText(), lnameRosterTextField.getText(),
-                dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")),
+        S_Command(new String[]{"S", fnameScholarshipTextField.getText(), lnameScholarshipTextField.getText(),
+                dobScholarship.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu")),
                 amountScholarshipTextField.getText()}, myEnrollment, myRoster);
-        String studentProfile = lnameRosterTextField.getText() + " " + fnameRosterTextField.getText() + " " +
-                dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu"));
-        switch(result){
-            case 'p':
-                outputText.appendText( studentProfile + " part time student " +
-                        "is not eligible for the scholarship.");
-                return;
-            case 's':
-                outputText.appendText(studentProfile + ": scholarship amount updated.\n");
-                return;
-            case 'i':
-                outputText.appendText(amountScholarshipTextField.getText() + ": invalid amount.\n");
-                return;
-            case 'n':
-                outputText.appendText(studentProfile + " is not in the roster.\n");
-                return;
-            case 'e':
-                outputText.appendText(studentProfile + " is not eligible for the scholarship.\n");
-                return;
-            case 'q':
-                outputText.appendText("Amount is not an integer.\n");
-        }
+
     }
 
     /**
@@ -293,7 +284,7 @@ public class TuitionManagerController {
      * @param event
      */
     @FXML
-    void printByProfile(ActionEvent event){ //TODO: Not tested
+    void printByProfile(ActionEvent event){
         if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
             outputText.appendText("Roster is empty! \n");
             return;
@@ -313,7 +304,7 @@ public class TuitionManagerController {
      * @param event
      */
     @FXML
-    void printBySchool(ActionEvent event){ //TODO: Not tested
+    void printBySchool(ActionEvent event){
         if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
             outputText.appendText("Roster is empty! \n");
             return;
@@ -333,7 +324,7 @@ public class TuitionManagerController {
      * @param event
      */
     @FXML
-    void printByStanding(ActionEvent event){ //TODO: Not tested
+    void printByStanding(ActionEvent event){
         if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
             outputText.appendText("Roster is empty! \n");
             return;
@@ -361,9 +352,9 @@ public class TuitionManagerController {
      * @param event
      */
     @FXML
-    void printRBS(ActionEvent event){ //TODO: Not tested
+    void printRBS(ActionEvent event){
         if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
-            outputText.appendText("Roster is empty! \n");
+            outputText.appendText("Roster is empty!\n");
             return;
         }
         Roster tempRoster = new Roster();
@@ -374,13 +365,13 @@ public class TuitionManagerController {
                 }
             }
         }
-        outputText.appendText("** Students in RBS **");
+        outputText.appendText("** Students in RBS **\n");
         Student[] students = tempRoster.getRoster();
         for(Student student : students){
             if(student != null)
                 outputText.appendText(student.getProfile().toString() + "\n");
         }
-        outputText.appendText("** end of list **");
+        outputText.appendText("** end of list **\n");
     }
 
     /**
@@ -388,7 +379,7 @@ public class TuitionManagerController {
      * @param event
      */
     @FXML
-    void printSAS(ActionEvent event){ //TODO: Not tested
+    void printSAS(ActionEvent event){
         if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
             outputText.appendText("Roster is empty! \n");
             return;
@@ -401,13 +392,13 @@ public class TuitionManagerController {
                 }
             }
         }
-        outputText.appendText("** Students in SAS **");
+        outputText.appendText("** Students in SAS **\n");
         Student[] students = tempRoster.getRoster();
         for(Student student : students){
             if(student != null)
                 outputText.appendText(student.getProfile().toString() + "\n");
         }
-        outputText.appendText("** end of list **");
+        outputText.appendText("** end of list **\n");
     }
 
     /**
@@ -415,7 +406,7 @@ public class TuitionManagerController {
      * @param event
      */
     @FXML
-    void printSCI(ActionEvent event){ //TODO: Not tested
+    void printSCI(ActionEvent event){
         if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
             outputText.appendText("Roster is empty! \n");
             return;
@@ -428,13 +419,13 @@ public class TuitionManagerController {
                 }
             }
         }
-        outputText.appendText("** Students in SC&I **");
+        outputText.appendText("** Students in SC&I **\n");
         Student[] students = tempRoster.getRoster();
         for(Student student : students){
             if(student != null)
                 outputText.appendText(student.getProfile().toString() + "\n");
         }
-        outputText.appendText("** end of list **");
+        outputText.appendText("** end of list **\n");
     }
 
     /**
@@ -442,7 +433,7 @@ public class TuitionManagerController {
      * @param event
      */
     @FXML
-    void printSOE(ActionEvent event){ //TODO: Not tested
+    void printSOE(ActionEvent event){
         if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
             outputText.appendText("Roster is empty! \n");
             return;
@@ -455,13 +446,13 @@ public class TuitionManagerController {
                 }
             }
         }
-        outputText.appendText("** Students in SOE **");
+        outputText.appendText("** Students in SOE **\n");
         Student[] students = tempRoster.getRoster();
         for(Student student : students){
             if(student != null)
                 outputText.appendText(student.getProfile().toString() + "\n");
         }
-        outputText.appendText("** end of list **");
+        outputText.appendText("** end of list **\n");
     }
 
     /**
@@ -469,7 +460,7 @@ public class TuitionManagerController {
      * @param event
      */
     @FXML
-    void printEnrolled(ActionEvent event){ //TODO: Not tested
+    void printEnrolled(ActionEvent event){
         if (myEnrollment == null || myEnrollment.getEnrollStudents() == null || myEnrollment.getEnrollStudents()[0] == null) {
             outputText.appendText("Enrollment is empty! \n");
             return;
@@ -488,7 +479,7 @@ public class TuitionManagerController {
      * @param event
      */
     @FXML
-    void printTuitionDue(ActionEvent event){ //TODO: Not tested
+    void printTuitionDue(ActionEvent event){
         if (myEnrollment == null || myEnrollment.getEnrollStudents() == null || myEnrollment.getEnrollStudents()[0] == null) {
             outputText.appendText("Enrollment is empty! \n");
             return;
@@ -522,7 +513,7 @@ public class TuitionManagerController {
      * @param event
      */
     @FXML
-    void semesterEnd(ActionEvent event){//TODO: Not tested
+    void semesterEnd(ActionEvent event){
         if (myEnrollment == null || myEnrollment.getEnrollStudents() == null || myEnrollment.getEnrollStudents()[0] == null) {
             outputText.appendText("Enrollment is empty! \n");
             return;
@@ -532,13 +523,6 @@ public class TuitionManagerController {
             return;
         }
         SE_Command(myEnrollment, myRoster);
-        Roster tempRoster = myRoster;
-        Student[] toBeGraduated = tempRoster.insertionSort("Pcredit");
-        for (int currentStudent = 0; currentStudent<toBeGraduated.length; currentStudent++) {
-            if(toBeGraduated[currentStudent]!=null && toBeGraduated[currentStudent].getCreditCompleted()>=120){
-                outputText.appendText(toBeGraduated[currentStudent].toString() + "\n");
-            }
-        }
     }
 
     /**
@@ -557,7 +541,7 @@ public class TuitionManagerController {
             A_Command_ParseArguments(file.nextLine().split(","), myRoster, true);
         }
         file.close();
-        outputText.appendText("Students loaded to the roster.");
+        outputText.appendText("Students loaded to the roster.\n");
     }
 
     /**
@@ -573,7 +557,6 @@ public class TuitionManagerController {
      */
     private Student createCorrectStudentInstance(String typeOfStudent, Profile profile, Major major,
                                                  int creditsCompleted, boolean isStudyingAbroad, String whichTriState){
-        //TODO: I am not sure if this is correct, but it appears to work because res/nonres/intnl/trist is an extension of Student (the type which is returned as in the function definition)? Hope this makes sense.
         switch(typeOfStudent) {
             case "AI":
             case "I":
@@ -624,12 +607,12 @@ public class TuitionManagerController {
      */
     private Roster checkIfStudentInRosterAlready (Roster myRoster, Student myStudent, boolean isLS) {
         if (myRoster.contains(myStudent)) {
-            outputText.appendText(myStudent.getProfile().toString() + " is already in the roster.");
+            outputText.appendText(myStudent.getProfile().toString() + " is already in the roster.\n");
         } else {
             // If the student meets the requirements to be added
             myRoster.add(myStudent);
             if(!isLS) {
-                outputText.appendText(myStudent.printStudentProfile() + " added to the roster.");
+                outputText.appendText(myStudent.printStudentProfile() + " added to the roster.\n");
             }
         }
         return myRoster;
@@ -765,19 +748,19 @@ public class TuitionManagerController {
      */
     private void R_Command(String firstName, String lastName, String DOB, Roster myRoster) {
         Profile profileToRemove = new Profile(lastName, firstName, new Date(DOB)); // Create profile with inputted information
-        if (myRoster!=null) {
+        if (myRoster!=null && myRoster.getRoster()!=null) {
             for (Student student : myRoster.getRoster()) { // Search through roster to find student that will be removed.
                 if (student != null) {
                     if (student.getProfile().equals(profileToRemove)) {
                         myRoster.remove(student); // Remove student
-                        outputText.appendText(profileToRemove.toString() + " removed from the roster.");
+                        outputText.appendText(profileToRemove.toString() + " removed from the roster.\n");
                         return;
                     }
                 }
             }
-            outputText.appendText(profileToRemove.toString() + " is not in the roster."); // Not in roster
+            outputText.appendText(profileToRemove.toString() + " is not in the roster.\n"); // Not in roster
         } else {
-            outputText.appendText("Roster is empty."); // Roster is empty
+            outputText.appendText("Roster is empty.\n"); // Roster is empty
         }
     }
 
@@ -799,11 +782,11 @@ public class TuitionManagerController {
                                 (student.isStudyAbroad() && creditsEnrolled > 12)))) {
 
             outputText.appendText(printParenthesizedStudents(student,false) + " " +
-                    creditsEnrolled + ": invalid credit hours.");
+                    creditsEnrolled + ": invalid credit hours.\n");
 
             return false;
         }
-        outputText.appendText(student.getProfile().toString() + " enrolled " + creditsEnrolled + " credits");
+        outputText.appendText(student.getProfile().toString() + " enrolled " + creditsEnrolled + " credits\n");
         return true;
     }
 
@@ -830,10 +813,6 @@ public class TuitionManagerController {
      * @param myRoster Roster that we need to iterate through
      */
     private void E_Command(String[] input, Enrollment myEnrollment, Roster myRoster) {
-        if (input.length < 5) {
-            outputText.appendText("Missing data in line command.");
-            return;
-        }
         if (input[4] != null && input[4].matches("[-+]?\\d*\\.?\\d+")) {
             int creditsEnrolled = Integer.parseInt(input[4]);
             Profile profile = new Profile(input[2], input[1], new Date(input[3]));
@@ -866,11 +845,11 @@ public class TuitionManagerController {
                     }
                     return;
                 }
-                outputText.appendText("Cannot enroll: " + profile.toString() + " is not in the roster."); return;
+                outputText.appendText("Cannot enroll: " + profile.toString() + " is not in the roster.\n"); return;
             }
-            outputText.appendText("Roster is empty!"); return;
+            outputText.appendText("Roster is empty!\n"); return;
         }
-        outputText.appendText("Credits enrolled is not an integer."); return;
+        outputText.appendText("Credits enrolled is not an integer.\n"); return;
     }
 
     /**
@@ -885,14 +864,14 @@ public class TuitionManagerController {
                 if (student != null) {
                     if (student.getProfile().equals(profile)) {
                         myEnrollment.remove(student);
-                        outputText.appendText(profile.toString() + " dropped.");
+                        outputText.appendText(profile.toString() + " dropped.\n");
                         return;
                     }
                 }
             }
-            outputText.appendText(profile.toString() + " is not enrolled."); return;
+            outputText.appendText(profile.toString() + " is not enrolled.\n"); return;
         }
-        outputText.appendText("Enrollment is empty!");
+        outputText.appendText("Enrollment is empty!\n");
     }
 
     /**
@@ -902,7 +881,7 @@ public class TuitionManagerController {
      */
     private boolean invalidScholarshipAmount (int scholarship) {
         if(scholarship <= 0 || scholarship > 10000){
-            outputText.appendText(scholarship + ": invalid amount.");
+            outputText.appendText(scholarship + ": invalid amount.\n");
             return true;
         }
         return false;
@@ -915,38 +894,35 @@ public class TuitionManagerController {
      * @param myEnrollment Enrollment we want to access
      * @param myRoster Roster we want to iterate through
      */
-    private char S_Command(String[] input, Enrollment myEnrollment,  Roster myRoster) {
+    private void S_Command(String[] input, Enrollment myEnrollment,  Roster myRoster) {
         if (input.length < 3) {
-            outputText.appendText("Missing data in line command."); return ' ';
+            outputText.appendText("Missing data in line command.\n"); return;
         }
         Profile profile = new Profile(input[2], input[1], new Date(input[3]));
         if (!myRoster.contains(new Resident (profile,Major.CS,10))) {
-            outputText.appendText(profile.toString() + " is not in the roster."); return 'n'; // Not in roster
+            outputText.appendText(profile.toString() + " is not in the roster.\n"); return; // Not in roster
         }
         if (input[4] != null && input[4].matches("[-+]?\\d*\\.?\\d+")) {
-            if (invalidScholarshipAmount(Integer.parseInt(input[4]))){return 'i';}
+            if (invalidScholarshipAmount(Integer.parseInt(input[4]))){return;}
             if (myRoster != null) {
                 for (Student student : myRoster.getRoster()) { // Get access to student we are looking for in roster
-                    if (student != null) {
-                        if (student.getProfile().equals(profile)) {
-                            if (myEnrollment != null) {
-                                for (EnrollStudent enrollStudent : myEnrollment.getEnrollStudents()) { // Get access to student we are looking for in enrollment
-                                    if (enrollStudent != null) {
-                                        if (enrollStudent.getProfile().equals(profile)) {
-                                            if (student.isResident()) {
-                                                if (enrollStudent.getCreditsEnrolled() >= 12) { // Check if fulltime
-                                                    student.setScholarship(Integer.parseInt(input[4]));
-                                                    outputText.appendText(profile.toString() + ": scholarship amount updated."); return 's';
-                                                } else { //Student is parttime
-                                                    outputText.appendText(student.getProfile().toString() + " part time student " +
-                                                            "is not eligible for the scholarship."); return 'p';
-                                                }
-                                            }
-                                            outputText.appendText(student.getProfile().toString() + " " + //Student is not a resident
-                                                    printParenthesizedStudents(student,false) +
-                                                    " is not eligible for the scholarship."); return 'e';
+                    if (student != null && student.getProfile().equals(profile)) {
+                        if (myEnrollment != null) {
+                            for (EnrollStudent enrollStudent : myEnrollment.getEnrollStudents()) { // Access en. student
+                                if (enrollStudent != null && enrollStudent.getProfile().equals(profile)) {
+                                    if (student.isResident()) {
+                                        if (enrollStudent.getCreditsEnrolled() >= 12) { // Check if fulltime
+                                            student.setScholarship(Integer.parseInt(input[4]));
+                                            outputText.appendText(profile.toString() + ": scholarship amount updated.\n");
+                                            return;
+                                        } else { //Student is parttime
+                                            outputText.appendText(student.getProfile().toString() + " part time student " +
+                                                    "is not eligible for the scholarship.\n"); return;
                                         }
                                     }
+                                    outputText.appendText(student.getProfile().toString() + " " + //Student is not a resident
+                                            printParenthesizedStudents(student, false) +
+                                            " is not eligible for the scholarship.\n"); return;
                                 }
                             }
                         }
@@ -954,8 +930,7 @@ public class TuitionManagerController {
                 }
             }
         }
-        outputText.appendText("Amount is not an integer.");
-        return 'q';
+        outputText.appendText("Amount is not an integer.\n");
     }
 
 
@@ -993,13 +968,10 @@ public class TuitionManagerController {
                         tempRoster.add(myRoster.getRoster()[k]);
                     }
                 }
-
             }
-            outputText.appendText("* Students in " + school + " *");
-            tempRoster.print();
-            outputText.appendText("* end of list **");
+            outputText.appendText("* Students in " + school + " *\n" + tempRoster.print() + "* end of list **\n");
         } else {
-            outputText.appendText("School doesn't exist: " + school);
+            outputText.appendText("School doesn't exist: " + school + "\n");
         }
     }
 
@@ -1014,7 +986,7 @@ public class TuitionManagerController {
     private void C_Command(String firstName, String lastName, String DOB, String majorChangingTo, Roster myRoster) {
 
         if (myRoster == null) {
-            outputText.appendText("Roster is empty!");
+            outputText.appendText("Roster is empty!\n");
             return;
         }
         Profile profileOfStudent = new Profile(lastName, firstName, new Date(DOB));
@@ -1026,16 +998,16 @@ public class TuitionManagerController {
                     if (student != null) {
                         if (student.getProfile().equals(profileOfStudent)) {
                             student.setMajor(Major.valueOf(majorChangingTo.toUpperCase()));
-                            outputText.appendText(profileOfStudent.toString() + " major changed to " + majorChangingTo);
+                            outputText.appendText(profileOfStudent.toString() + " major changed to " + majorChangingTo + "\n");
                             return;
                         }
                     }
                 }
-                outputText.appendText(profileOfStudent.toString() + " is not in the roster.");
+                outputText.appendText(profileOfStudent.toString() + " is not in the roster.\n");
             }
         }
         if (isMajorInvalid) {
-            outputText.appendText("Major code invalid: " + majorChangingTo);
+            outputText.appendText("Major code invalid: " + majorChangingTo + "\n");
         }
     }
 
@@ -1047,9 +1019,9 @@ public class TuitionManagerController {
     private void PE_Command(Enrollment myEnrollment) {
         //Enrollment is empty OR students in an already established enrollStudents[] have been removed
         if (myEnrollment == null || myEnrollment.getEnrollStudents() == null || myEnrollment.getEnrollStudents()[0] == null) {
-            outputText.appendText("Enrollment is empty!");
+            outputText.appendText("Enrollment is empty!\n");
         } else {
-            myEnrollment.print();
+            outputText.appendText(myEnrollment.print());
         }
     }
 
@@ -1060,10 +1032,10 @@ public class TuitionManagerController {
      */
     private void PT_Command(Enrollment myEnrollment, Roster myRoster) {
         if (myRoster == null || myEnrollment == null || myEnrollment.getEnrollStudents() == null){
-            outputText.appendText("Student roster is empty!");
+            outputText.appendText("Student roster is empty!\n");
             return;
         }
-        outputText.appendText("** Tuition due **");
+        outputText.appendText("** Tuition due **\n");
         if (myEnrollment != null) {
             for (EnrollStudent enrollStudent : myEnrollment.getEnrollStudents()) {
                 if (enrollStudent != null) {
@@ -1075,7 +1047,7 @@ public class TuitionManagerController {
                                             printParenthesizedStudents(student,false) +
                                             " enrolled " + enrollStudent.getCreditsEnrolled() +
                                             " credits: tuition due: $" +
-                                            df.format(student.tuitionDue(enrollStudent.getCreditsEnrolled())));
+                                            df.format(student.tuitionDue(enrollStudent.getCreditsEnrolled()))+"\n");
                                 }
                             }
                         }
@@ -1083,7 +1055,7 @@ public class TuitionManagerController {
                 }
             }
         }
-        outputText.appendText("* end of tuition due *");
+        outputText.appendText("* end of tuition due *\n");
     }
 
     /**
@@ -1097,20 +1069,20 @@ public class TuitionManagerController {
         } else if (whichP.equals("PT")) {
             PT_Command(myEnrollment, myRoster);
         } else if (myRoster == null || myRoster.getRoster() == null || myRoster.getRoster()[0] == null) {
-            outputText.appendText("Student roster is empty!");
+            outputText.appendText("Student roster is empty!\n");
             //Roster is empty/null or all students in an already established Student[] have been removed
         } else {
             if (whichP.equals("P")) {
-                outputText.appendText("** Student roster sorted by last name, first name, DOB **");
-                myRoster.print();
+                outputText.appendText("** Student roster sorted by last name, first name, DOB **\n");
+                outputText.appendText(myRoster.print());
             } else if (whichP.equals("PS")) {
-                outputText.appendText("** Student roster sorted by standing **");
-                myRoster.printByStanding();
+                outputText.appendText("** Student roster sorted by standing **\n");
+                outputText.appendText(myRoster.printByStanding());
             } else {
-                outputText.appendText("** Student roster sorted by school, major **");
-                myRoster.printBySchoolMajor();
+                outputText.appendText("** Student roster sorted by school, major **\n");
+                outputText.appendText(myRoster.printBySchoolMajor());
             }
-            outputText.appendText("* end of roster *");
+            outputText.appendText("* end of roster *\n");
         }
     }
 
@@ -1123,10 +1095,10 @@ public class TuitionManagerController {
      */
     private boolean SE_Command(Enrollment myEnrollment, Roster myRoster) {
         if (myEnrollment == null || myEnrollment.getEnrollStudents() == null) { // Check if enrollment is empty
-            outputText.appendText("Enrollment is empty!"); return false;
+            outputText.appendText("Enrollment is empty!\n"); return false;
         }
         if (myRoster == null || myRoster.getRoster() == null) { // Check if roster is empty
-            outputText.appendText("Roster is empty!"); return false;
+            outputText.appendText("Roster is empty!\n"); return false;
         }
         if (myRoster != null) {
             for (Student student : myRoster.getRoster()) {
@@ -1143,8 +1115,8 @@ public class TuitionManagerController {
                 }
             }
         }
-        outputText.appendText("Credit completed has been updated.");
-        myRoster.printCanGraduate();
+        outputText.appendText("Credit completed has been updated.\n");
+        outputText.appendText(myRoster.printCanGraduate());
         return true;
     }
 

@@ -89,7 +89,7 @@
                                                     </toggleGroup>
                                                 </RadioButton>
                                                 <RadioButton fx:id="CSRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="58.0" text="CS" toggleGroup="$majorGroup" />
-                                                <RadioButton fx:id="ECERadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="61.0" text="ECE" toggleGroup="$majorGroup" />
+                                                <RadioButton fx:id="EERadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="61.0" text="EE" toggleGroup="$majorGroup" />
                                                 <RadioButton fx:id="ITIRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="47.0" text="ITI" toggleGroup="$majorGroup" />
                                                 <RadioButton fx:id="MATHRadioButton" mnemonicParsing="false" text="MATH" toggleGroup="$majorGroup" />
                                             </children>
@@ -152,10 +152,10 @@
                                  <GridPane.margin>
                                     <Insets right="4.0" />
                                  </GridPane.margin></Label>
-                                        <TextField fx:id="fnameEnrollmentTextField" GridPane.columnIndex="1" />
+                                        <TextField fx:id="fnameEnrollmentTextField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
                                         <TextField fx:id="lnameEnrollmentTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <DatePicker fx:id="dobEnrollment" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                         <TextField fx:id="creditsEnrolledTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                        <DatePicker fx:id="dobEnrollment" prefHeight="26.0" prefWidth="410.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                             <children>
                                                 <Button mnemonicParsing="false" onAction="#clickEnroll" prefHeight="26.0" prefWidth="115.0" text="Enroll" />
@@ -201,11 +201,11 @@
                                  <GridPane.margin>
                                     <Insets right="4.0" />
                                  </GridPane.margin></Label>
-                                        <TextField fx:id="fnameScholarshipTextField" GridPane.columnIndex="1" />
+                                        <TextField fx:id="fnameScholarshipTextField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
                                         <TextField fx:id="lnameScholarshipTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <DatePicker fx:id="dobScholarship" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                         <TextField fx:id="amountScholarshipTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                         <Button mnemonicParsing="false" onAction="#updateScholarshipAmount" text="Update Scholarship Amount" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                        <DatePicker fx:id="dobScholarship" prefHeight="26.0" prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     </children>
                                 </GridPane>
                             </children>

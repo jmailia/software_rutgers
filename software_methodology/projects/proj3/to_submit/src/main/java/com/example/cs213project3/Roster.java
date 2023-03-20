@@ -168,22 +168,21 @@ public class Roster {
     }
     /**
      * Print the roster sorted by profiles (last name, first name, DOB)
-     */
-    public void print() {//print roster sorted by profiles
-        printRosterLines(insertionSort("P"));
-    }
+     *///print roster sorted by profiles
+    public String print() {return printRosterLines(insertionSort("P"));}
 
     /**
      * Print the Roster sorted by School Major
      */
-    public void printBySchoolMajor() {
-        printRosterLines(insertionSort("PC"));
+    public String printBySchoolMajor() {
+        return printRosterLines(insertionSort("PC"));
     }
 
     /**
      * Print the Roster by standing
      */
-    public void printByStanding() {
+    public String printByStanding() {
+        String printByStanding = "";
         for (int year = 1; year <=4; year++) {
             for (int k = 0; k < size; k++) {
                 if (this.roster[k] != null) {
@@ -193,37 +192,42 @@ public class Roster {
                             (year == 3 && this.roster[k].getCreditCompleted() >= 90) ||
                             (year == 4 && this.roster[k].getCreditCompleted() >= 30
                                     && this.roster[k].getCreditCompleted() < 60)) {
-                        System.out.println(this.roster[k].toString());
+                        printByStanding += this.roster[k].toString() + "\n";
                     }
                 }
             }
         }
+        return printByStanding;
     }
 
     /**
      * For each student in the roster, if their credits are over 120,
      * add the student to an array sorted by credit count and print the students
      */
-    public void printCanGraduate() {
-        System.out.println("** list of students eligible for graduation **"); // Printing out list of students eligible for graduation
+    public String printCanGraduate() {
+        String graduationListToPrint = "** list of students eligible for graduation **\n";
+        // Printing out list of students eligible for graduation
         Student[] toBeGraduated = insertionSort("Pcredit");
         for (int currentStudent = 0; currentStudent<toBeGraduated.length; currentStudent++) {
             if(toBeGraduated[currentStudent]!=null && toBeGraduated[currentStudent].getCreditCompleted()>=120){
-                System.out.println(toBeGraduated[currentStudent].toString());
+                graduationListToPrint += toBeGraduated[currentStudent].toString() + "\n";
             }
         }
+        return graduationListToPrint;
     }
 
     /**
      * Helper method to print the roster with the correct formatting for each student
      * @param roster the roster to be printed
      */
-    private void printRosterLines (Student[] roster) {
+    private String printRosterLines (Student[] roster) {
+        String rosterLines = "";
         // Print New Sorted Temp Roster
         for (int k = 0; k < size; k++) {
             if (roster[k] != null) {
-                System.out.println(roster[k].toString());
+                rosterLines += roster[k].toString() + "\n";
             }
         }
+        return rosterLines;
     }
 }
