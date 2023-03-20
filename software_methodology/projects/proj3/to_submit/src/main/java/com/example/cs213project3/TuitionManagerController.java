@@ -137,41 +137,23 @@ public class TuitionManagerController {
     }
 
     /**
-     * Helper method to find the status selected in the roster tab
-     * @return a String array that gives the status, studyAbroad, and state in that order
+     * Checks to see if the student comes from a location, and,
+     * if the student is studying abroad, that they are an international student.
+     * @param studentType The type of student (R for resident, N for nonresident, T for tristate, I for international)
+     * @return true if the student comes from a valid location, false otherwise
      */
-    @FXML
-    String[] findStatus(){
-        String[] empty = {""};
-        String studentType = "";
-        String state = "";
-        String studyAbroad = "";
-        if (!internationalRadioButton.isSelected() && studyAbroadCheckButton.isSelected()) { //Check if study abroad check is valid
-            outputText.appendText("Only international students can be study abroad.\n"); return empty;
+    boolean isStatusValid(String studentType){
+        if (studentType==""){
+            outputText.appendText("The student must have a location status.");
+            return false;
         }
-        if(residentRadioButton.isSelected()) { //Checking status radio buttons
-            studentType = "R";
-        } else if(nonResidentRadioButton.isSelected()) {
-            studentType = "N";
-            if (nyRadioButton.isSelected()) {
-                studentType = "T";
-                state = "NY";
-            } else if (ctRadioButton.isSelected()) {
-                studentType = "T";
-                state = "CT";
-            }
-        } else if (internationalRadioButton.isSelected()) {
-            studentType = "I";
-            if(studyAbroadCheckButton.isSelected()){ //Study abroad check
-                studyAbroad = "true";
-            }
-        } else {
-            outputText.appendText("Please select a status\n");
-            return empty;
+        else if (studentType == "I" && studyAbroadCheckButton.isSelected()){
+            outputText.appendText("Only international students can study abroad.");
+            return false;
         }
-        String[] statusStudyState = new String[]{studentType, studyAbroad, state};
-        return statusStudyState;
+        return true;
     }
+
 
     /**
      * Method takes input from user in GUI and adds the student to the roster. All fields need to be filled
@@ -180,45 +162,26 @@ public class TuitionManagerController {
      */
     @FXML
     void clickAdd(ActionEvent event) { //TODO: Not tested
-        if(!isFNameValid() || !isLNameValid() || !isDOBValid()
-                || !isCreditsValid() || findMajor() == ""
-                || (findStatus()[0] == "")) {
-            return;
-        }
+        if(!isFNameValid() || !isLNameValid() || !isDOBValid() || !isCreditsValid() || findMajor() == "") {return;}
+
         String fname = fnameRosterTextField.getText();
         String lname = lnameRosterTextField.getText();
-        LocalDate dobTemp = dobRoster.getValue();
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/d/uuuu");
-        String dobString = dobTemp.format(formatters);
+        String dobString = dobRoster.getValue().format(DateTimeFormatter.ofPattern("MM/d/uuuu"));
         String creditsCompleted = creditsCompletedTextField.getText();
-        String majorType = findMajor();
-        String[] statusStudyState = findStatus();
-        if(statusStudyState[1] == null)
-            return;
-        String studentType = statusStudyState[0];
-        String studyAbroad = statusStudyState[1];
-        String state = statusStudyState[2];
-        if(!myRoster.contains(createCorrectStudentInstance(studentType, new Profile(lname, fname,
-                new Date(dobString)), Major.valueOf(majorType), Integer.parseInt(creditsCompleted), studyAbroadCheckButton.isSelected(), state)))
-        {
-            switch (studentType) {
-                case "R":
-                    A_Command_ParseArguments(new String[]{"AR", fname, lname, dobString, majorType, creditsCompleted}, myRoster, false);
-                    outputText.appendText(lname + " " + fname + " " + dobString + " added to the roster.\n");
-                    return;
-                case "N":
-                    A_Command_ParseArguments(new String[]{"AN", fname, lname, dobString, majorType, creditsCompleted}, myRoster, false);
-                    outputText.appendText(lname + " " + fname + " " + dobString + " added to the roster.\n");
-                    return;
-                case "T":
-                    A_Command_ParseArguments(new String[]{"AT", fname, lname, dobString, majorType, creditsCompleted, state}, myRoster, false);
-                    outputText.appendText(lname + " " + fname + " " + dobString + " added to the roster.\n");
-                    return;
-                case "I":
-                    A_Command_ParseArguments(new String[]{"AI", fname, lname, dobString, majorType, creditsCompleted, studyAbroad}, myRoster, false);
-                    outputText.appendText(lname + " " + fname + " " + dobString + " added to the roster.\n");
-                    return;
-            }
+        String studentType = (residentRadioButton.isSelected()?"R": (nonResidentRadioButton.isSelected()?"N":
+                                    ((nyRadioButton.isSelected() || ctRadioButton.isSelected())?"T":
+                                            (internationalRadioButton.isSelected()? "I" : ""))));
+
+        if (isStatusValid(studentType)){return;}
+        String studyAbroad = (studentType == "I" && studyAbroadCheckButton.isSelected())?"true":"false";
+        String state = (nyRadioButton.isSelected()?"NY":(ctRadioButton.isSelected()?"CT":""));
+
+        if(!myRoster.contains(createCorrectStudentInstance(studentType, new Profile(lname, fname, new Date(dobString)),
+                Major.valueOf(findMajor()), Integer.parseInt(creditsCompleted), studyAbroadCheckButton.isSelected(),
+                state))) {
+            A_Command_ParseArguments(new String[]{"A"+studentType, fname, lname, dobString, findMajor(), creditsCompleted,
+                    ((studentType=="I")?studyAbroad:((studentType == "T")?state:""))}, myRoster, false);
+            outputText.appendText(lname + " " + fname + " " + dobString + " added to the roster.\n");
         }
         else
             outputText.appendText(lname + " " + fname + " " + dobString + " is already in the roster.\n");
@@ -263,12 +226,7 @@ public class TuitionManagerController {
      */
     @FXML
     void loadFromFile(ActionEvent event) throws FileNotFoundException { //TODO: Not tested
-        Scanner file = new Scanner(new File("src\\main\\java\\com\\example\\cs213project3\\studentList.txt"));
-        while (file.hasNextLine()) {
-            A_Command_ParseArguments(file.nextLine().split(","), myRoster, true);
-        }
-        file.close();
-        outputText.appendText("Students loaded to the roster.\n");
+        LS_Command("src\\main\\java\\com\\example\\cs213project3\\studentList.txt", myRoster);
     }
 
     /**
