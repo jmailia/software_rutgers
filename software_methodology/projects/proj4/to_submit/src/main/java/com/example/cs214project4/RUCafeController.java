@@ -3,7 +3,7 @@ package com.example.cs214project4;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class RUCafeController {
+public abstract class RUCafeController extends MenuItem{
     @FXML
     private Label welcomeText;
 
