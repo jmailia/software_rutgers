@@ -1,13 +1,18 @@
 package com.example.cs214project4;
 
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 public class RUCafeMainController{
-
-
 
     @FXML
     private Button orderDonutsButton;
@@ -19,23 +24,59 @@ public class RUCafeMainController{
     private Button storeOrderButton;
 
     @FXML
-    void goToOrderDonuts(ActionEvent event){
-        orderDonutsButton.setOnAction();
+    public void goToOrderDonuts(MouseEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("donutOrder.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Order Donuts");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        }
+        catch (Exception e) {
+        }
     }
 
     @FXML
-    void goToOrderCoffee(ActionEvent event){
-        orderCoffeeButton.setOnAction();
+    public void gotToOrderCoffee(MouseEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("coffeeOrder.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Order Coffee");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        }
+        catch (Exception e) {
+        }
     }
 
     @FXML
-    void goToOrderBasket(ActionEvent event){
-        orderBasketButton.setOnAction();
+    public void openYourOrdersPage(MouseEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("basketView.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Basket View");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        }
+        catch (Exception e) {
+        }
     }
 
     @FXML
-    void goToStoreOrders(ActionEvent event) {
-        storeOrderButton.setOnAction();
+    public void openStoreOrdersPage(MouseEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("storeOrders.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Store Orders");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        }
+        catch (Exception e) {
+        }
     }
 
 }
