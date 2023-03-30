@@ -2,30 +2,31 @@ package com.example.cs214project4;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class RUCafeApplication extends Application {
+
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader RUCafeMain = new FXMLLoader(RUCafeApplication.class.getResource("RUCafeMain.fxml"));
-        FXMLLoader orderDonuts = new FXMLLoader(RUCafeApplication.class.getResource("orderDonuts.fxml"));
-        FXMLLoader orderCoffee = new FXMLLoader(RUCafeApplication.class.getResource("orderCoffee.fxml"));
-        FXMLLoader orderBasket = new FXMLLoader(RUCafeApplication.class.getResource("orderBasket.fxml"));
-        FXMLLoader storeOrders = new FXMLLoader(RUCafeApplication.class.getResource("storeOrders.fxml"));
-        Scene RUCafeMainScene = new Scene(RUCafeMain.load(), 320, 240);
-        Scene orderDonutsScene = new Scene(orderDonuts.load(), 320, 240);
-        Scene orderCoffeeScene = new Scene(orderCoffee.load(), 320, 240);
-        Scene orderBasketScene = new Scene(orderBasket.load(), 320, 240);
-        Scene storeOrdersScene = new Scene(storeOrders.load(), 320, 240);
-
-        stage.setScene(RUCafeMainScene);
-        stage.show();
+    public void start(Stage stage){
+        FXMLLoader fxmlLoader = new FXMLLoader(RUCafeMainController.class.getResource("RUCafeMain.fxml"));
+        Scene scene;
+        Parent root;
+        try {
+            root = fxmlLoader.load();
+            scene = new Scene(root);
+            stage.setTitle("RUCafe Main");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("fxml file does not exist");
+            throw new RuntimeException(e);
+        }
     }
 
-    public static void main(String[] args) {
-        launch();
+        public static void main (String[]args){
+            launch(args);
+        }
     }
-}
