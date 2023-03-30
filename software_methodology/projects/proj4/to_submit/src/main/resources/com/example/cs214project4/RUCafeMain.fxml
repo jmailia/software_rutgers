@@ -8,10 +8,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f5c58b;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button contentDisplay="TOP" layoutX="373.0" layoutY="61.0" mnemonicParsing="false" text="Order Donuts">
+      <Button contentDisplay="TOP" layoutX="373.0" layoutY="61.0" mnemonicParsing="false" style="-fx-background-color: #e67c4e;" text="Order Donuts">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -20,7 +19,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button contentDisplay="TOP" layoutX="45.0" layoutY="61.0" mnemonicParsing="false" text="Order Coffee">
+      <Button contentDisplay="TOP" layoutX="45.0" layoutY="61.0" mnemonicParsing="false" style="-fx-background-color: #e67c4e;" text="Order Coffee">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="165.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -29,7 +28,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button contentDisplay="TOP" layoutX="118.0" layoutY="233.0" mnemonicParsing="false" text="Your Order">
+      <Button contentDisplay="TOP" layoutX="118.0" layoutY="233.0" mnemonicParsing="false" style="-fx-background-color: #e67c4e;" text="Your Order">
          <graphic>
             <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -38,7 +37,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button contentDisplay="TOP" layoutX="370.0" layoutY="230.0" mnemonicParsing="false" prefHeight="101.0" prefWidth="101.0" text="Store Orders">
+      <Button contentDisplay="TOP" layoutX="370.0" layoutY="230.0" mnemonicParsing="false" prefHeight="101.0" prefWidth="101.0" style="-fx-background-color: #e67c4e;" text="Store Orders">
          <graphic>
             <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
                <image>
