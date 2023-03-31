@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>CS214Project4</artifactId>
+    <artifactId>CS213Project4</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>CS214Project4</name>
 
@@ -60,7 +60,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.cs214project4/com.example.cs214project4.HelloApplication</mainClass>
+                            <mainClass>com.example.cs214project4/com.example.cs213project4.HelloApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

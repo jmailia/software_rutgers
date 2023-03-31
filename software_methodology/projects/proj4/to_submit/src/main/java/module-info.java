@@ -3,6 +3,6 @@ module com.example.cs214project4 {
     requires javafx.fxml;
 
 
-    opens com.example.cs214project4 to javafx.fxml;
-    exports com.example.cs214project4;
+    opens com.example.cs213project4 to javafx.fxml;
+    exports com.example.cs213project4;
 }
