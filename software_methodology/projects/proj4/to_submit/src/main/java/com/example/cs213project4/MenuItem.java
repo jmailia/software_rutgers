@@ -7,7 +7,10 @@ public abstract class MenuItem {
     private double itemPrice;
     private int quantity;
 
-    public MenuItem(){}
+    public MenuItem(){
+        this.itemPrice = 0;
+        this.quantity = 1;
+    }
 
     public MenuItem(double itemPrice, int quantity){
         this.itemPrice = itemPrice;
