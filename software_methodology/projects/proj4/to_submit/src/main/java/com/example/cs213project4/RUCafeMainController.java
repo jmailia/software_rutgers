@@ -1,5 +1,6 @@
 package com.example.cs213project4;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,7 +21,7 @@ public class RUCafeMainController{
     private Button storeOrderButton;
 
     @FXML
-    public void goToOrderDonuts(MouseEvent event) {
+    public void goToOrderDonuts(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("donutOrder.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
@@ -34,7 +35,7 @@ public class RUCafeMainController{
     }
 
     @FXML
-    public void goToOrderCoffee(MouseEvent event) {
+    public void goToOrderCoffee(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("coffeeOrder.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
@@ -48,7 +49,7 @@ public class RUCafeMainController{
     }
 
     @FXML
-    public void openYourOrdersPage(MouseEvent event) {
+    public void openYourOrdersPage(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("basketView.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
@@ -62,7 +63,7 @@ public class RUCafeMainController{
     }
 
     @FXML
-    public void openStoreOrdersPage(MouseEvent event) {
+    public void openStoreOrdersPage(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("storeOrders.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
