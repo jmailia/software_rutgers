@@ -59,6 +59,22 @@ public class Donut extends MenuItem {
         }
     }
 
+    public donutTypes getType(){
+        return this.type;
+    }
+
+    public yeastFlavors getYeastFlavor(){
+        return this.yeastFlavor;
+    }
+
+    public cakeFlavors getCakeFlavor(){
+        return this.cakeFlavor;
+    }
+
+    public holeFlavors getHoleFlavor(){
+        return this.holeFlavor;
+    }
+
     public double itemPrice(){
         return super.getItemPrice() * super.getQuantity();
     }
@@ -104,4 +120,57 @@ public class Donut extends MenuItem {
         donut = new String(donutFlavor + "(" + super.getQuantity() + ")");
         return donut;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Donut) {
+            Donut donut = (Donut)obj;
+            String parameter = donut.toStringForEquals();
+            String thisDonut = this.toStringForEquals();
+
+            return parameter.equals(thisDonut);
+        }
+        return false;
+    }
+
+    public String toStringForEquals(){
+        String donutFlavor = "";
+        if(this.type == donutTypes.YEASTDONUT){
+            if(this.yeastFlavor == yeastFlavors.JELLY){
+                donutFlavor = "Jelly ";
+            }
+            if(this.yeastFlavor == yeastFlavors.VANILLA){
+                donutFlavor = "Vanilla ";
+            }
+            if(this.yeastFlavor == yeastFlavors.BOSTONCREAM){
+                donutFlavor = "Boston Cream ";
+            }
+        }
+        if(this.type == donutTypes.CAKEDONUT){
+            if(this.cakeFlavor == cakeFlavors.LEMON){
+                donutFlavor = "Lemon Cake ";
+            }
+            if(this.cakeFlavor == cakeFlavors.CINNAMON){
+                donutFlavor = "Cinnamon Cake ";
+            }
+            if(this.cakeFlavor == cakeFlavors.BLUEBERRY){
+                donutFlavor = "Blueberry Cake ";
+            }
+        }
+        if(this.type == donutTypes.HOLES){
+            if(this.holeFlavor == holeFlavors.CHOCOLATE){
+                donutFlavor = "Chocolate Hole ";
+            }
+            if(this.holeFlavor == holeFlavors.POWDER){
+                donutFlavor = "Powder Hole ";
+            }
+            if(this.holeFlavor == holeFlavors.GLAZED){
+                donutFlavor = "Glazed Hole ";
+            }
+        }
+        return donutFlavor;
+    }
+
 }
+
+

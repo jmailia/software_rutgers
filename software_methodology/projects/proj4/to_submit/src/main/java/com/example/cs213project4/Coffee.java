@@ -19,8 +19,9 @@ public class Coffee extends MenuItem{
     private boolean mocha;
     private int amountAddIns;
 
-    public Coffee(int coffeeSize, boolean frenchVanilla, boolean irishCream, boolean caramel, boolean mocha){
+    public Coffee(int coffeeSize, boolean frenchVanilla, boolean irishCream, boolean caramel, boolean mocha, int quantity){
         super();
+        super.setQuantity(quantity);
         int amountAddIns = 0;
         this.coffeeSize = coffeeSize;
         this.frenchVanilla = frenchVanilla;

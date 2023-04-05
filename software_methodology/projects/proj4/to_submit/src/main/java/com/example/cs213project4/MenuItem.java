@@ -7,10 +7,7 @@ public abstract class MenuItem {
     private double itemPrice;
     private int quantity;
 
-    public MenuItem(){
-        this.itemPrice = 0;
-        this.quantity = 1;
-    }
+    public MenuItem(){}
 
     public MenuItem(double itemPrice, int quantity){
         this.itemPrice = itemPrice;
@@ -46,8 +43,6 @@ public abstract class MenuItem {
         String formatItemPrice = df.format(itemPrice);
         return formatItemPrice;
     }
-
-
 
     public abstract double itemPrice();
 
