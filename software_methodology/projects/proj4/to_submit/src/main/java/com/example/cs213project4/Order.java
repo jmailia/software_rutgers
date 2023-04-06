@@ -91,7 +91,7 @@ public class Order {
     public void calculateTotal(){
         this.subtotal = 0;
         for(int i = 0; i < items.size(); i++){
-            this.subtotal += items.get(i).getItemPrice();
+            this.subtotal = this.subtotal + items.get(i).getItemPrice();
         }
         this.salesTax = this.subtotal * NJ_SALES_TAX;
         this.total = this.salesTax + this.subtotal;

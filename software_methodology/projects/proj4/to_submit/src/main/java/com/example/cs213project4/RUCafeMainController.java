@@ -8,12 +8,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
+import java.util.ArrayList;
+
 /**
  * Controller for the main page of the RU Cafe application
  */
 public class RUCafeMainController{
 
     public static Order myOrder = new Order();
+    public static ArrayList<Order> storeOrders = new ArrayList<Order>();
 
     @FXML
     private Button orderDonutsButton;

@@ -79,10 +79,9 @@ public class orderCoffeeController {
         myCoffee.setQuantity(ONE);
         updateTotal();
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmation.setTitle("Confirmation");
-        confirmation.setHeaderText("Confirmation");
         confirmation.setContentText("Successfully Added Coffee To Order");
         confirmation.show();
+        System.out.println(myCoffee.toString());
     }
 
     @FXML

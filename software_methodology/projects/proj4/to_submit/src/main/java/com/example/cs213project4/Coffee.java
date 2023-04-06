@@ -134,22 +134,27 @@ public class Coffee extends MenuItem{
         switch(this.coffeeSize){
             case(SHORT):
                 coffeeSize = "Short Coffee ";
+                break;
             case(TALL):
                 coffeeSize = "Tall Coffee ";
+                break;
             case(GRANDE):
                 coffeeSize = "Grande Coffee ";
+                break;
             case(VENTI):
                 coffeeSize = "Venti Coffee ";
+                break;
         }
+        this.setAmountAddIns();
         if(amountAddIns > 0){
-            if(frenchVanilla)
-                addIns = new String(addIns + "French Vanilla, ");
-            if(irishCream)
-                addIns = new String(addIns + "Irish Cream, ");
-            if(caramel)
-                addIns = new String(addIns + "Caramel, ");
-            if(mocha)
-                addIns = new String(addIns + "Mocha, ");
+            if(frenchVanilla == true){
+                addIns = new String(addIns + "French Vanilla ");}
+            if(irishCream == true){
+                addIns = new String(addIns + "Irish Cream ");}
+            if(caramel == true){
+                addIns = new String(addIns + "Caramel ");}
+            if(mocha == true){
+                addIns = new String(addIns + "Mocha");}
             return coffeeSize + "With: " + addIns;
         }
         else
