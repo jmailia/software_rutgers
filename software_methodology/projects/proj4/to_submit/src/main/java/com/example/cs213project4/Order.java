@@ -1,4 +1,6 @@
 package com.example.cs213project4;
+/* @author Henry Hecht */
+/* @author Aidan Cronin */
 
 import java.util.ArrayList;
 

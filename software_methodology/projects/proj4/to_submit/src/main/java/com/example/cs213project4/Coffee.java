@@ -1,4 +1,6 @@
 package com.example.cs213project4;
+/* @author Henry Hecht */
+/* @author Aidan Cronin */
 
 /**
  * Functionality offered when ordering a coffee from the menu
@@ -23,32 +25,41 @@ public class Coffee extends MenuItem{
     private boolean mocha;
     private int amountAddIns;
 
+    /**
+     * Constructor method for Coffee. Sets default item cost to SHORTCOST
+     * and sets the quantity to ONE.
+     */
     public Coffee(){
         super(SHORTCOST, ONE);
         amountAddIns = 0;
     }
 
+    /**
+     * Setter method to change the size of this coffee.
+     * @param size The Size we want to set in String form
+     */
     public void setSize(String size){
+        this.coffeeSize = SHORT;
         switch(size){
             case("Short"):
                 this.coffeeSize = SHORT;
-                super.setItemPrice(this.itemPrice());
                 break;
             case("Tall"):
                 this.coffeeSize = TALL;
-                super.setItemPrice(this.itemPrice());
                 break;
             case("Grande"):
                 this.coffeeSize = GRANDE;
-                super.setItemPrice(this.itemPrice());
                 break;
             case("Venti"):
                 this.coffeeSize = VENTI;
-                super.setItemPrice(this.itemPrice());
                 break;
         }
+        super.setItemPrice(this.itemPrice());
     }
 
+    /**
+     * Setter method to change the amount of addIns in this coffee.
+     */
     public void setAmountAddIns(){
         Boolean[] addIns = {frenchVanilla, irishCream, caramel, mocha};
         this.amountAddIns = 0;
@@ -58,10 +69,17 @@ public class Coffee extends MenuItem{
         }
     }
 
+    /**
+     * Setter method to change the itemPrice using super().
+     */
     public void setItemPrice(){
         super.setItemPrice(this.itemPrice());
     }
 
+    /**
+     * Setter method for one of the addIns, only adds.
+     * @param addin The addin we want to turn true
+     */
     public void setAddin(String addin){
         switch(addin){
             case("French Vanilla"):
@@ -81,6 +99,10 @@ public class Coffee extends MenuItem{
         this.itemPrice();
     }
 
+    /**
+     * Setter method for one of the addIns, only removes.
+     * @param addin The addin we want to turn false
+     */
     public void removeAddin(String addin){
         switch(addin){
             case("French Vanilla"):
@@ -129,7 +151,7 @@ public class Coffee extends MenuItem{
      */
     @Override
     public String toString(){
-        String coffeeSize = "Short Coffee";
+        String coffeeSize = "Short Coffee ";
         String addIns = "";
         switch(this.coffeeSize){
             case(SHORT):
@@ -160,6 +182,5 @@ public class Coffee extends MenuItem{
         else
             return coffeeSize + "With No Add-Ins ( Quantity: " + super.getQuantity() + " )";
     }
-
 
 }

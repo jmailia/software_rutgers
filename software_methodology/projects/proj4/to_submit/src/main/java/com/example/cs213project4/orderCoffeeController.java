@@ -1,4 +1,6 @@
 package com.example.cs213project4;
+/* @author Henry Hecht */
+/* @author Aidan Cronin */
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,6 +37,9 @@ public class orderCoffeeController {
     @FXML
     private Button addToOrderButton;
 
+    /**
+     * Initializer method for orderCoffeeController.
+     */
     @FXML
     public void initialize(){
         coffeeSizeBox.getItems().addAll("Short", "Tall", "Grande", "Venti");
@@ -45,12 +50,19 @@ public class orderCoffeeController {
         totalTextField.setText(myCoffee.itemPriceToString(myCoffee.itemPrice()));
     }
 
+    /**
+     * Method updates the total displayed in the TextField.
+     */
     @FXML
     private void updateTotal(){
         double total = myCoffee.itemPrice();
         totalTextField.setText(myCoffee.itemPriceToString(total));
     }
 
+    /**
+     * Method adds selected coffee to basket order.
+     * @param event
+     */
     @FXML
     private void addToOrder(ActionEvent event){
         RUCafeMainController.myOrder.addMenuItem(myCoffee);
@@ -60,19 +72,19 @@ public class orderCoffeeController {
         mochaBox.setSelected(false);
         myCoffee = new Coffee();
         String size = coffeeSizeBox.getValue();
-        if(size == null) {
+        if(size == null){
             myCoffee.setSize("Short");
         }
-        else if (size.equals("Short")) {
+        else if (size.equals("Short")){
             myCoffee.setSize("Short");
         }
-        else if (size.equals("Tall")) {
+        else if (size.equals("Tall")){
             myCoffee.setSize("Tall");
         }
-        else if (size.equals("Grande")) {
+        else if (size.equals("Grande")){
             myCoffee.setSize("Grande");
         }
-        else if (size.equals("Venti")) {
+        else if (size.equals("Venti")){
             myCoffee.setSize("Venti");
         }
         coffeeQuantityBox.setValue(ONE);
@@ -83,6 +95,10 @@ public class orderCoffeeController {
         confirmation.show();
     }
 
+    /**
+     * Method takes value from coffeeSizeBox and sets it to myCoffee.
+     * @param event
+     */
     @FXML
     private void coffeeSize(ActionEvent event) {
         String size = coffeeSizeBox.getValue();
@@ -104,6 +120,10 @@ public class orderCoffeeController {
         updateTotal();
     }
 
+    /**
+     * Method gets value from coffeeQuantityBox and sets it to myCoffee.
+     * @param event
+     */
     @FXML
     private void coffeeQuantity(ActionEvent event) {
         int quantity = coffeeQuantityBox.getValue();
@@ -112,6 +132,10 @@ public class orderCoffeeController {
         updateTotal();
     }
 
+    /**
+     * Method checks if frenchVanilla is selected as an addIn.
+     * @param event
+     */
     @FXML
     private void frenchVanillaAddIn(ActionEvent event){
         if(frenchVanillaBox.isSelected()) {
@@ -125,6 +149,10 @@ public class orderCoffeeController {
         updateTotal();
     }
 
+    /**
+     * Method checks if irishCream is selected as an addIn.
+     * @param event
+     */
     @FXML
     private void irishCreamAddIn(ActionEvent event){
         if(irishCreamBox.isSelected()) {
@@ -138,6 +166,10 @@ public class orderCoffeeController {
         updateTotal();
     }
 
+    /**
+     * Method checks if caramel is selected as an addIn.
+     * @param event
+     */
     @FXML
     private void caramelAddIn(ActionEvent event){
         if(caramelBox.isSelected()) {
@@ -151,6 +183,10 @@ public class orderCoffeeController {
         updateTotal();
     }
 
+    /**
+     * Method checks if mocha is selected as an addIn.
+     * @param event
+     */
     @FXML
     private void mochaAddIn(ActionEvent event){
         if(mochaBox.isSelected()) {

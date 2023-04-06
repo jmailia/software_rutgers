@@ -1,4 +1,6 @@
 package com.example.cs213project4;
+/* @author Henry Hecht */
+/* @author Aidan Cronin */
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,11 +26,17 @@ public class basketViewController {
     @FXML
     private Button placeOrderButton;
 
+    /**
+     * Initialize method for basketViewController that updates textArea.
+     */
     @FXML
     public void initialize(){
         updateTextArea();
     }
 
+    /**
+     * Helps update basket view through the TextArea and TextFields.
+     */
     @FXML
     public void updateTextArea(){
         RUCafeMainController.myOrder.calculateTotal();
@@ -43,9 +51,13 @@ public class basketViewController {
         totalText.setText(new DecimalFormat("$#,##0.00").format(RUCafeMainController.myOrder.getTotal()));
     }
 
+    /**
+     * Method places order from basket into storeOrders.
+     * @param event
+     */
     @FXML
     public void placeOrder(ActionEvent event){
-        if(RUCafeMainController.myOrder != null) {
+        if(RUCafeMainController.myOrder != null){
             Alert confirmation = new Alert(Alert.AlertType.INFORMATION);
             confirmation.setContentText("Order has been placed");
             confirmation.show();
@@ -55,6 +67,10 @@ public class basketViewController {
         updateTextArea();
     }
 
+    /**
+     * Method removes selected item in listView from the basket order.
+     * @param event
+     */
     @FXML
     public void removeItem(ActionEvent event){
         String item = this.textArea.getSelectionModel().getSelectedItem();
