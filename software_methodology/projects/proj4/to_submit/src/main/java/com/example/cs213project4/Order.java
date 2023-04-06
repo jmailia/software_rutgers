@@ -67,22 +67,20 @@ public class Order {
         items.add(item);
         return true;
     }
+
     /**
      * Remove an item from the menu, in the correct quantity that you wanted to order it in.
-     * @param item the item which you want to remove from the menu.
+     * @param obj the item which you want to remove from the menu.
      * @return true, if the menu item was removed, false otherwise.
      */
-    public boolean removeMenuItem(MenuItem item){
-        for(int i = 0; i < items.size(); i++){
-            if(item.equals(items.get(i))){
-                if(items.get(i).getQuantity() > 1){
-                    items.get(i).quantityDecrement();
+    public boolean removeMenuItem(Object obj){
+        if (obj instanceof String) {
+            String item = (String)obj;
+            for (int x = 0; x < items.size(); x++) {
+                if (items.get(x).toString().equals(item)) {
+                    items.remove(x);
                     return true;
                 }
-                else{
-                    items.remove(items.get(i));
-                }
-                return true;
             }
         }
         return false;
@@ -111,6 +109,5 @@ public class Order {
         }
         return result;
     }
-
 
 }

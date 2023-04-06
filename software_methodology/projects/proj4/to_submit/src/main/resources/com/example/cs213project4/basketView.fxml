@@ -38,9 +38,9 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TextField fx:id="SubTotalBox" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" />
-                  <TextField fx:id="TaxBox" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="TotalBox" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="subTotalText" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="salesTaxText" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="totalText" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label text="Sub-total:" textFill="WHITE">
                      <GridPane.margin>
                         <Insets right="10.0" />
@@ -76,12 +76,12 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="RemoveSelectedButton" mnemonicParsing="false" onAction="#removeItem" text="Remove Selected Item">
+            <Button fx:id="removeSelectedButton" mnemonicParsing="false" onAction="#removeItem" text="Remove Selected Item">
                <HBox.margin>
                   <Insets right="90.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="PlaceOrderButton" mnemonicParsing="false" onAction="#placeMyOrder" text="Place Order">
+            <Button fx:id="placeOrderButton" mnemonicParsing="false" onAction="#placeOrder" text="Place Order">
                <HBox.margin>
                   <Insets right="110.0" />
                </HBox.margin>
@@ -90,7 +90,7 @@
       </HBox>
    </bottom>
    <center>
-      <ListView fx:id="TextArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="312.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+      <ListView fx:id="textArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="312.0" prefWidth="400.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets top="30.0" />
          </BorderPane.margin>
