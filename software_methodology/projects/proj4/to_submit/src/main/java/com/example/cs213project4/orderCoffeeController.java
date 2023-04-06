@@ -52,7 +52,7 @@ public class orderCoffeeController {
     }
 
     @FXML
-    private void addToOrder(){
+    private void addToOrder(ActionEvent event){
         RUCafeMainController.myOrder.addMenuItem(myCoffee);
         irishCreamBox.setSelected(false);
         frenchVanillaBox.setSelected(false);
@@ -81,11 +81,10 @@ public class orderCoffeeController {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
         confirmation.setContentText("Successfully Added Coffee To Order");
         confirmation.show();
-        System.out.println(myCoffee.toString());
     }
 
     @FXML
-    private void coffeeSize(ActionEvent e) {
+    private void coffeeSize(ActionEvent event) {
         String size = coffeeSizeBox.getValue();
         switch(size) {
             case ("Short"):
@@ -106,7 +105,7 @@ public class orderCoffeeController {
     }
 
     @FXML
-    private void coffeeQuantity(ActionEvent e) {
+    private void coffeeQuantity(ActionEvent event) {
         int quantity = coffeeQuantityBox.getValue();
         myCoffee.setQuantity(quantity);
         myCoffee.setItemPrice();

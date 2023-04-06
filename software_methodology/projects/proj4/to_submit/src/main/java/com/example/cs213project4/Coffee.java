@@ -129,7 +129,7 @@ public class Coffee extends MenuItem{
      */
     @Override
     public String toString(){
-        String coffeeSize = "";
+        String coffeeSize = "Short Coffee";
         String addIns = "";
         switch(this.coffeeSize){
             case(SHORT):
@@ -155,10 +155,10 @@ public class Coffee extends MenuItem{
                 addIns = new String(addIns + "Caramel ");}
             if(mocha == true){
                 addIns = new String(addIns + "Mocha");}
-            return coffeeSize + "With: " + addIns;
+            return coffeeSize + "With: " + addIns + " ( Quantity: " + super.getQuantity() + " )";
         }
         else
-            return coffeeSize + "With No Add-Ins";
+            return coffeeSize + "With No Add-Ins ( Quantity: " + super.getQuantity() + " )";
     }
 
 

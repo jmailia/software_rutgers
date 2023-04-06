@@ -1,5 +1,6 @@
 package com.example.cs213project4;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -36,7 +37,6 @@ public class basketViewController {
         String splitItems[] = items.split("\\n");
         for(int i = 0; i < splitItems.length; i++){
             this.textArea.getItems().add(splitItems[i]);
-            System.out.println(splitItems[i]);
         }
         subTotalText.setText(new DecimalFormat("$#,##0.00").format(RUCafeMainController.myOrder.getSubtotal()));
         salesTaxText.setText(new DecimalFormat("$#,##0.00").format(RUCafeMainController.myOrder.getSalesTax()));
@@ -44,7 +44,7 @@ public class basketViewController {
     }
 
     @FXML
-    public void placeOrder(){
+    public void placeOrder(ActionEvent event){
         if(RUCafeMainController.myOrder != null) {
             Alert confirmation = new Alert(Alert.AlertType.INFORMATION);
             confirmation.setContentText("Order has been placed");
@@ -56,7 +56,7 @@ public class basketViewController {
     }
 
     @FXML
-    public void removeItem(){
+    public void removeItem(ActionEvent event){
         String item = this.textArea.getSelectionModel().getSelectedItem();
         RUCafeMainController.myOrder.removeMenuItem(item);
         updateTextArea();
