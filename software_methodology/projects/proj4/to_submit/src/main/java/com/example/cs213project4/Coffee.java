@@ -33,15 +33,19 @@ public class Coffee extends MenuItem{
             case("Short"):
                 this.coffeeSize = SHORT;
                 super.setItemPrice(this.itemPrice());
+                break;
             case("Tall"):
                 this.coffeeSize = TALL;
                 super.setItemPrice(this.itemPrice());
+                break;
             case("Grande"):
                 this.coffeeSize = GRANDE;
                 super.setItemPrice(this.itemPrice());
+                break;
             case("Venti"):
                 this.coffeeSize = VENTI;
                 super.setItemPrice(this.itemPrice());
+                break;
         }
     }
 
@@ -49,7 +53,7 @@ public class Coffee extends MenuItem{
         Boolean[] addIns = {frenchVanilla, irishCream, caramel, mocha};
         this.amountAddIns = 0;
         for(int i = 0; i< addIns.length; i++){
-            if(addIns[i])
+            if(addIns[i] == true)
                 amountAddIns++;
         }
     }
@@ -62,13 +66,18 @@ public class Coffee extends MenuItem{
         switch(addin){
             case("French Vanilla"):
                 this.frenchVanilla = true;
+                break;
             case("Irish Cream"):
                 this.irishCream = true;
+                break;
             case("Caramel"):
                 this.caramel = true;
+                break;
             case("Mocha"):
                 this.mocha = true;
+                break;
         }
+        this.setAmountAddIns();
         this.itemPrice();
     }
 
@@ -76,13 +85,18 @@ public class Coffee extends MenuItem{
         switch(addin){
             case("French Vanilla"):
                 this.frenchVanilla = false;
+                break;
             case("Irish Cream"):
                 this.irishCream = false;
+                break;
             case("Caramel"):
                 this.caramel = false;
+                break;
             case("Mocha"):
                 this.mocha = false;
+                break;
         }
+        this.setAmountAddIns();
         this.itemPrice();
     }
 
@@ -94,16 +108,16 @@ public class Coffee extends MenuItem{
         double itemPrice = 0.00;
         this.setAmountAddIns();
         if(this.coffeeSize == SHORT){
-            itemPrice = SHORTCOST + (amountAddIns * ADDINCOST) * super.getQuantity();
+            itemPrice = SHORTCOST * super.getQuantity() + (amountAddIns * ADDINCOST) ;
         }
         else if(this.coffeeSize == TALL){
-            itemPrice = TALLCOST + (amountAddIns * ADDINCOST) * super.getQuantity();
+            itemPrice = TALLCOST * super.getQuantity() + (amountAddIns * ADDINCOST);
         }
         else if(this.coffeeSize == GRANDE){
-            itemPrice = GRANDECOST + (amountAddIns * ADDINCOST) * super.getQuantity();
+            itemPrice = GRANDECOST * super.getQuantity() + (amountAddIns * ADDINCOST);
         }
         else if(this.coffeeSize == VENTI){
-            itemPrice = VENTICOST + (amountAddIns * ADDINCOST) * super.getQuantity();
+            itemPrice = VENTICOST * super.getQuantity() + (amountAddIns * ADDINCOST);
         }
         super.setItemPrice(itemPrice);
         return itemPrice;

@@ -40,7 +40,9 @@ public class orderCoffeeController {
         coffeeSizeBox.getItems().addAll("Short", "Tall", "Grande", "Venti");
         coffeeQuantityBox.getItems().addAll(ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE);
         myCoffee = new Coffee();
-        updateTotal();
+        myCoffee.setItemPrice(1.89);
+        myCoffee.setQuantity(1);
+        totalTextField.setText(myCoffee.itemPriceToString(myCoffee.itemPrice()));
     }
 
     @FXML
@@ -89,12 +91,16 @@ public class orderCoffeeController {
         switch(size) {
             case ("Short"):
                 myCoffee.setSize("Short");
+                break;
             case ("Tall"):
                 myCoffee.setSize("Tall");
+                break;
             case ("Grande"):
                 myCoffee.setSize("Grande");
+                break;
             case ("Venti"):
                 myCoffee.setSize("Venti");
+                break;
         }
         myCoffee.setItemPrice();
         updateTotal();
@@ -123,7 +129,7 @@ public class orderCoffeeController {
 
     @FXML
     private void irishCreamAddIn(ActionEvent event){
-        if(frenchVanillaBox.isSelected()) {
+        if(irishCreamBox.isSelected()) {
             myCoffee.setAddin("Irish Cream");
         }
         else{
@@ -136,7 +142,7 @@ public class orderCoffeeController {
 
     @FXML
     private void caramelAddIn(ActionEvent event){
-        if(frenchVanillaBox.isSelected()) {
+        if(caramelBox.isSelected()) {
             myCoffee.setAddin("Caramel");
         }
         else{
@@ -149,7 +155,7 @@ public class orderCoffeeController {
 
     @FXML
     private void mochaAddIn(ActionEvent event){
-        if(frenchVanillaBox.isSelected()) {
+        if(mochaBox.isSelected()) {
             myCoffee.setAddin("Mocha");
         }
         else{
@@ -160,5 +166,3 @@ public class orderCoffeeController {
         updateTotal();
     }
 }
-
-

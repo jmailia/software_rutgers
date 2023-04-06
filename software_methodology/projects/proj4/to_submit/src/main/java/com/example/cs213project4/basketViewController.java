@@ -40,7 +40,7 @@ public class basketViewController {
         salesTaxText.setText(new DecimalFormat("$#,##0.00").format(RUCafeMainController.myOrder.getSalesTax()));
         totalText.setText(new DecimalFormat("$#,##0.00").format(RUCafeMainController.myOrder.getTotal()));
     }
-
+/*
     @FXML
     public void placeOrder(){
         String item = this.textArea.getSelectionModel().getSelectedItem();
@@ -52,7 +52,7 @@ public class basketViewController {
         RUCafeMainController.myOrder.removeMenuItem(RUCafeMainController.myOrder.getItems().get(i));
         update();
     }
-
+*/
     @FXML
     public void removeItem(){
         String item = this.textArea.getSelectionModel().getSelectedItem();
