@@ -40,6 +40,7 @@ public class orderCoffeeController {
         coffeeSizeBox.getItems().addAll("Short", "Tall", "Grande", "Venti");
         coffeeQuantityBox.getItems().addAll(ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE);
         myCoffee = new Coffee();
+        updateTotal();
     }
 
     @FXML
