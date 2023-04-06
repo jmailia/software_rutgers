@@ -6,10 +6,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
+import java.io.IOException;
+
 public class RUCafeMainController{
+
+    public static Order myOrder = new Order();
 
     @FXML
     private Button orderDonutsButton;
@@ -35,9 +40,9 @@ public class RUCafeMainController{
     }
 
     @FXML
-    public void goToOrderCoffee(ActionEvent event) {
+    public void goToOrderCoffee(ActionEvent event) throws IOException {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("coffeeOrder.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(RUCafeMainController.class.getResource("coffeeOrder.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle("Order Coffee");

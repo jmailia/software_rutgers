@@ -2,6 +2,7 @@ package com.example.cs213project4;
 
 public class Coffee extends MenuItem{
 
+    private static final int ONE = 1;
     private static final int SHORT = 1;
     private static final int TALL = 2;
     private static final int GRANDE = 3;
@@ -19,37 +20,83 @@ public class Coffee extends MenuItem{
     private boolean mocha;
     private int amountAddIns;
 
-    public Coffee(int coffeeSize, boolean frenchVanilla, boolean irishCream, boolean caramel, boolean mocha, int quantity){
-        super();
-        super.setQuantity(quantity);
-        int amountAddIns = 0;
-        this.coffeeSize = coffeeSize;
-        this.frenchVanilla = frenchVanilla;
-        this.irishCream = irishCream;
-        this.caramel = caramel;
-        this.mocha = mocha;
-        if(frenchVanilla)
-            amountAddIns++;
-        if(irishCream)
-            amountAddIns++;
-        if(caramel)
-            amountAddIns++;
-        if(mocha)
-            amountAddIns++;
-        this.amountAddIns = amountAddIns;
+    public Coffee(){
+        super(SHORTCOST, ONE);
+        amountAddIns = 0;
+    }
+
+    public void setSize(String size){
+        switch(size){
+            case("Short"):
+                this.coffeeSize = SHORT;
+                super.setItemPrice(this.itemPrice());
+            case("Tall"):
+                this.coffeeSize = TALL;
+                super.setItemPrice(this.itemPrice());
+            case("Grande"):
+                this.coffeeSize = GRANDE;
+                super.setItemPrice(this.itemPrice());
+            case("Venti"):
+                this.coffeeSize = VENTI;
+                super.setItemPrice(this.itemPrice());
+        }
+    }
+
+    public void setAmountAddIns(){
+        Boolean[] addIns = {frenchVanilla, irishCream, caramel, mocha};
+        this.amountAddIns = 0;
+        for(int i = 0; i< addIns.length; i++){
+            if(addIns[i])
+                amountAddIns++;
+        }
+    }
+
+    public void setItemPrice(){
+        super.setItemPrice(this.itemPrice());
+    }
+
+    public void setAddin(String addin){
+        switch(addin){
+            case("French Vanilla"):
+                this.frenchVanilla = true;
+            case("Irish Cream"):
+                this.irishCream = true;
+            case("Caramel"):
+                this.caramel = true;
+            case("Mocha"):
+                this.mocha = true;
+        }
+        super.setItemPrice(this.itemPrice());
+    }
+
+    public void removeAddin(String addin){
+        switch(addin){
+            case("French Vanilla"):
+                this.frenchVanilla = false;
+            case("Irish Cream"):
+                this.irishCream = false;
+            case("Caramel"):
+                this.caramel = false;
+            case("Mocha"):
+                this.mocha = false;
+        }
+        super.setItemPrice(this.itemPrice());
     }
 
     public double itemPrice(){
         double itemPrice = 0.00;
-        switch(this.coffeeSize){
-            case(SHORT):
-                itemPrice = SHORTCOST + (amountAddIns * ADDINCOST);
-            case(TALL):
-                itemPrice = TALLCOST + (amountAddIns * ADDINCOST);
-            case(GRANDE):
-                itemPrice = GRANDECOST + (amountAddIns * ADDINCOST);
-            case(VENTI):
-                itemPrice = VENTICOST + (amountAddIns * ADDINCOST);
+        this.setAmountAddIns();
+        if(this.coffeeSize == SHORT){
+            itemPrice = SHORTCOST + (amountAddIns * ADDINCOST);
+        }
+        else if(this.coffeeSize == TALL){
+            itemPrice = TALLCOST + (amountAddIns * ADDINCOST);
+        }
+        else if(this.coffeeSize == GRANDE){
+            itemPrice = GRANDECOST + (amountAddIns * ADDINCOST);
+        }
+        else if(this.coffeeSize == VENTI){
+            itemPrice = VENTICOST + (amountAddIns * ADDINCOST);
         }
         super.setItemPrice(itemPrice);
         return itemPrice;

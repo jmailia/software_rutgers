@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: #efa245;" xmlns="http://javafx.com/javafx/19" fx:controller="com.example.cs213project4.orderDonutsController" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text layoutX="150.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ordering Donuts">
+         <font>
+            <Font name="Impact" size="30.0" />
+         </font>
+      </Text>
+      <GridPane layoutY="45.0" prefHeight="364.0" prefWidth="512.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="248.0" minWidth="10.0" prefWidth="187.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="340.0" minWidth="10.0" prefWidth="115.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="340.0" minWidth="10.0" prefWidth="208.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="204.0" minHeight="10.0" prefHeight="188.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="128.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <ComboBox fx:id="donutTypeComboBox" onAction="#pickedType" prefWidth="150.0" promptText="Donut Type" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="15.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <ListView fx:id="listDonutFlavor" maxHeight="160.0" maxWidth="185.0" prefHeight="160.0" prefWidth="149.0" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="15.0" right="15.0" />
+               </GridPane.margin>
+            </ListView>
+            <ComboBox fx:id="numDonutComboBox" maxHeight="20.0" maxWidth="55.0" prefWidth="150.0" promptText="1" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="100.0" left="30.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <Button fx:id="addDonutButton" mnemonicParsing="false" onAction="#addToList" text="Add &gt;&gt;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="25.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="removeDonutButton" mnemonicParsing="false" onAction="#removeFromList" text="&lt;&lt;Remove" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="14.0" top="100.0" />
+               </GridPane.margin>
+            </Button>
+            <TextField fx:id="runningTotalDonut" editable="false" maxWidth="75.0" promptText="\$0.00" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </TextField>
+            <Label text="Running Total" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="40.0" left="10.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="Britannic Bold" size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="addToOrderDonutButton" mnemonicParsing="false" onAction="#addToOrder" text="Add to Order" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="65.0" />
+               </GridPane.margin>
+            </Button>
+            <ListView fx:id="donutOrderTextArea" maxHeight="160.0" maxWidth="149.0" prefHeight="160.0" prefWidth="149.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+            </ListView>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
