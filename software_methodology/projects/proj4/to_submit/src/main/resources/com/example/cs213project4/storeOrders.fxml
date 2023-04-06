@@ -16,7 +16,7 @@
 
 <BorderPane maxHeight="619.0" maxWidth="500.0" minHeight="500.0" minWidth="500.0" prefHeight="619.0" prefWidth="500.0" style="-fx-background-color: #901811;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cs213project4.storeOrdersController">
    <center>
-      <TextArea fx:id="TextArea" editable="false" maxHeight="350.0" maxWidth="400.0" minHeight="350.0" minWidth="400.0" prefHeight="350.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+      <TextArea fx:id="textArea" editable="false" maxHeight="350.0" maxWidth="400.0" minHeight="350.0" minWidth="400.0" prefHeight="350.0" prefWidth="400.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
@@ -25,12 +25,12 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="CancelOrderButton" mnemonicParsing="false" onAction="#cancelThisOrder" text="Cancel Order">
+            <Button fx:id="cancelOrderButton" onAction="#cancelThisOrder" mnemonicParsing="false" text="Cancel Order">
                <HBox.margin>
                   <Insets right="90.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="ExportButton" mnemonicParsing="false" onAction="#exportOrder" text="Export Orders">
+            <Button fx:id="exportButton" onAction="#exportOrder" mnemonicParsing="false" text="Export Orders">
                <HBox.margin>
                   <Insets right="110.0" />
                </HBox.margin>
@@ -62,7 +62,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="TotalBox" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="2" />
+                  <TextField fx:id="totalBox" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="2" />
                   <Label text="Total:" textFill="WHITE" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets right="10.0" />
@@ -71,7 +71,7 @@
                         <Font name="Monotype Corsiva" size="20.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="OrderNumberBoxs" onAction="#handleOrder" prefWidth="150.0" />
+                  <ComboBox fx:id="orderBox" onAction="#orderUpdate" prefWidth="150.0" />
                </children>
                <VBox.margin>
                   <Insets left="130.0" />
