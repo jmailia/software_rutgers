@@ -6,8 +6,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * To set up base functionality for the RU Cafe Application
+ */
 public class RUCafeApplication extends Application {
 
+    /**
+     * Loads the home page for the application.
+     * @param stage the stage provided.
+     */
     @Override
     public void start(Stage stage){
         FXMLLoader fxmlLoader = new FXMLLoader(RUCafeMainController.class.getResource("RUCafeMain.fxml"));
@@ -26,7 +33,11 @@ public class RUCafeApplication extends Application {
         }
     }
 
-        public static void main (String[]args){
-            launch(args);
-        }
+    /**
+     * Launches the application
+     * @param args the arguments provided
+     */
+    public static void main (String[]args){
+        launch(args);
     }
+}

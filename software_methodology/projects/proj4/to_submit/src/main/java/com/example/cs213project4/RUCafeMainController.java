@@ -6,15 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
-import java.io.IOException;
-
+/**
+ * Controller for the main page of the RU Cafe application
+ */
 public class RUCafeMainController{
-
-    public static Order myOrder = new Order();
 
     @FXML
     private Button orderDonutsButton;
@@ -25,6 +23,10 @@ public class RUCafeMainController{
     @FXML
     private Button storeOrderButton;
 
+    /**
+     * Go to the page for ordering donuts.
+     * @param event the event which would result in this page being displayed.
+     */
     @FXML
     public void goToOrderDonuts(ActionEvent event) {
         try {
@@ -38,11 +40,14 @@ public class RUCafeMainController{
         catch (Exception e) {
         }
     }
-
+    /**
+     * Go to the page for ordering coffee.
+     * @param event the event which would result in this page being displayed.
+     */
     @FXML
-    public void goToOrderCoffee(ActionEvent event) throws IOException {
+    public void goToOrderCoffee(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(RUCafeMainController.class.getResource("coffeeOrder.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("coffeeOrder.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle("Order Coffee");
@@ -52,7 +57,10 @@ public class RUCafeMainController{
         catch (Exception e) {
         }
     }
-
+    /**
+     * Go to the page which displays the basket.
+     * @param event the event which would result in this page being displayed.
+     */
     @FXML
     public void openYourOrdersPage(ActionEvent event) {
         try {
@@ -66,7 +74,10 @@ public class RUCafeMainController{
         catch (Exception e) {
         }
     }
-
+    /**
+     * Go to the page displaying the store orders.
+     * @param event the event which would result in this page being displayed.
+     */
     @FXML
     public void openStoreOrdersPage(ActionEvent event) {
         try {

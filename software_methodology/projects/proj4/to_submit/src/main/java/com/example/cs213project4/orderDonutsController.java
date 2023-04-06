@@ -13,10 +13,15 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import java.util.ArrayList;
 
+/**
+ * Controller for the page associated with donut-ordering functionality
+ */
 public class orderDonutsController {
 
+    //A max of a baker's dozen can be ordered.
     public final static int ZERO = 0;
     public final static int ONE = 1;
+
     public final static int TWO = 2;
     public final static int THREE = 3;
     public final static int FOUR = 4;
@@ -49,6 +54,9 @@ public class orderDonutsController {
     @FXML
     private Button addToOrderDonutButton;
 
+    /**
+     * Initialize all donut selection variations
+     */
     @FXML
     private void initialize() {
         this.myDonuts = new ArrayList<Donut>();
