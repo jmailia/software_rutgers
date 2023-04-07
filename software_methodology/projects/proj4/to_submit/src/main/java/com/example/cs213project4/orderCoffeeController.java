@@ -68,27 +68,19 @@ public class orderCoffeeController {
     @FXML
     private void addToOrder(ActionEvent event){
         RUCafeMainController.myOrder.addMenuItem(myCoffee);
+
         irishCreamBox.setSelected(false);
         frenchVanillaBox.setSelected(false);
         caramelBox.setSelected(false);
         mochaBox.setSelected(false);
         myCoffee = new Coffee();
         String size = coffeeSizeBox.getValue();
-        if(size == null){
-            myCoffee.setSize("Short");
-        }
-        else if (size.equals("Short")){
-            myCoffee.setSize("Short");
-        }
-        else if (size.equals("Tall")){
-            myCoffee.setSize("Tall");
-        }
-        else if (size.equals("Grande")){
-            myCoffee.setSize("Grande");
-        }
-        else if (size.equals("Venti")){
-            myCoffee.setSize("Venti");
-        }
+
+        if(size == null){myCoffee.setSize("Short");}
+        else if (size.equals("Short")){myCoffee.setSize("Short");}
+        else if (size.equals("Tall")){myCoffee.setSize("Tall");}
+        else if (size.equals("Grande")){myCoffee.setSize("Grande");}
+        else if (size.equals("Venti")){myCoffee.setSize("Venti");}
         coffeeQuantityBox.setValue(ONE);
         myCoffee.setQuantity(ONE);
         updateTotal();

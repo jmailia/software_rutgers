@@ -79,26 +79,26 @@ public class Donut extends MenuItem {
             case(YEAST):
                 super.setItemPrice(YEASTCOST);
                 this.type = donutTypes.YEASTDONUT;
-                if(flavor == ONE){this.yeastFlavor = yeastFlavors.JELLY;}
-                if(flavor == TWO){this.yeastFlavor = yeastFlavors.VANILLA;}
-                if(flavor == THREE){this.yeastFlavor = yeastFlavors.BOSTONCREAM;}
-                if(flavor == FOUR){this.yeastFlavor = yeastFlavors.COCONUT;}
-                if(flavor == FIVE){this.yeastFlavor = yeastFlavors.STRAWBERRY;}
-                if(flavor == SIX){this.yeastFlavor = yeastFlavors.KEYLIME;}
+                if(flavor == 1){this.yeastFlavor = yeastFlavors.JELLY;}
+                if(flavor == 2){this.yeastFlavor = yeastFlavors.VANILLA;}
+                if(flavor == 3){this.yeastFlavor = yeastFlavors.BOSTONCREAM;}
+                if(flavor == 4){this.yeastFlavor = yeastFlavors.COCONUT;}
+                if(flavor == 5){this.yeastFlavor = yeastFlavors.STRAWBERRY;}
+                if(flavor == 6){this.yeastFlavor = yeastFlavors.KEYLIME;}
                 break;
             case(CAKE):
                 super.setItemPrice(CAKECOST);
                 this.type = donutTypes.CAKEDONUT;
-                if(flavor == ONE){this.cakeFlavor = cakeFlavors.LEMON;}
-                if(flavor == TWO){this.cakeFlavor = cakeFlavors.CINNAMON;}
-                if(flavor == THREE){this.cakeFlavor = cakeFlavors.BLUEBERRY;}
+                if(flavor == 1){this.cakeFlavor = cakeFlavors.LEMON;}
+                if(flavor == 2){this.cakeFlavor = cakeFlavors.CINNAMON;}
+                if(flavor == 3){this.cakeFlavor = cakeFlavors.BLUEBERRY;}
                 break;
             case(HOLE):
                 super.setItemPrice(HOLECOST);
                 this.type = donutTypes.HOLES;
-                if(flavor == ONE){this.holeFlavor = holeFlavors.CHOCOLATE;}
-                if(flavor == TWO){this.holeFlavor = holeFlavors.POWDER;}
-                if(flavor == THREE){this.holeFlavor = holeFlavors.GLAZED;}
+                if(flavor == 1){this.holeFlavor = holeFlavors.CHOCOLATE;}
+                if(flavor == 2){this.holeFlavor = holeFlavors.POWDER;}
+                if(flavor == 3){this.holeFlavor = holeFlavors.GLAZED;}
                 break;
         }
     }
@@ -255,6 +255,9 @@ public class Donut extends MenuItem {
             if(this.yeastFlavor == yeastFlavors.JELLY){donutFlavor = "Jelly ";}
             else if(this.yeastFlavor == yeastFlavors.VANILLA){donutFlavor = "Vanilla ";}
             else if(this.yeastFlavor == yeastFlavors.BOSTONCREAM){donutFlavor = "Boston Cream ";}
+            else if(this.yeastFlavor == yeastFlavors.COCONUT){donutFlavor = "Coconut ";}
+            else if(this.yeastFlavor == yeastFlavors.STRAWBERRY){donutFlavor = "Strawberry ";}
+            else if(this.yeastFlavor == yeastFlavors.KEYLIME){donutFlavor = "Key Lime ";}
         }
         else if(this.type == donutTypes.CAKEDONUT){
             if(this.cakeFlavor == cakeFlavors.LEMON){donutFlavor = "Lemon Cake ";}

@@ -115,34 +115,41 @@ public class orderDonutsController {
         }
     }
 
+    /**
+     * Add a flavor of donut to your hand
+     */
     @FXML
     private void addToList(){
-        int flavorSelection = 0;
         RUCafeMainController.myOrder.addMenuItem(myDonut);
-        //
         String selection = listDonutFlavor.getSelectionModel().getSelectedItem();
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
         int howManyDonuts = numDonutComboBox.getValue();
         if (selection!=null && howManyDonuts>0) {
-            Donut myDonut = new Donut(howManyDonuts, updateMenu(), readFlavor(selection));
-        }else {
-            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+            Donut myDonut2 = new Donut(howManyDonuts, updateMenu(), readFlavor(selection));
+            updateTotal();
+            this.donutOrderTextArea.getItems().add(myDonut2.toString());
+            updateMenu();
+            confirmation.setContentText("Successfully Added Donut To Order");
+            confirmation.show();
+        } else {
             confirmation.setContentText("You either did not input a donut type, a flavor, or valid number of donuts. Try again.");
             confirmation.show();
             return;
         }
-        this.donutOrderTextArea.getItems().add(myDonut.toString());
-        this.numDonutComboBox.setValue(ONE);
-        this.donutTypeComboBox.setValue("Yeast Donut");
-        updateMenu();
-        updateTotal();
-        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmation.setContentText("Successfully Added Donut To Order");
-        confirmation.show();
+
     }
+
+    /**
+     * Add the donuts to the cart
+     */
     @FXML
     private void addToOrder(){
         updateMenu();
     }
+
+    /**
+     * Remove the donuts from your hand, prior to placing them in the cart
+     */
     @FXML
     private void removeFromList(){
         //boolean isInCart = this.donutOrderTextArea.getItems().contains();
@@ -150,13 +157,21 @@ public class orderDonutsController {
         this.donutTypeComboBox.setValue("Yeast Donut");
         updateMenu();
     }
+
+    /**
+     *
+     */
     @FXML
     private void pickedType(){
         updateMenu();
     }
+
+    /**
+     * Update the total cost of the donuts
+     */
     @FXML
     private void updateTotal(){
-        double total = myDonut.itemPrice();
+        double total = myDonut.itemPrice() + runningTotalDonut.getText();
         runningTotalDonut.setText(myDonut.itemPriceToString(total));
     }
 }
