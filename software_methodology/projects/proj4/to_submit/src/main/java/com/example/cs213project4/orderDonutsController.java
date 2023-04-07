@@ -44,6 +44,10 @@ public class orderDonutsController {
     private Button addToOrderDonutButton;
 
     private Donut myDonut;
+
+    /**
+     * Initialize the options provided to the user.
+     */
     @FXML
     private void initialize() {
         this.myDonuts = new ArrayList<Donut>();
@@ -54,6 +58,11 @@ public class orderDonutsController {
         myDonut = new Donut(1,1,1);
         int donutType = updateMenu();
     }
+
+    /**
+     * Update the flavor menu to the correct tab for donut type
+     * @return 1 for Yeast tab, 2 for Cake, 3 for Hole
+     */
     @FXML
     public int updateMenu(){
         if (this.donutTypeComboBox.getValue() == "Yeast Donut") {
@@ -119,6 +128,7 @@ public class orderDonutsController {
             confirmation.show();
             return;
         }
+        this.listDonutFlavor.getItems().add(myDonut.toString());
         this.numDonutComboBox.setValue(ONE);
         this.donutTypeComboBox.setValue("Yeast Donut");
         updateMenu();
