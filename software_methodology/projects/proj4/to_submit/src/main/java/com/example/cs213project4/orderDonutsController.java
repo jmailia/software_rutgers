@@ -114,21 +114,23 @@ public class orderDonutsController {
                 return 0;
         }
     }
+
     @FXML
     private void addToList(){
         int flavorSelection = 0;
         RUCafeMainController.myOrder.addMenuItem(myDonut);
         //
         String selection = listDonutFlavor.getSelectionModel().getSelectedItem();
-        if (selection!=null) {
-            Donut myDonut = new Donut(numDonutComboBox.getValue(), updateMenu(), readFlavor(selection));
+        int howManyDonuts = numDonutComboBox.getValue();
+        if (selection!=null && howManyDonuts>0) {
+            Donut myDonut = new Donut(howManyDonuts, updateMenu(), readFlavor(selection));
         }else {
             Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmation.setContentText("You either did not input a donut type or a flavor. Try again.");
+            confirmation.setContentText("You either did not input a donut type, a flavor, or valid number of donuts. Try again.");
             confirmation.show();
             return;
         }
-        this.listDonutFlavor.getItems().add(myDonut.toString());
+        this.donutOrderTextArea.getItems().add(myDonut.toString());
         this.numDonutComboBox.setValue(ONE);
         this.donutTypeComboBox.setValue("Yeast Donut");
         updateMenu();
@@ -143,6 +145,7 @@ public class orderDonutsController {
     }
     @FXML
     private void removeFromList(){
+        //boolean isInCart = this.donutOrderTextArea.getItems().contains();
         this.numDonutComboBox.setValue(ONE);
         this.donutTypeComboBox.setValue("Yeast Donut");
         updateMenu();
