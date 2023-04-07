@@ -104,6 +104,83 @@ public class Donut extends MenuItem {
     }
 
     /**
+     * Setter for the type of donut
+     */
+    public void setType(String type){
+        switch(type){
+            case("Yeast"):
+                this.type = donutTypes.YEASTDONUT;
+                break;
+            case("Cake"):
+                this.type = donutTypes.CAKEDONUT;
+                break;
+            case("Hole"):
+                this.type = donutTypes.HOLES;
+                break;
+        }
+    }
+
+    /**
+     * Setter for the flavor of the yeast donut
+     */
+    public void setYeastFlavor(String flavor){
+        switch(flavor){
+            case("Jelly"):
+                this.yeastFlavor = yeastFlavors.JELLY;
+                break;
+            case("Vanilla"):
+                this.yeastFlavor = yeastFlavors.VANILLA;
+                break;
+            case("Boston Cream"):
+                this.yeastFlavor = yeastFlavors.BOSTONCREAM;
+                break;
+            case("Coconut"):
+                this.yeastFlavor = yeastFlavors.COCONUT;
+                break;
+            case("Strawberry"):
+                this.yeastFlavor = yeastFlavors.STRAWBERRY;
+                break;
+            case("Key Lime"):
+                this.yeastFlavor = yeastFlavors.KEYLIME;
+                break;
+        }
+    }
+
+    /**
+     * Setter for the flavor of the cake donut
+     */
+    public void setCakeFlavor(String flavor){
+        switch(flavor){
+            case("Lemon"):
+                this.cakeFlavor = cakeFlavors.LEMON;
+                break;
+            case("Cinnamon"):
+                this.cakeFlavor = cakeFlavors.CINNAMON;
+                break;
+            case("Blueberry"):
+                this.cakeFlavor = cakeFlavors.BLUEBERRY;
+                break;
+        }
+    }
+
+    /**
+     * Setter for the flavor of the hole donut
+     */
+    public void setHoleFlavor(String flavor){
+        switch(flavor){
+            case("Chocolate"):
+                this.holeFlavor = holeFlavors.CHOCOLATE;
+                break;
+            case("Powder"):
+                this.holeFlavor = holeFlavors.POWDER;
+                break;
+            case("Glazed"):
+                this.holeFlavor = holeFlavors.GLAZED;
+                break;
+        }
+    }
+
+    /**
      * Get the type of donut
      * @return the type of donut
      */
@@ -149,7 +226,7 @@ public class Donut extends MenuItem {
      */
     @Override
     public String toString() {
-        return new String(toStringForEquals() + "(" + super.getQuantity() + ")");
+        return new String(toStringForEquals() + "( Quantity: " + super.getQuantity() + " )");
     }
 
     /**
@@ -176,18 +253,18 @@ public class Donut extends MenuItem {
         String donutFlavor = "";
         if(this.type == donutTypes.YEASTDONUT){
             if(this.yeastFlavor == yeastFlavors.JELLY){donutFlavor = "Jelly ";}
-            if(this.yeastFlavor == yeastFlavors.VANILLA){donutFlavor = "Vanilla ";}
-            if(this.yeastFlavor == yeastFlavors.BOSTONCREAM){donutFlavor = "Boston Cream ";}
+            else if(this.yeastFlavor == yeastFlavors.VANILLA){donutFlavor = "Vanilla ";}
+            else if(this.yeastFlavor == yeastFlavors.BOSTONCREAM){donutFlavor = "Boston Cream ";}
         }
-        if(this.type == donutTypes.CAKEDONUT){
+        else if(this.type == donutTypes.CAKEDONUT){
             if(this.cakeFlavor == cakeFlavors.LEMON){donutFlavor = "Lemon Cake ";}
-            if(this.cakeFlavor == cakeFlavors.CINNAMON){donutFlavor = "Cinnamon Cake ";}
-            if(this.cakeFlavor == cakeFlavors.BLUEBERRY){donutFlavor = "Blueberry Cake ";}
+            else if(this.cakeFlavor == cakeFlavors.CINNAMON){donutFlavor = "Cinnamon Cake ";}
+            else if(this.cakeFlavor == cakeFlavors.BLUEBERRY){donutFlavor = "Blueberry Cake ";}
         }
-        if(this.type == donutTypes.HOLES){
+        else if(this.type == donutTypes.HOLES){
             if(this.holeFlavor == holeFlavors.CHOCOLATE){donutFlavor = "Chocolate Hole ";}
-            if(this.holeFlavor == holeFlavors.POWDER){donutFlavor = "Powder Hole ";}
-            if(this.holeFlavor == holeFlavors.GLAZED){donutFlavor = "Glazed Hole ";}
+            else if(this.holeFlavor == holeFlavors.POWDER){donutFlavor = "Powder Hole ";}
+            else if(this.holeFlavor == holeFlavors.GLAZED){donutFlavor = "Glazed Hole ";}
         }
         return donutFlavor;
     }
