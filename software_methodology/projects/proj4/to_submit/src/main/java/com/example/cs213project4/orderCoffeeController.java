@@ -6,6 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.text.DecimalFormat;
+
 public class orderCoffeeController {
 
     private final static int ONE = 1;
@@ -47,7 +49,7 @@ public class orderCoffeeController {
         myCoffee = new Coffee();
         myCoffee.setItemPrice(1.89);
         myCoffee.setQuantity(1);
-        totalTextField.setText(myCoffee.itemPriceToString(myCoffee.itemPrice()));
+        totalTextField.setText(new DecimalFormat("$#,##0.00").format(myCoffee.getItemPrice()));
     }
 
     /**

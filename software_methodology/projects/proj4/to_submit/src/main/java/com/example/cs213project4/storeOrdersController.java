@@ -66,6 +66,9 @@ public class storeOrdersController {
                 this.totalBox.clear();
             }
             this.update();
+            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmation.setContentText("Order has been cancelled");
+            confirmation.show();
     }
 
     /**
@@ -88,5 +91,8 @@ public class storeOrdersController {
         int num = this.orderBox.getValue() - 1;
         writer.write(RUCafeMainController.storeOrders.get(num).toString());
         writer.close();
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmation.setContentText("Order has been exported to: " + new String("storeOrder" + this.orderBox.getValue() + ".txt"));
+        confirmation.show();
     }
 }
