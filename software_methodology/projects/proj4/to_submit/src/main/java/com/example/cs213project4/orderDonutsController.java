@@ -159,7 +159,7 @@ public class orderDonutsController {
     }
 
     /**
-     *
+     *The type of donut is picked.
      */
     @FXML
     private void pickedType(){
@@ -171,7 +171,7 @@ public class orderDonutsController {
      */
     @FXML
     private void updateTotal(){
-        double total = myDonut.itemPrice() + runningTotalDonut.getText();
+        double total = myDonut.itemPrice();
         runningTotalDonut.setText(myDonut.itemPriceToString(total));
     }
 }
