@@ -1,15 +1,10 @@
 package com.example.cs213project4;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import java.util.ArrayList;
 
@@ -29,7 +24,6 @@ public class orderDonutsController {
     public final static int ELEVEN = 11;
     public final static int TWELVE = 12;
     public final static int THIRTEEN = 13;
-
     private ArrayList<Donut> myDonuts;
 
     @FXML
@@ -49,6 +43,7 @@ public class orderDonutsController {
     @FXML
     private Button addToOrderDonutButton;
 
+    private Donut myDonut;
     @FXML
     private void initialize() {
         this.myDonuts = new ArrayList<Donut>();
@@ -56,18 +51,85 @@ public class orderDonutsController {
         this.numDonutComboBox.getItems().addAll(ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, ELEVEN, TWELVE, THIRTEEN);
         this.numDonutComboBox.setValue(ONE);
         this.donutTypeComboBox.setValue("Yeast Donut");
-        if (donutTypeComboBox.getValue() == "Yeast Donut") {
-            listDonutFlavor.getItems().clear();
-            listDonutFlavor.getItems().addAll("Jelly", "Vanilla", "Boston Cream");
+        myDonut = new Donut(1,1,1);
+        int donutType = updateMenu();
+    }
+    @FXML
+    public int updateMenu(){
+        if (this.donutTypeComboBox.getValue() == "Yeast Donut") {
+            this.listDonutFlavor.getItems().clear();
+            this.listDonutFlavor.getItems().addAll("Jelly", "Vanilla", "Boston Cream", "Coconut", "Strawberry", "Key Lime");
+            return 1;
         }
-        else if (donutTypeComboBox.getValue() == "Donut Hole") {
-            listDonutFlavor.getItems().clear();
-            listDonutFlavor.getItems().addAll("Chocolate", "Powder", "Glazed");
+        else if (this.donutTypeComboBox.getValue() == "Donut Hole") {
+            this.listDonutFlavor.getItems().clear();
+            this.listDonutFlavor.getItems().addAll("Chocolate", "Powder", "Glazed");
+            return 3;
         }
-        else if (donutTypeComboBox.getValue() == "Cake Donut") {
-            listDonutFlavor.getItems().clear();
-            listDonutFlavor.getItems().addAll("Lemon", "Cinnamon", "Blueberry");
+        else if (this.donutTypeComboBox.getValue() == "Cake Donut") {
+            this.listDonutFlavor.getItems().clear();
+            this.listDonutFlavor.getItems().addAll("Lemon", "Cinnamon", "Blueberry");
+            return 2;
         }
         this.listDonutFlavor.getSelectionModel().select(ZERO);
+        return 0;
+    }
+    private int readFlavor(){
+        switch(this.listDonutFlavor.getSelectionModel().getSelectedItem()){
+            case("Jelly"):
+            case("Lemon"):
+            case("Chocolate"):
+                return 1;
+            case("Vanilla"):
+            case("Cinnamon"):
+            case("Powder"):
+                return 2;
+            case("Boston Cream"):
+            case("Blueberry"):
+            case("Glazed"):
+                return 3;
+            case("Coconut"):
+                return 4;
+            case("Strawberry"):
+                return 5;
+            case("Key Lime"):
+                return 6;
+            default:
+                return 0;
+        }
+    }
+    @FXML
+    private void addToList(){
+        int flavorSelection = 0;
+        RUCafeMainController.myOrder.addMenuItem(myDonut);
+        //
+        Donut myDonut = new Donut(numDonutComboBox.getValue(),updateMenu(),readFlavor());
+
+        updateTotal();
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmation.setContentText("Successfully Added Donut To Order");
+        confirmation.show();
+        this.numDonutComboBox.setValue(ONE);
+        this.donutTypeComboBox.setValue("Yeast Donut");
+        updateMenu();
+    }
+    @FXML
+    private void addToOrder(){
+        updateMenu();
+    }
+    @FXML
+    private void removeFromList(){
+        this.numDonutComboBox.setValue(ONE);
+        this.donutTypeComboBox.setValue("Yeast Donut");
+        updateMenu();
+    }
+    @FXML
+    private void pickedType(){
+        updateMenu();
+    }
+    @FXML
+    private void updateTotal(){
+        double total = myDonut.itemPrice();
+        //totalTextField.setText(myDonut.itemPriceToString(total));
     }
 }

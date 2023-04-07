@@ -6,7 +6,7 @@ package com.example.cs213project4;
 public class Donut extends MenuItem {
 
     enum donutTypes{YEASTDONUT, CAKEDONUT, HOLES}
-    enum yeastFlavors{JELLY, VANILLA, BOSTONCREAM}
+    enum yeastFlavors{JELLY, VANILLA, BOSTONCREAM, COCONUT, STRAWBERRY, KEYLIME}
     enum cakeFlavors{LEMON, CINNAMON, BLUEBERRY}
     enum holeFlavors{CHOCOLATE, POWDER, GLAZED}
 
@@ -34,6 +34,18 @@ public class Donut extends MenuItem {
      * The third flavor is selected
      */
     public static final int THREE = 3;
+    /**
+     * The first flavor is selected
+     */
+    public static final int FOUR = 4;
+    /**
+     * The second flavor is selected
+     */
+    public static final int FIVE = 5;
+    /**
+     * The third flavor is selected
+     */
+    public static final int SIX = 6;
     /**
      * The default cost of a yeast donut
      */
@@ -65,32 +77,26 @@ public class Donut extends MenuItem {
             case(YEAST):
                 super.setItemPrice(YEASTCOST);
                 this.type = donutTypes.YEASTDONUT;
-                if(flavor == ONE)
-                    this.yeastFlavor = yeastFlavors.JELLY;
-                if(flavor == TWO)
-                    this.yeastFlavor = yeastFlavors.VANILLA;
-                if(flavor == THREE)
-                    this.yeastFlavor = yeastFlavors.BOSTONCREAM;
+                if(flavor == ONE){this.yeastFlavor = yeastFlavors.JELLY;}
+                if(flavor == TWO){this.yeastFlavor = yeastFlavors.VANILLA;}
+                if(flavor == THREE){this.yeastFlavor = yeastFlavors.BOSTONCREAM;}
+                if(flavor == FOUR){this.yeastFlavor = yeastFlavors.COCONUT;}
+                if(flavor == FIVE){this.yeastFlavor = yeastFlavors.STRAWBERRY;}
+                if(flavor == SIX){this.yeastFlavor = yeastFlavors.KEYLIME;}
                 break;
             case(CAKE):
                 super.setItemPrice(CAKECOST);
                 this.type = donutTypes.CAKEDONUT;
-                if(flavor == ONE)
-                    this.cakeFlavor = cakeFlavors.LEMON;
-                if(flavor == TWO)
-                    this.cakeFlavor = cakeFlavors.CINNAMON;
-                if(flavor == THREE)
-                    this.cakeFlavor = cakeFlavors.BLUEBERRY;
+                if(flavor == ONE){this.cakeFlavor = cakeFlavors.LEMON;}
+                if(flavor == TWO){this.cakeFlavor = cakeFlavors.CINNAMON;}
+                if(flavor == THREE){this.cakeFlavor = cakeFlavors.BLUEBERRY;}
                 break;
             case(HOLE):
                 super.setItemPrice(HOLECOST);
                 this.type = donutTypes.HOLES;
-                if(flavor == ONE)
-                    this.holeFlavor = holeFlavors.CHOCOLATE;
-                if(flavor == TWO)
-                    this.holeFlavor = holeFlavors.POWDER;
-                if(flavor == THREE)
-                    this.holeFlavor = holeFlavors.GLAZED;
+                if(flavor == ONE){this.holeFlavor = holeFlavors.CHOCOLATE;}
+                if(flavor == TWO){this.holeFlavor = holeFlavors.POWDER;}
+                if(flavor == THREE){this.holeFlavor = holeFlavors.GLAZED;}
                 break;
         }
     }
@@ -167,37 +173,19 @@ public class Donut extends MenuItem {
     public String toStringForEquals(){
         String donutFlavor = "";
         if(this.type == donutTypes.YEASTDONUT){
-            if(this.yeastFlavor == yeastFlavors.JELLY){
-                donutFlavor = "Jelly ";
-            }
-            if(this.yeastFlavor == yeastFlavors.VANILLA){
-                donutFlavor = "Vanilla ";
-            }
-            if(this.yeastFlavor == yeastFlavors.BOSTONCREAM){
-                donutFlavor = "Boston Cream ";
-            }
+            if(this.yeastFlavor == yeastFlavors.JELLY){donutFlavor = "Jelly ";}
+            if(this.yeastFlavor == yeastFlavors.VANILLA){donutFlavor = "Vanilla ";}
+            if(this.yeastFlavor == yeastFlavors.BOSTONCREAM){donutFlavor = "Boston Cream ";}
         }
         if(this.type == donutTypes.CAKEDONUT){
-            if(this.cakeFlavor == cakeFlavors.LEMON){
-                donutFlavor = "Lemon Cake ";
-            }
-            if(this.cakeFlavor == cakeFlavors.CINNAMON){
-                donutFlavor = "Cinnamon Cake ";
-            }
-            if(this.cakeFlavor == cakeFlavors.BLUEBERRY){
-                donutFlavor = "Blueberry Cake ";
-            }
+            if(this.cakeFlavor == cakeFlavors.LEMON){donutFlavor = "Lemon Cake ";}
+            if(this.cakeFlavor == cakeFlavors.CINNAMON){donutFlavor = "Cinnamon Cake ";}
+            if(this.cakeFlavor == cakeFlavors.BLUEBERRY){donutFlavor = "Blueberry Cake ";}
         }
         if(this.type == donutTypes.HOLES){
-            if(this.holeFlavor == holeFlavors.CHOCOLATE){
-                donutFlavor = "Chocolate Hole ";
-            }
-            if(this.holeFlavor == holeFlavors.POWDER){
-                donutFlavor = "Powder Hole ";
-            }
-            if(this.holeFlavor == holeFlavors.GLAZED){
-                donutFlavor = "Glazed Hole ";
-            }
+            if(this.holeFlavor == holeFlavors.CHOCOLATE){donutFlavor = "Chocolate Hole ";}
+            if(this.holeFlavor == holeFlavors.POWDER){donutFlavor = "Powder Hole ";}
+            if(this.holeFlavor == holeFlavors.GLAZED){donutFlavor = "Glazed Hole ";}
         }
         return donutFlavor;
     }
