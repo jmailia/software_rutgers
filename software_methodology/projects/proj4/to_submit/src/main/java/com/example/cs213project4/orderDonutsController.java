@@ -74,8 +74,15 @@ public class orderDonutsController {
         this.listDonutFlavor.getSelectionModel().select(ZERO);
         return 0;
     }
-    private int readFlavor(){
-        switch(this.listDonutFlavor.getSelectionModel().getSelectedItem()){
+
+    /**
+     * Gets the flavor from the selection
+     * @param selection A string containing the flavor selected
+     * @return the ith listing of the flavor in the donut type.
+     * ie: the first flavor for yeast donuts will return '1'.
+     */
+    private int readFlavor(String selection){
+        switch(selection){
             case("Jelly"):
             case("Lemon"):
             case("Chocolate"):
@@ -103,15 +110,22 @@ public class orderDonutsController {
         int flavorSelection = 0;
         RUCafeMainController.myOrder.addMenuItem(myDonut);
         //
-        Donut myDonut = new Donut(numDonutComboBox.getValue(),updateMenu(),readFlavor());
-
+        String selection = listDonutFlavor.getSelectionModel().getSelectedItem();
+        if (selection!=null) {
+            Donut myDonut = new Donut(numDonutComboBox.getValue(), updateMenu(), readFlavor(selection));
+        }else {
+            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmation.setContentText("You either did not input a donut type or a flavor. Try again.");
+            confirmation.show();
+            return;
+        }
+        this.numDonutComboBox.setValue(ONE);
+        this.donutTypeComboBox.setValue("Yeast Donut");
+        updateMenu();
         updateTotal();
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
         confirmation.setContentText("Successfully Added Donut To Order");
         confirmation.show();
-        this.numDonutComboBox.setValue(ONE);
-        this.donutTypeComboBox.setValue("Yeast Donut");
-        updateMenu();
     }
     @FXML
     private void addToOrder(){
@@ -130,6 +144,6 @@ public class orderDonutsController {
     @FXML
     private void updateTotal(){
         double total = myDonut.itemPrice();
-        //totalTextField.setText(myDonut.itemPriceToString(total));
+        runningTotalDonut.setText(myDonut.itemPriceToString(total));
     }
 }
