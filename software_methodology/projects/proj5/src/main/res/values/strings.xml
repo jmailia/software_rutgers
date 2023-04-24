@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">RutgersCafe</string>
+    <string-array name="coffeeSizes">
+        <item>Short</item>
+        <item>Tall</item>
+        <item>Grande</item>
+        <item>Venti</item>
+    </string-array>
+    <string-array name="donutTypes">
+        <item>Jelly</item>
+        <item>Vanilla</item>
+        <item>Boston Cream</item>
+        <item>Coconut</item>
+        <item>Strawberry</item>
+        <item>Keylime</item>
+        <item>Lemon</item>
+        <item>Cinnamon</item>
+        <item>Blueberry</item>
+        <item>Chocolate Hole</item>
+        <item>Powder Hole</item>
+        <item>Glazed Hole</item>
+    </string-array>
 </resources>
