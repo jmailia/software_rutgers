@@ -7,6 +7,7 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton storeOrdersButton;
     public static Order myOrder = new Order();
     public static ArrayList<Order> storeOrders = new ArrayList<Order>();
+    public static List<Donut> donutOrder = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

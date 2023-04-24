@@ -29,14 +29,13 @@ public class CoffeeOrderActivity extends AppCompatActivity {
     Coffee myCoffee = new Coffee();
     private final DecimalFormat df = new DecimalFormat("#0.00");
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.coffeeorder_activity);
         subtotalTextView = findViewById(R.id.tv_coffeeSubtotal);
-        sizeSpinner = findViewById(R.id.sp_coffeeSize);
-        coffeeSizeAdapter = ArrayAdapter.createFromResource(this, R.array.coffee_sizes,
+        sizeSpinner = findViewById(R.id.sizeSpinner);
+        coffeeSizeAdapter = ArrayAdapter.createFromResource(this, R.array.coffeeSizes,
                 android.R.layout.simple_spinner_dropdown_item);
         sizeSpinner.setAdapter(coffeeSizeAdapter);
         sizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -44,16 +43,16 @@ public class CoffeeOrderActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 changeSize();
             }
-
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
         quantityText = findViewById(R.id.etn_coffeeQuantity);
         quantityText.addTextChangedListener(new TextWatcher() {
-
-            /**
-             * Detects when the quantity is changed and updates subtotals to reflect the change
-             * @param editable Not used
-             */
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
             public void afterTextChanged(Editable editable) {
                 changeQuantity();
