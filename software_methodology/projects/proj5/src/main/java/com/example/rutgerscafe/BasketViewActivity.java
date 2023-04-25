@@ -33,7 +33,7 @@ public class BasketViewActivity extends AppCompatActivity {
         setContentView(R.layout.basketview_activity);
         itemList = findViewById(R.id.lv_itemList);
         itemsAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, MainActivity.currOrder.getItems());
+                android.R.layout.simple_list_item_1, MainActivity.myOrder.getItems());
         itemList.setAdapter(itemsAdapter);
         itemList.setOnItemClickListener((adapterView, view, i, l) -> selected = (MenuItem) itemList.getItemAtPosition(i));
         deleteItem = findViewById(R.id.btn_deleteItem);
@@ -54,10 +54,9 @@ public class BasketViewActivity extends AppCompatActivity {
      * Submits the cart to store orders
      */
     private void submit() {
-        if (!MainActivity.currOrder.getItems().isEmpty()) {
-            MainActivity.storeOrders.add(MainActivity.currOrder);
-            MainActivity.orderNumber++;
-            MainActivity.currOrder = new Order(MainActivity.orderNumber);
+        if (!MainActivity.myOrder.getItems().isEmpty()) {
+            MainActivity.storeOrders.add(MainActivity.myOrder);
+            MainActivity.myOrder = new Order();
             itemsAdapter.notifyDataSetChanged();
             updateTotals();
             Toast toast = Toast.makeText(this, "Order Successfully Placed!", Toast.LENGTH_LONG);
@@ -105,9 +104,9 @@ public class BasketViewActivity extends AppCompatActivity {
      * Updates the monetary values on the cart activity
      */
     private void updateTotals() {
-        double st = MainActivity.currOrder.getSubtotal();
+        double st = MainActivity.myOrder.getSubtotal();
         subtotal.setText("$" + df.format(st));
-        double tx = MainActivity.currOrder.getSubtotal() * 0.0625;
+        double tx = MainActivity.myOrder.getSubtotal() * 0.0625;
         tax.setText("$" + df.format(tx));
         double gt = st + tx;
         grandTotal.setText("$" + df.format(gt));

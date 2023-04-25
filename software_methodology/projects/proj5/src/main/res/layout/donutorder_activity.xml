@@ -12,7 +12,7 @@
         android:layout_height="31dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="24dp"
-        android:text="@string/selected_flavor"
+        android:text="Flavor"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -23,7 +23,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="108dp"
         android:layout_marginTop="32dp"
-        android:text="@string/quantity"
+        android:text="Quantity"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -59,7 +59,7 @@
         android:layout_marginTop="-10dp"
         android:autofillHints="1"
         android:ems="10"
-        android:hint="@string/number_of_coffee"
+        android:hint="Number of Coffees"
         android:inputType="number"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="@+id/textView4"
@@ -71,7 +71,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="52dp"
         android:layout_marginTop="16dp"
-        android:text="@string/selected_type"
+        android:text="Type"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -82,7 +82,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="112dp"
         android:layout_marginTop="16dp"
-        android:text="@string/subtotal"
+        android:text="subtotal"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lv_currDonutOrder" />
@@ -93,7 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:layout_marginTop="48dp"
-        android:text="@string/add_donut_to_order"
+        android:text="Add Donut to Order"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -113,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="96dp"
         android:layout_marginTop="16dp"
-        android:text="@string/current_donut_order"
+        android:text="Current Donut Order"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -123,7 +123,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@string/delete_donut"
+        android:text="Delete Donut"
         app:layout_constraintStart_toEndOf="@+id/btn_addDonutOrder"
         app:layout_constraintTop_toTopOf="@+id/btn_addDonutOrder" />
 
@@ -133,7 +133,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="124dp"
         android:layout_marginTop="12dp"
-        android:text="@string/add_to_order"
+        android:text="Add To Order"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_addDonutOrder" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -92,6 +92,33 @@ public class DonutOrderActivity extends AppCompatActivity{
         }
     }
 
+    private int findFlavorInt(){
+        int value = 0;
+        switch(String.valueOf(type.getText())){
+            case "Yeast Donut":
+                Donut.yeastFlavors temp = Donut.yeastFlavors.valueOf(flavor.getText().toString());
+                if(temp == Donut.yeastFlavors.JELLY){value = 1;}
+                if(temp == Donut.yeastFlavors.VANILLA){value = 2;}
+                if(temp == Donut.yeastFlavors.BOSTONCREAM){value = 3;}
+                if(temp == Donut.yeastFlavors.COCONUT){value = 4;}
+                if(temp == Donut.yeastFlavors.STRAWBERRY){value = 5;}
+                if(temp == Donut.yeastFlavors.KEYLIME){value = 6;}
+                break;
+            case "Cake Donut":
+                Donut.cakeFlavors temp2 = Donut.cakeFlavors.valueOf(flavor.getText().toString());
+                if(temp2 == Donut.cakeFlavors.LEMON){value = 1;}
+                if(temp2 == Donut.cakeFlavors.CINNAMON){value = 2;}
+                if(temp2 == Donut.cakeFlavors.BLUEBERRY){value = 3;}
+                break;
+            case "Donut Hole":
+                Donut.holeFlavors temp3 = Donut.holeFlavors.valueOf(flavor.getText().toString());
+                if(temp3 == Donut.holeFlavors.CHOCOLATE){value = 1;}
+                if(temp3 == Donut.holeFlavors.POWDER){value = 2;}
+                if(temp3 == Donut.holeFlavors.GLAZED){value = 3;}
+                break;
+        }
+        return value;
+    }
     /**
      * Deletes the selected donut
      */
@@ -121,19 +148,20 @@ public class DonutOrderActivity extends AppCompatActivity{
      */
     private void addDonuts() {
         try {
+            int flavor = findFlavorInt();
             switch (String.valueOf(type.getText())) {
                 case "Yeast Donut":
-                    donutsAdapter.add(new Donut(Integer.parseInt(quantity.getText().toString()), Donut.YEAST, Donut.yeastFlavors.valueOf(flavor.getText().toString())));
+                    donutsAdapter.add(new Donut(Integer.parseInt(quantity.getText().toString()), Donut.YEAST, flavor));
                     donutsAdapter.notifyDataSetChanged();
                     updateSubtotal();
                     break;
                 case "Cake Donut":
-                    donutsAdapter.add(new Donut(Integer.parseInt(quantity.getText().toString()), Donut.CAKE, ));
+                    donutsAdapter.add(new Donut(Integer.parseInt(quantity.getText().toString()), Donut.CAKE, flavor));
                     donutsAdapter.notifyDataSetChanged();
                     updateSubtotal();
                     break;
                 case "Donut Hole":
-                    donutsAdapter.add(new Donut(Integer.parseInt(quantity.getText().toString()), Donut.HOLE, ));
+                    donutsAdapter.add(new Donut(Integer.parseInt(quantity.getText().toString()), Donut.HOLE, flavor));
                     donutsAdapter.notifyDataSetChanged();
                     updateSubtotal();
                     break;

@@ -60,19 +60,19 @@ public class CoffeeOrderActivity extends AppCompatActivity {
         });
         frenchVanillaCheckBox = findViewById(R.id.frenchVanillaCheckBox);
         frenchVanillaCheckBox.setOnClickListener(view -> {
-            myCoffee.setAddin("French Vanilla");
+            addAddIn(frenchVanillaCheckBox);
         });
         irishCreamCheckBox = findViewById(R.id.irishCreamCheckBox);
         irishCreamCheckBox.setOnClickListener(view -> {
-            myCoffee.setAddin("Irish Cream");
+            addAddIn(irishCreamCheckBox);
         });
         caramelCheckBox = findViewById(R.id.caramelCheckBox);
         caramelCheckBox.setOnClickListener(view -> {
-            myCoffee.setAddin("Caramel");
+            addAddIn(caramelCheckBox);
         });
         mochaCheckBox = findViewById(R.id.mochaCheckBox);
         mochaCheckBox.setOnClickListener(view -> {
-            myCoffee.setAddin("Mocha");
+            addAddIn(mochaCheckBox);
         });
         addToOrderButton = findViewById(R.id.addCoffeeButton);
         addToOrderButton.setOnClickListener(view -> {
