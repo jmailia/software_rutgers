@@ -3,7 +3,7 @@ package com.example.rutgerscafe;
 /**
  * Functionality offered when ordering a donut from the menu
  */
-public class Donut extends MenuItem {
+public class  Donut extends MenuItem {
 
     enum donutTypes{YEASTDONUT, CAKEDONUT, HOLES}
     enum yeastFlavors{JELLY, VANILLA, BOSTONCREAM, COCONUT, STRAWBERRY, KEYLIME}

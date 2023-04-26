@@ -10,7 +10,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import java.text.DecimalFormat;
 
-
+/**
+ * Functionalities of Basket View
+ */
 public class BasketViewActivity extends AppCompatActivity {
 
     ListView itemList;
@@ -24,7 +26,7 @@ public class BasketViewActivity extends AppCompatActivity {
     private final DecimalFormat df = new DecimalFormat("#0.00");
 
     /**
-     * Initializes elements of the cart activity and defines their functionalities
+     * Initialization and functions of cart upon creation
      * @param savedInstanceState Not used
      */
     @Override
@@ -89,12 +91,12 @@ public class BasketViewActivity extends AppCompatActivity {
                         .show();
             }
             catch (NullPointerException e) {
-                Toast toast = Toast.makeText(this, "No Item Selected to Delete", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(this, "There are no items selected to delete.", Toast.LENGTH_LONG);
                 toast.show();
             }
         }
         else {
-            Toast toast = Toast.makeText(this, "There are no items to delete", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(this, "There are no items to delete.", Toast.LENGTH_LONG);
             toast.show();
         }
 

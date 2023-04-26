@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 /**
- * This class creates an adapter for a Recyclerview in order to connect data with the activity
+ * Recyclerview adapter for connecting data with activity
  */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private List<String> flavors;
