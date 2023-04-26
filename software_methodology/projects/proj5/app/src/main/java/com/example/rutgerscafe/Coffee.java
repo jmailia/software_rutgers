@@ -26,8 +26,8 @@ public class Coffee extends MenuItem{
     private int amountAddIns;
 
     /**
-     * Constructor method for Coffee. Sets default item cost to SHORTCOST
-     * and sets the quantity to ONE.
+     * Coffee Constructor method for Coffee which sets
+     * default item cost to SHORTCOST and quantity to ONE.
      */
     public Coffee(){
         super(SHORTCOST, ONE);
@@ -63,10 +63,7 @@ public class Coffee extends MenuItem{
     public void setAmountAddIns(){
         Boolean[] addIns = {frenchVanilla, irishCream, caramel, mocha};
         this.amountAddIns = 0;
-        for(int i = 0; i< addIns.length; i++){
-            if(addIns[i] == true)
-                amountAddIns++;
-        }
+        for(int i = 0; i< addIns.length; i++){if(addIns[i] == true){amountAddIns++;}}
     }
 
     /**
@@ -146,37 +143,33 @@ public class Coffee extends MenuItem{
     }
 
     /**
-     * Displays the user's coffee cup-size and any add-ins as a string
-     * @return a string containing the user's coffee cup-size and any add-ins
+     * Display cup-size and any add-ins as a string
+     * @return a string of coffee cup-size and any add-ins
      */
     @Override
     public String toString(){
-        String coffeeSize = "Short Coffee ";
+        String size = "Short Coffee ";
         String addIns = "";
         switch(this.coffeeSize){
             case(SHORT):
-                coffeeSize = "Short Coffee ";
+                size = "Short Coffee ";
                 break;
             case(TALL):
-                coffeeSize = "Tall Coffee ";
+                size = "Tall Coffee ";
                 break;
             case(GRANDE):
-                coffeeSize = "Grande Coffee ";
+                size = "Grande Coffee ";
                 break;
             case(VENTI):
-                coffeeSize = "Venti Coffee ";
+                size = "Venti Coffee ";
                 break;
         }
         this.setAmountAddIns();
         if(amountAddIns > 0){
-            if(frenchVanilla == true){
-                addIns = new String(addIns + "French Vanilla ");}
-            if(irishCream == true){
-                addIns = new String(addIns + "Irish Cream ");}
-            if(caramel == true){
-                addIns = new String(addIns + "Caramel ");}
-            if(mocha == true){
-                addIns = new String(addIns + "Mocha");}
+            if(frenchVanilla == true){addIns = new String(addIns + "French Vanilla ");}
+            if(caramel == true){addIns = new String(addIns + "Caramel ");}
+            if(irishCream == true){addIns = new String(addIns + "Irish Cream ");}
+            if(mocha == true){addIns = new String(addIns + "Mocha");}
             return coffeeSize + "With: " + addIns + " ( Quantity: " + super.getQuantity() + " )";
         }
         else

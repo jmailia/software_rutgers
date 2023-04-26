@@ -25,7 +25,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     /**
-     * This method returns the view holder for the Recyclerview
+     * Get the view holder for the Recyclerview
      * @param parent The parent of the view holder
      * @param viewType Not used
      * @return A new view holder
@@ -38,17 +38,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     /**
-     * This methods binds the view holder elements to the data and begins displaying the data in string form
-     * @param holder The designated view holder
-     * @param position The position where the flavor is to be placed
+     * Bind the data with the view holder elements, display the data as a string
+     * @param viewHolder the view holder to use
+     * @param flavorPosition the flavor is placed here
      */
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.donut_flavorName.setText(flavors.get(position));
+    public void onBindViewHolder(@NonNull MyViewHolder viewHolder, int flavorPosition) {
+        viewHolder.donut_flavorName.setText(flavors.get(flavorPosition));
     }
 
     /**
-     * Gets the number of flavors in the Recyclerview
+     * Get the number of flavors in the Recyclerview
      * @return The number of flavors in the Recyclerview
      */
     @Override
@@ -57,8 +57,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     /**
-     * This inner class creates a view holder for the Recyclerview
-     * @author Rory Xu, Hassan Alfareed
+     * Create a view holder for Recyclerview
      */
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView donut_flavorName;
@@ -66,26 +65,26 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         OnRVListener onRVListener;
 
         /**
-         * Constructs a view holder for the Recyclerview
+         * construct a view holder for the Recyclerview
          * @param itemView The view holder to be used
          * @param onRVListener The listener to be binded
          */
         public MyViewHolder(@NonNull View itemView, OnRVListener onRVListener) {
+
             super(itemView);
+
             donut_flavorName = itemView.findViewById(R.id.donut_flavorName);
             parentLayout = itemView.findViewById(R.id.donutFlavorLayout);
             this.onRVListener = onRVListener;
-
             itemView.setOnClickListener(this);
         }
 
         /**
-         * Gets the position of the clicked item
-         * @param view The current view
+         * get position of the clicked item
+         * @param currentView (not used))
          */
         @Override
-        public void onClick(View view) {
-            onRVListener.onRVClick(getAdapterPosition());
+        public void onClick(View currentView) {onRVListener.onRVClick(getAdapterPosition());
         }
     }
 }

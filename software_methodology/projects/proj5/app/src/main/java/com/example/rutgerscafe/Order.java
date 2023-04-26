@@ -5,7 +5,7 @@ package com.example.rutgerscafe;
 import java.util.ArrayList;
 
 /**
- * Functionality related to the current order, including the items in the cart and the money owed.
+ * Functionalities of the current order as determined by the cart items and the running subtotal.
  */
 public class Order {
 
@@ -16,23 +16,23 @@ public class Order {
     private static final double NJ_SALES_TAX = 0.06626;
 
     /**
-     * Initiates the current order
+     * Initiate order
      */
     public Order(){
         items = new ArrayList<MenuItem>();
     }
 
     /**
-     * Get the subtotal of the order.
-     * @return the subtotal of the order.
+     * Get subtotal of  order
+     * @return the subtotal of order
      */
     public double getSubtotal(){
         return this.subtotal;
     }
 
     /**
-     * Get the sales tax for NJ.
-     * @return the sales tax for NJ.
+     * Get NJ sales tax
+     * @return the NJ sales tax
      */
     public double getSalesTax(){
         return this.salesTax;
@@ -47,17 +47,17 @@ public class Order {
     }
 
     /**
-     * Get the items in the cart.
-     * @return the items in the cart.
+     * Get cart items
+     * @return the cart items
      */
     public ArrayList<MenuItem> getItems(){
         return this.items;
     }
 
     /**
-     * Add an item from the menu, in the correct quantity that was ordered
-     * @param item the item which you want to order
-     * @return true, if the menu item was ordered.
+     * add a menu item, in its correct quantity
+     * @param item what you want to order
+     * @return true, if order was successful
      */
     public boolean addMenuItem(MenuItem item){
         for(int i = 0; i < items.size(); i++){
@@ -79,22 +79,17 @@ public class Order {
         if (obj instanceof String) {
             String item = (String)obj;
             for (int x = 0; x < items.size(); x++) {
-                if (items.get(x).toString().equals(item)) {
-                    items.remove(x);
-                    return true;
-                }
+                if (items.get(x).toString().equals(item)) {items.remove(x); return true;}
             }
         }
         return false;
     }
     /**
-     * Calculate the total price of goods sold, as calculated by their inherent cost plus NJ sales tax.
+     * calculate total price of goods sold, incorporating NJ sales tax.
      */
     public void calculateTotal(){
         this.subtotal = 0;
-        for(int i = 0; i < items.size(); i++){
-            this.subtotal = this.subtotal + items.get(i).getItemPrice();
-        }
+        for(int j = 0; j < items.size(); j++){this.subtotal += items.get(j).getItemPrice();}
         this.salesTax = this.subtotal * NJ_SALES_TAX;
         this.total = this.salesTax + this.subtotal;
     }
@@ -106,9 +101,7 @@ public class Order {
     @Override
     public String toString(){
         String result = "";
-        for(int i = 0; i < items.size(); i++){
-            result = result + items.get(i).toString() + "\n";
-        }
+        for(int i = 0; i < items.size(); i++){result = result + items.get(i).toString() + "\n";}
         return result;
     }
 

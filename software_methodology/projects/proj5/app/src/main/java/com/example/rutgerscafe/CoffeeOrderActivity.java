@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.text.DecimalFormat;
 
+
 public class CoffeeOrderActivity extends AppCompatActivity {
 
     CheckBox frenchVanillaCheckBox;
@@ -40,9 +41,7 @@ public class CoffeeOrderActivity extends AppCompatActivity {
         sizeSpinner.setAdapter(coffeeSizeAdapter);
         sizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                changeSize();
-            }
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {changeSize();}
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
@@ -80,80 +79,92 @@ public class CoffeeOrderActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Update the subtotal
+     */
     private void updateSubtotal() {
         try {
             Integer.parseInt(String.valueOf(quantityText.getText()));
-            double subtotal = myCoffee.itemPrice();
-            subtotalTextView.setText("$" + df.format(subtotal));
-        } catch (NumberFormatException e) {
-            subtotalTextView.setText("$0.00");
-        }
+            double itemPrice = myCoffee.itemPrice();
+            subtotalTextView.setText("$" + df.format(itemPrice));
+        } catch (NumberFormatException e) {subtotalTextView.setText("$0.00");}
 
     }
 
+    /**
+     * Reset by setting all values to false.
+     */
     private void reset() {
-        frenchVanillaCheckBox.setChecked(false);
-        irishCreamCheckBox.setChecked(false);
-        caramelCheckBox.setChecked(false);
-        mochaCheckBox.setChecked(false);
+
         sizeSpinner.setSelection(0);
         quantityText.setText("");
         myCoffee = new Coffee();
         subtotalTextView.setText("$0.00");
+
+
+        //set checkboxes to false
+        mochaCheckBox.setChecked(false);
+        frenchVanillaCheckBox.setChecked(false);
+        caramelCheckBox.setChecked(false);
+        irishCreamCheckBox.setChecked(false);
     }
 
+    /**
+     * Change the size and update the subtotal
+     */
     private void changeSize() {
         switch (String.valueOf(sizeSpinner.getSelectedItem())) {
             case "Short":
                 myCoffee.setSize("Short");
-                updateSubtotal();
                 break;
             case "Tall":
                 myCoffee.setSize("Tall");
-                updateSubtotal();
                 break;
             case "Grande":
                 myCoffee.setSize("Grande");
-                updateSubtotal();
                 break;
             case "Venti":
                 myCoffee.setSize("Venti");
-                updateSubtotal();
                 break;
         }
+        updateSubtotal();
     }
 
+    /**
+     * Change the Quantity
+     */
     private void changeQuantity() {
         try {
             myCoffee.setQuantity(Integer.parseInt(String.valueOf(quantityText.getText())));
             updateSubtotal();
         }
-        catch (NumberFormatException e) {
-            subtotalTextView.setText("$0.00");
-        }
+        catch (NumberFormatException e) {subtotalTextView.setText("$0.00");}
     }
 
-    private void addAddIn(CheckBox checkBox) {
-        if (checkBox.isChecked()) {
-            myCoffee.setAddin(String.valueOf(checkBox.getText()));
-        }
-        else {
-            myCoffee.removeAddin(String.valueOf(checkBox.getText()));
-        }
+    /**
+     * add the addIn, otherwise remove it
+     * @param myCheckBox the value of the addin checkbox
+     */
+    private void addAddIn(CheckBox myCheckBox) {
+        if (myCheckBox.isChecked()) {myCoffee.setAddin(String.valueOf(myCheckBox.getText()));}
+        else {myCoffee.removeAddin(String.valueOf(myCheckBox.getText()));}
         updateSubtotal();
     }
 
+    /**
+     * Add a coffee, consider an error where the user does not specify the number of coffees
+     */
     private void addCoffee() {
         try {
             Integer.parseInt(String.valueOf(quantityText.getText()));
             MainActivity.myOrder.addMenuItem(myCoffee);
             myCoffee = new Coffee();
             reset();
-            Toast toast = Toast.makeText(this, "Coffee Successfully Added!", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(this, "The Coffee was added successfully.", Toast.LENGTH_LONG);
             toast.show();
         }
         catch (Exception e) {
-            Toast toast = Toast.makeText(this, "Please specify the number of coffees!", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(this, "You did not specify a number of coffees. Try again.", Toast.LENGTH_LONG);
             toast.show();
         }
     }

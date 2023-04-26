@@ -13,8 +13,7 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 
 /**
- * This class controls the functionality of the donut order activity
- * @author Rory Xu, Hassan Alfareed
+ * Functionalities associated with the donut order
  */
 public class DonutOrderActivity extends AppCompatActivity{
 
@@ -32,8 +31,8 @@ public class DonutOrderActivity extends AppCompatActivity{
     private final DecimalFormat df = new DecimalFormat("#0.00");
 
     /**
-    * Initializes elements of the coffee activity and defines their functionalities
-    * @param savedInstanceState Not used
+    * Initialization and functions of coffee activity
+    * @param savedInstanceState (not used)
     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,72 +54,70 @@ public class DonutOrderActivity extends AppCompatActivity{
             type.setText(intent.getExtras().getString("Type"));
         }
         addToOrder = findViewById(R.id.btn_addDonutOrder);
-        addToOrder.setOnClickListener(view -> {
-            addDonuts();
-        });
+        addToOrder.setOnClickListener(view -> {addDonuts();});
 
         deleteDonut = findViewById(R.id.btn_deleteDonut);
-        deleteDonut.setOnClickListener(view -> {
-            deleteSelectedDonut();
-        });
+        deleteDonut.setOnClickListener(view -> {deleteSelectedDonut();});
 
         submitOrder = findViewById(R.id.btn_submitDonutOrder);
-        submitOrder.setOnClickListener(view -> {
-            submitDonutOrder();
-        });
+        submitOrder.setOnClickListener(view -> {submitDonutOrder();});
 
     }
 
     /**
-     * Submits the order of donuts to cart
+     * Puts donuts in cart
      */
     private void submitDonutOrder() {
-        if (!MainActivity.donutOrder.isEmpty()) {
-            for (Donut myDonut : MainActivity.donutOrder) {
-                MainActivity.myOrder.addMenuItem(myDonut);
-            }
+        if (MainActivity.donutOrder.isEmpty()) {
+            Toast toast = Toast.makeText(this, "There is nothing to put in the cart. Add donuts and try again.", Toast.LENGTH_LONG);
+            toast.show();
+        } else {
+            for (Donut myDonut : MainActivity.donutOrder) {MainActivity.myOrder.addMenuItem(myDonut);}
             donutsAdapter.clear();
             donutsAdapter.notifyDataSetChanged();
             updateSubtotal();
-            Toast toast = Toast.makeText(this, "Donut Order Successfully Placed!", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(this, "The donuts were added successfully.", Toast.LENGTH_LONG);
             toast.show();
             super.onBackPressed();
         }
-        else {
-            Toast toast = Toast.makeText(this, "No Donuts in Cart to Order", Toast.LENGTH_LONG);
-            toast.show();
-        }
     }
 
+    /**
+     * Get the int from the flavor selected
+     * @return the int of the flavor
+     */
     private int findFlavorInt(){
         int value = 0;
         switch(String.valueOf(type.getText())){
+            case "Donut Hole":
+                Donut.holeFlavors holeFlavor = Donut.holeFlavors.valueOf(flavor.getText().toString());
+                if(holeFlavor == Donut.holeFlavors.GLAZED){value = 3;}
+                if(holeFlavor == Donut.holeFlavors.POWDER){value = 2;}
+                if(holeFlavor == Donut.holeFlavors.CHOCOLATE){value = 1;}
+
+
+                break;
             case "Yeast Donut":
-                Donut.yeastFlavors temp = Donut.yeastFlavors.valueOf(flavor.getText().toString());
-                if(temp == Donut.yeastFlavors.JELLY){value = 1;}
-                if(temp == Donut.yeastFlavors.VANILLA){value = 2;}
-                if(temp == Donut.yeastFlavors.BOSTONCREAM){value = 3;}
-                if(temp == Donut.yeastFlavors.COCONUT){value = 4;}
-                if(temp == Donut.yeastFlavors.STRAWBERRY){value = 5;}
-                if(temp == Donut.yeastFlavors.KEYLIME){value = 6;}
+                Donut.yeastFlavors yeastFlavor = Donut.yeastFlavors.valueOf(flavor.getText().toString());
+                if(yeastFlavor == Donut.yeastFlavors.KEYLIME){value = 6;}
+                if(yeastFlavor == Donut.yeastFlavors.STRAWBERRY){value = 5;}
+                if(yeastFlavor == Donut.yeastFlavors.COCONUT){value = 4;}
+                if(yeastFlavor == Donut.yeastFlavors.BOSTONCREAM){value = 3;}
+                if(yeastFlavor == Donut.yeastFlavors.VANILLA){value = 2;}
+                if(yeastFlavor == Donut.yeastFlavors.JELLY){value = 1;}
+
                 break;
             case "Cake Donut":
-                Donut.cakeFlavors temp2 = Donut.cakeFlavors.valueOf(flavor.getText().toString());
-                if(temp2 == Donut.cakeFlavors.LEMON){value = 1;}
-                if(temp2 == Donut.cakeFlavors.CINNAMON){value = 2;}
-                if(temp2 == Donut.cakeFlavors.BLUEBERRY){value = 3;}
-                break;
-            case "Donut Hole":
-                Donut.holeFlavors temp3 = Donut.holeFlavors.valueOf(flavor.getText().toString());
-                if(temp3 == Donut.holeFlavors.CHOCOLATE){value = 1;}
-                if(temp3 == Donut.holeFlavors.POWDER){value = 2;}
-                if(temp3 == Donut.holeFlavors.GLAZED){value = 3;}
+                Donut.cakeFlavors cakeFlavor = Donut.cakeFlavors.valueOf(flavor.getText().toString());
+                if(cakeFlavor == Donut.cakeFlavors.BLUEBERRY){value = 3;}
+                if(cakeFlavor == Donut.cakeFlavors.CINNAMON){value = 2;}
+                if(cakeFlavor == Donut.cakeFlavors.LEMON){value = 1;}
                 break;
         }
         return value;
     }
     /**
-     * Deletes the selected donut
+     * Delete the selected donut
      */
     private void deleteSelectedDonut() {
         try {
@@ -133,8 +130,7 @@ public class DonutOrderActivity extends AppCompatActivity{
                         donutsAdapter.notifyDataSetChanged();
                         updateSubtotal();
                     })
-                    .setNegativeButton("No", (dialogInterface, i) -> {
-                    })
+                    .setNegativeButton("No", (dialogInterface, i) -> {})
                     .show();
         }
         catch (NullPointerException e) {
@@ -144,44 +140,41 @@ public class DonutOrderActivity extends AppCompatActivity{
     }
 
     /**
-     * Adds the donuts in the list to the cart
+     * Places donuts into the cart
      */
     private void addDonuts() {
         try {
             int flavor = findFlavorInt();
             switch (String.valueOf(type.getText())) {
-                case "Yeast Donut":
-                    donutsAdapter.add(new Donut(Integer.parseInt(quantity.getText().toString()), Donut.YEAST, flavor));
+                case "Donut Hole":
+                    donutsAdapter.add(new Donut(Integer.parseInt(quantity.getText().toString()), Donut.HOLE, flavor));
                     donutsAdapter.notifyDataSetChanged();
-                    updateSubtotal();
                     break;
                 case "Cake Donut":
                     donutsAdapter.add(new Donut(Integer.parseInt(quantity.getText().toString()), Donut.CAKE, flavor));
                     donutsAdapter.notifyDataSetChanged();
-                    updateSubtotal();
                     break;
-                case "Donut Hole":
-                    donutsAdapter.add(new Donut(Integer.parseInt(quantity.getText().toString()), Donut.HOLE, flavor));
+                case "Yeast Donut":
+                    donutsAdapter.add(new Donut(Integer.parseInt(quantity.getText().toString()), Donut.YEAST, flavor));
                     donutsAdapter.notifyDataSetChanged();
-                    updateSubtotal();
                     break;
+
             }
-            Toast toast = Toast.makeText(this, "Donut Successfully Added!", Toast.LENGTH_LONG);
+            updateSubtotal();
+            Toast toast = Toast.makeText(this, "Donut order was added successfully.", Toast.LENGTH_LONG);
             toast.show();
         } catch (NumberFormatException e) {
-            Toast toast = Toast.makeText(this, "Please specify the number of donuts!", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(this, "You did not specify the number of donuts. Try again.", Toast.LENGTH_LONG);
             toast.show();
         }
     }
 
     /**
-     * Updates the monetary values on the donut order activity
+     * Updates donut subtotal
      */
     private void updateSubtotal() {
         double st = 0.00;
-        for (Donut donut : MainActivity.donutOrder) {
-            st += donut.itemPrice();
-        }
+        for (Donut donut : MainActivity.donutOrder) {st += donut.itemPrice();}
         subtotal.setText("$" + df.format(st));
     }
 }

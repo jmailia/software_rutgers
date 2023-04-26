@@ -1,12 +1,12 @@
 package com.example.rutgerscafe;
 
 /**
- * This interface defines methods used to detect when an item is clicked on the Recyclerview
+ * An interface for recyclerview click detection
  */
 public interface OnRVListener {
     /**
-     * Detects the Recyclerview is clicked
-     * @param position The position of the item clicked
+     * Recyclerview click detection
+     * @param position Where item was clicked
      */
     void onRVClick(int position);
 }
