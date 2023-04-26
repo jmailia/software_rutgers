@@ -61,12 +61,12 @@ public class BasketViewActivity extends AppCompatActivity {
             MainActivity.myOrder = new Order();
             itemsAdapter.notifyDataSetChanged();
             updateTotals();
-            Toast toast = Toast.makeText(this, "Order Successfully Placed!", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(this, "Order was successfully placed!", Toast.LENGTH_LONG);
             toast.show();
             super.onBackPressed();
         }
         else {
-            Toast toast = Toast.makeText(this, "No Items in Cart to Order", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(this, "No items in cart to order.", Toast.LENGTH_LONG);
             toast.show();
         }
     }

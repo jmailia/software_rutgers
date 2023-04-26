@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.*;
 
-
+/**
+ * Functionality related to Donut Activity
+ */
 public class DonutActivity extends AppCompatActivity implements OnRVListener{
     Spinner donutTypes;
     ArrayAdapter<CharSequence> donutTypeAdapter;

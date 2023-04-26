@@ -63,7 +63,7 @@ public class Coffee extends MenuItem{
     public void setAmountAddIns(){
         Boolean[] addIns = {frenchVanilla, irishCream, caramel, mocha};
         this.amountAddIns = 0;
-        for(int i = 0; i< addIns.length; i++){if(addIns[i] == true){amountAddIns++;}}
+        for(int i = 0; i< addIns.length; i++){if(addIns[i]){amountAddIns++;}}
     }
 
     /**
@@ -166,10 +166,10 @@ public class Coffee extends MenuItem{
         }
         this.setAmountAddIns();
         if(amountAddIns > 0){
-            if(frenchVanilla == true){addIns = new String(addIns + "French Vanilla ");}
-            if(caramel == true){addIns = new String(addIns + "Caramel ");}
-            if(irishCream == true){addIns = new String(addIns + "Irish Cream ");}
-            if(mocha == true){addIns = new String(addIns + "Mocha");}
+            if(frenchVanilla){addIns += "French Vanilla ";}
+            if(caramel){addIns += addIns + "Caramel ";}
+            if(irishCream){addIns += addIns + "Irish Cream ";}
+            if(mocha){addIns += "Mocha";}
             return coffeeSize + "With: " + addIns + " ( Quantity: " + super.getQuantity() + " )";
         }
         else

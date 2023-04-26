@@ -58,25 +58,19 @@ public class CoffeeOrderActivity extends AppCompatActivity {
             }
         });
         frenchVanillaCheckBox = findViewById(R.id.frenchVanillaCheckBox);
-        frenchVanillaCheckBox.setOnClickListener(view -> {
-            addAddIn(frenchVanillaCheckBox);
-        });
+        frenchVanillaCheckBox.setOnClickListener(view -> {addAddIn(frenchVanillaCheckBox);});
+
         irishCreamCheckBox = findViewById(R.id.irishCreamCheckBox);
-        irishCreamCheckBox.setOnClickListener(view -> {
-            addAddIn(irishCreamCheckBox);
-        });
+        irishCreamCheckBox.setOnClickListener(view -> {addAddIn(irishCreamCheckBox);});
+
         caramelCheckBox = findViewById(R.id.caramelCheckBox);
-        caramelCheckBox.setOnClickListener(view -> {
-            addAddIn(caramelCheckBox);
-        });
+        caramelCheckBox.setOnClickListener(view -> {addAddIn(caramelCheckBox);});
+
         mochaCheckBox = findViewById(R.id.mochaCheckBox);
-        mochaCheckBox.setOnClickListener(view -> {
-            addAddIn(mochaCheckBox);
-        });
+        mochaCheckBox.setOnClickListener(view -> {addAddIn(mochaCheckBox);});
+
         addToOrderButton = findViewById(R.id.addCoffeeButton);
-        addToOrderButton.setOnClickListener(view -> {
-            addCoffee();
-        });
+        addToOrderButton.setOnClickListener(view -> {addCoffee();});
     }
 
     /**
@@ -160,11 +154,11 @@ public class CoffeeOrderActivity extends AppCompatActivity {
             MainActivity.myOrder.addMenuItem(myCoffee);
             myCoffee = new Coffee();
             reset();
-            Toast toast = Toast.makeText(this, "The Coffee was added successfully.", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(this, "Coffee added successfully.", Toast.LENGTH_LONG);
             toast.show();
         }
         catch (Exception e) {
-            Toast toast = Toast.makeText(this, "You did not specify a number of coffees. Try again.", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(this, "You didn't specify a number. Try again.", Toast.LENGTH_LONG);
             toast.show();
         }
     }
