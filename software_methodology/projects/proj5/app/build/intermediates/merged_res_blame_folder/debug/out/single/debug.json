@@ -1,166 +1,162 @@
 [
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\drawable-v24_vanilla.png.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\drawable-v24\\vanilla.png"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/mipmap-xhdpi/ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\mipmap-xhdpi\\ic_launcher_round.webp"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/drawable-v24_chocolate.png.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/drawable-v24/chocolate.png"
+    },
+    {
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/layout_donut_activity.xml.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/layout/donut_activity.xml"
     },
     {
         "merged": "com.example.rutgerscafe.app-merged_res-24:/layout_storeorder_activity.xml.flat",
         "source": "com.example.rutgerscafe.app-main-26:/layout/storeorder_activity.xml"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\layout_basketview_activity.xml.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\layout\\basketview_activity.xml"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/drawable-v24_basketpicture.jpg.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/drawable-v24/basketpicture.jpg"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\mipmap-xxxhdpi\\ic_launcher.webp"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/drawable-v24_coconut.png.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/drawable-v24/coconut.png"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\drawable-v24_cinnamon.png.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\drawable-v24\\cinnamon.png"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/drawable-v24_lemon.png.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/drawable-v24/lemon.png"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\layout_donut_activity.xml.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\layout\\donut_activity.xml"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/drawable/ic_launcher_background.xml"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\mipmap-mdpi\\ic_launcher_round.webp"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/xml_backup_rules.xml.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/xml/backup_rules.xml"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\drawable-v24_jelly.png.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\drawable-v24\\jelly.png"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/drawable-v24_glazed.png.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/drawable-v24/glazed.png"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\layout_storeorder_activity.xml.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\layout\\storeorder_activity.xml"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/mipmap-xxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\drawable-v24_basketpicture.jpg.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\drawable-v24\\basketpicture.jpg"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/drawable-v24_donutpicture.jpg.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/drawable-v24/donutpicture.jpg"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\drawable_ic_launcher_background.xml.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\drawable\\ic_launcher_background.xml"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/drawable-v24_powdered.png.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/drawable-v24/powdered.png"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\mipmap-xhdpi\\ic_launcher.webp"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/drawable-v24_cinnamon.png.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/drawable-v24/cinnamon.png"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\mipmap-hdpi\\ic_launcher.webp"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/mipmap-hdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/drawable-v24_coffeepicture.jpg.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/drawable-v24/coffeepicture.jpg"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\drawable-v24_keylime.png.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\drawable-v24\\keylime.png"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/mipmap-xhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\layout_coffeeorder_activity.xml.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\layout\\coffeeorder_activity.xml"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\xml_backup_rules.xml.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\xml\\backup_rules.xml"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/layout_main_activity.xml.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/layout/main_activity.xml"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\drawable-v24_ic_launcher_foreground.xml.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\drawable-v24\\ic_launcher_foreground.xml"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/mipmap-xxxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\mipmap-anydpi-v33_ic_launcher.xml.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\mipmap-anydpi-v33\\ic_launcher.xml"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/drawable-v24/ic_launcher_foreground.xml"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\drawable-v24_blueberry.png.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\drawable-v24\\blueberry.png"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/mipmap-anydpi-v33_ic_launcher.xml.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/mipmap-anydpi-v33/ic_launcher.xml"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\drawable-v24_coffeepicture.jpg.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\drawable-v24\\coffeepicture.jpg"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/drawable-v24_blueberry.png.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/drawable-v24/blueberry.png"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\drawable-v24_checkpicture.jpg.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\drawable-v24\\checkpicture.jpg"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/layout_donutorder_activity.xml.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/layout/donutorder_activity.xml"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\drawable-v24_strawberry.png.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\drawable-v24\\strawberry.png"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/mipmap-hdpi/ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\drawable-v24_chocolate.png.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\drawable-v24\\chocolate.png"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/drawable-v24_strawberry.png.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/drawable-v24/strawberry.png"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\drawable-v24_coconut.png.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\drawable-v24\\coconut.png"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/drawable-v24_bostoncreme.png.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/drawable-v24/bostoncreme.png"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\layout_donutorder_activity.xml.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\layout\\donutorder_activity.xml"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/mipmap-xxxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\mipmap-mdpi\\ic_launcher.webp"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/mipmap-xxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\layout_main_activity.xml.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\layout\\main_activity.xml"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\layout_donut_flavor_layout.xml.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\layout\\donut_flavor_layout.xml"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/drawable-v24_jelly.png.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/drawable-v24/jelly.png"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\drawable-v24_lemon.png.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\drawable-v24\\lemon.png"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/mipmap-mdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\drawable-v24_bostoncreme.png.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\drawable-v24\\bostoncreme.png"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/drawable-v24_checkpicture.jpg.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/drawable-v24/checkpicture.jpg"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\mipmap-xxhdpi\\ic_launcher.webp"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/drawable-v24_keylime.png.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/drawable-v24/keylime.png"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\drawable-v24_glazed.png.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\drawable-v24\\glazed.png"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/layout_donut_flavor_layout.xml.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/layout/donut_flavor_layout.xml"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\mipmap-anydpi-v26\\ic_launcher.xml"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/mipmap-mdpi/ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\mipmap-hdpi\\ic_launcher_round.webp"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/drawable-v24_vanilla.png.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/drawable-v24/vanilla.png"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\xml_data_extraction_rules.xml.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\xml\\data_extraction_rules.xml"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/layout_basketview_activity.xml.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/layout/basketview_activity.xml"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
-    },
-    {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\drawable-v24_powdered.png.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\drawable-v24\\powdered.png"
-    },
-    {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\drawable-v24_donutpicture.jpg.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\drawable-v24\\donutpicture.jpg"
-    },
-    {
-        "merged": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-merged_res-24:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\Jeremy\\.gradle\\daemon\\8.0\\com.example.rutgerscafe.app-main-26:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+        "merged": "com.example.rutgerscafe.app-merged_res-24:/layout_coffeeorder_activity.xml.flat",
+        "source": "com.example.rutgerscafe.app-main-26:/layout/coffeeorder_activity.xml"
     }
 ]
