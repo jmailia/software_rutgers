@@ -45,6 +45,8 @@ public class StoreOrdersActivity extends AppCompatActivity {
      * Delete an order from the store orders list, there must be one selected
      */
     private void deleteSelectedOrder() {
+        //System.out.println(ordersAdapter.toString());
+
         if (!ordersAdapter.isEmpty()) {
             try {
                 new AlertDialog.Builder(this)
@@ -62,15 +64,10 @@ public class StoreOrdersActivity extends AppCompatActivity {
                         })
                         .show();
             }
-            catch (NullPointerException e) {
-                Toast toast = Toast.makeText(this, "You need to select an order to delete it.", Toast.LENGTH_LONG);
-                toast.show();
-            }
+            catch (NullPointerException e) {Toast.makeText(this,
+                    "You need to select an order to delete it.", Toast.LENGTH_LONG).show();}
         }
-        else {
-            Toast toast = Toast.makeText(this, "You need to select an order to delete it.", Toast.LENGTH_LONG);
-            toast.show();
-        }
+        else {Toast.makeText(this, "You need to select an order to delete it.", Toast.LENGTH_LONG).show();}
     }
 
     /**
@@ -82,14 +79,10 @@ public class StoreOrdersActivity extends AppCompatActivity {
                 //Intent intent = new Intent(this, ViewOrderActivity.class);
                 //intent.putExtra("Selected Order", selected);
                // startActivity(intent);
-            } catch (Exception e) {
-                Toast toast = Toast.makeText(this, "No order was selected to view. Try again.", Toast.LENGTH_LONG);
-                toast.show();
-            }
+            } catch (Exception e) { Toast.makeText(this,
+                    "No order was selected to view. Try again.", Toast.LENGTH_LONG).show();}
         }
-        else {
-            Toast toast = Toast.makeText(this, "No order was selected to view. Try again.", Toast.LENGTH_LONG);
-            toast.show();
-        }
+        else {Toast.makeText(this,
+                "No order was selected to view. Try again.", Toast.LENGTH_LONG).show();}
     }
 }
