@@ -58,19 +58,25 @@ public class CoffeeOrderActivity extends AppCompatActivity {
             }
         });
         frenchVanillaCheckBox = findViewById(R.id.frenchVanillaCheckBox);
-        frenchVanillaCheckBox.setOnClickListener(view -> {addAddIn(frenchVanillaCheckBox);});
-
+        frenchVanillaCheckBox.setOnClickListener(view -> {
+            addAddIn(frenchVanillaCheckBox);
+        });
         irishCreamCheckBox = findViewById(R.id.irishCreamCheckBox);
-        irishCreamCheckBox.setOnClickListener(view -> {addAddIn(irishCreamCheckBox);});
-
+        irishCreamCheckBox.setOnClickListener(view -> {
+            addAddIn(irishCreamCheckBox);
+        });
         caramelCheckBox = findViewById(R.id.caramelCheckBox);
-        caramelCheckBox.setOnClickListener(view -> {addAddIn(caramelCheckBox);});
-
+        caramelCheckBox.setOnClickListener(view -> {
+            addAddIn(caramelCheckBox);
+        });
         mochaCheckBox = findViewById(R.id.mochaCheckBox);
-        mochaCheckBox.setOnClickListener(view -> {addAddIn(mochaCheckBox);});
-
+        mochaCheckBox.setOnClickListener(view -> {
+            addAddIn(mochaCheckBox);
+        });
         addToOrderButton = findViewById(R.id.addCoffeeButton);
-        addToOrderButton.setOnClickListener(view -> {addCoffee();});
+        addToOrderButton.setOnClickListener(view -> {
+            addCoffee();
+        });
     }
 
     /**
@@ -79,8 +85,7 @@ public class CoffeeOrderActivity extends AppCompatActivity {
     private void updateSubtotal() {
         try {
             Integer.parseInt(String.valueOf(quantityText.getText()));
-            double itemPrice = myCoffee.itemPrice();
-            subtotalTextView.setText("$" + df.format(itemPrice));
+            subtotalTextView.setText("$" + df.format(myCoffee.itemPrice()));
         } catch (NumberFormatException e) {subtotalTextView.setText("$0.00");}
 
     }
@@ -158,7 +163,7 @@ public class CoffeeOrderActivity extends AppCompatActivity {
             toast.show();
         }
         catch (Exception e) {
-            Toast toast = Toast.makeText(this, "You didn't specify a number. Try again.", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(this, "You didn't specify a number of coffees. Try again.", Toast.LENGTH_LONG);
             toast.show();
         }
     }

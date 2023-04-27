@@ -46,11 +46,8 @@ public class DonutActivity extends AppCompatActivity implements OnRVListener{
 
         flavorRecyclerView.setHasFixedSize(true); //it will have a fixed size
 
-        flavorRVLayoutManager = new LinearLayoutManager(this);
-        flavorRecyclerView.setLayoutManager((flavorRVLayoutManager));
-
-        flavorRVAdapter = new MyAdapter(flavors, this, this);
-        flavorRecyclerView.setAdapter(flavorRVAdapter);
+        flavorRecyclerView.setLayoutManager((new LinearLayoutManager(this)));
+        flavorRecyclerView.setAdapter(new MyAdapter(flavors, this, this));
     }
 
 
