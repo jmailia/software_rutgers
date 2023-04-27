@@ -61,13 +61,11 @@ public class BasketViewActivity extends AppCompatActivity {
             MainActivity.myOrder = new Order();
             itemsAdapter.notifyDataSetChanged();
             updateTotals();
-            Toast toast = Toast.makeText(this, "Order was successfully placed!", Toast.LENGTH_LONG);
-            toast.show();
+            Toast.makeText(this, "Order was successfully placed!", Toast.LENGTH_LONG).show();
             super.onBackPressed();
         }
         else {
-            Toast toast = Toast.makeText(this, "No items in cart to order.", Toast.LENGTH_LONG);
-            toast.show();
+            Toast.makeText(this, "No items in cart to order.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -91,15 +89,12 @@ public class BasketViewActivity extends AppCompatActivity {
                         .show();
             }
             catch (NullPointerException e) {
-                Toast toast = Toast.makeText(this, "There are no items selected to delete.", Toast.LENGTH_LONG);
-                toast.show();
+                Toast.makeText(this, "There are no items selected to delete.", Toast.LENGTH_LONG).show();
             }
         }
         else {
-            Toast toast = Toast.makeText(this, "There are no items to delete.", Toast.LENGTH_LONG);
-            toast.show();
+            Toast.makeText(this, "There are no items to delete.", Toast.LENGTH_LONG).show();
         }
-
     }
 
     /**

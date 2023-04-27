@@ -236,10 +236,7 @@ public class  Donut extends MenuItem {
     public boolean equals(Object obj) {
         if (obj instanceof Donut) {
             Donut donut = (Donut)obj;
-            String parameter = donut.toStringForEquals();
-            String thisDonut = this.toStringForEquals();
-
-            return parameter.equals(thisDonut);
+            return donut.toStringForEquals().equals(this.toStringForEquals());
         }
         return false;
     }
